@@ -31,9 +31,7 @@ function savePageHTML (uri) {
         clog(chalk.red(`程序异常:${err}`))
       })
   } else {
-    return Promise.resolve(() => {
-      clog(`${uri} ${chalk.yellow('跳过')}`)
-    })
+    return Promise.resolve(clog(`${uri} ${chalk.yellow('跳过')}`))
   }
 }
 
@@ -59,5 +57,3 @@ function savePageHTML (uri) {
       clog(chalk.red(`程序异常: ${err}`))
     })
 })()
-
-// TODO 串行改并行
