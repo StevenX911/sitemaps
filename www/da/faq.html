@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="da" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - Ofte stillede spørgsmål</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">Ofte stillede spørgsmål</a></li>
+                    <li><a href="protocol.html">Protokol</a></li>
+                    <li><a href="index.html">Start</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Ofte stillede spørgsmål</h1>
+            <p>
+                <a href="#faq_xml_encoding">Hvordan gengiver jeg webadresser i Sitemap'et?</a></p>
+            <p>
+                <a href="#faq_output_encoding">Betyder det noget, hvilken tegnkodemetode jeg bruger
+                    til at generere mine Sitemap-filer med?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Hvordan angiver jeg tid?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Hvordan beregner jeg datoen for seneste ændring?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Hvor skal jeg placere mit Sitemap?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Hvor stort kan mit Sitemap være?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">Mit websted har over ti millioner webadresser. Kan
+                    jeg nøjes med at sende dem, der er blevet ændret for nylig?</a></p>
+            <p>
+                <a href="#faq_after_submission">Hvad skal jeg gøre, når jeg har oprettet mit Sitemap?</a></p>
+            <p>
+                <a href="#faq_url_format">Behøver webadresserne i Sitemap'et at være angivet fuldstændigt?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">Mit websted har både en "http"- og "https"-version af webadresserne.
+                    Skal jeg angive begge versioner?</a></p>
+            <p>
+                <a href="#faq_url_encoding">Webadresserne på mit websted indeholder sessions-id'er.
+                    Skal jeg fjerne dem?</a></p>
+            <p>
+                <a href="#faq_url_position">Påvirker placeringen af en webadresse i et Sitemap brugen
+                    af den?</a></p>
+            <p>
+                <a href="#faq_frames">Nogle af siderne på mit websted bruger rammer. Skal jeg medtage
+                    rammesættets webadresser eller webadresserne i rammeindholdet?</a></p>
+            <p>
+                <a href="#faq_compression">Kan jeg komprimere mine Sitemaps som zip-filer, eller skal
+                    de komprimeres som gzip-filer?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">Vil tippet om prioritet i XML Sitemap'et ændre
+                    placeringen af mine sider i søgeresultaterne?</a></p>
+            <p>
+                <a href="#faq_xml_schema">Findes der et XML-skema, jeg kan bekræfte mit XML Sitemap
+                    på basis af?</a></p>
+            <p>
+                <a href="#more">Hvad skal jeg gøre, hvis jeg har et andet spørgsmål om brug af protokollen
+                    eller om at sende et Sitemap?</a></p>
+            <hr />
+            <p class="question">
+                Spm.: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Hvordan gengiver jeg
+                webadresser i Sitemap'et?</p>
+            <p>
+                Ligesom med alle XML-filer skal alle dataværdier (herunder webadresser) bruge <a
+                    href="#escaped">tegnkoder</a> for følgende tegn: &-tegn (&amp;), enkelt anførselstegn
+                ('), anførselstegn ("), mindre end (&lt;) og større end (&gt;). Du skal også sikre,
+                at alle webadresser følger <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>-standarden
+                for URI'er, <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standarden
+                for IRI'er og <a href="http://www.w3.org/TR/REC-xml/">XML-standarden</a>. Hvis du
+                bruger et script til at oprette webadresser med, kan du sædvanligvis bruge webadressetegnkode
+                til dem som en del af det pågældende script. Du skal stadig bruge tegnkoder til
+                dem. Med følgende Python-script bruges der eksempelvis tegnkoder til http://www.eksempel.com/view?widget=3&amp;count&gt;2</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                Den resulterende webadresse fra eksemplet ovenfor er:</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                Spm.: <a name="faq_output_encoding" id="faq_output_encoding"></a>Betyder det noget,
+                hvilken tegnkodemetode jeg bruger til at generere mine Sitemap-filer med?</p>
+            <p>
+                Ja. Dine Sitemap-filer skal bruge UTF-8-kodning.</p>
+            <p class="question">
+                Spm.: <a name="faq_specifying_time" id="faq_specifying_time"></a>Hvordan angiver
+                jeg tid?</p>
+            <p>
+                Brug <a href="http://www.w3.org/TR/NOTE-datetime">W3C-datotidkodning</a> til lastmod-tidsstemplerne
+                og alle andre datoer og klokkeslæt i denne protokol. Eksempel: 2004-09-22T14:12:14+00:00.</p>
+            <p>
+                Denne kodning giver dig mulighed for at undlade tidsdelen i ISO8601-formatet. 2004-09-22
+                er f.eks. også gyldig. Hvis webstedet ændres hyppigt, opfordres du til at medtage
+                tidsdelen, så webcrawlerne har flere fuldstændige oplysninger om dit websted.</p>
+            <p class="question">
+                Spm.: <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Hvordan beregner
+                jeg datoen for seneste ændring?</p>
+            <p>
+                I forbindelse med statiske filer er dette den faktiske filopdateringsdato. Du kan
+                bruge UNIX-date-kommandoen til at hente denne dato:</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                I forbindelse med mange dynamiske webadresser kan du nemt beregne en dato for seneste
+                ændring baseret på, hvornår de underliggende data blev ændret, eller ved hjælp af
+                en tilnærmelse baseret på jævnlige opdateringer (hvis det er muligt). Hvis du bruger
+                en omtrentlig dato eller et tidsstempel, kan webcrawlerne undgå at gennemgå webadresser,
+                der ikke er blevet ændret. Derved reduceres kravene til båndbredde og CPU for webserverne.</p>
+            <p class="question">
+                Spm.: <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Hvor skal jeg
+                placere mit Sitemap?</p>
+            <p>
+                Det anbefales kraftigt, at du anbringer dit Sitemap i rodmappen på din HTML-server.
+                Det vil sige, at du skal anbringe det på: http://eksempel.com/sitemap.xml.</p>
+            <p>
+                I nogle tilfælde kan det være fordelagtigt at oprette forskellige Sitemaps til forskellige
+                stier på dit websted, f.eks. hvis sikkerhedstilladelser i din organisation inddeler
+                skriveadgang til forskellige mapper.</p>
+            <p>
+                Vi antager, at hvis du har tilladelse til at overføre http://eksempel.com/path/sitemap.xml,
+                har du også tilladelse til at rapportere metadata under http://eksempel.com/path/.</p>
+            <p>
+                Alle webadresser i Sitemap'et skal være på den samme vært som Sitemap'et. Hvis Sitemap'et
+                f.eks. findes på http://www.eksempel.com/sitemap.xml, kan det ikke indeholde webadresser
+                fra http://underdomæne.eksempel.com. Hvis Sitemap'et findes på http://www.eksempel.com/minmappe/sitemap.xml,
+                kan det ikke indeholde webadresser fra http://www.eksempel.com.</p>
+            <p class="backtotop">
+                <a href="#top">Tilbage til toppen</a></p>
+            <p class="question">
+                Spm.: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Hvor stort kan mit Sitemap
+                være?</p>
+            <p>
+                Sitemaps må ikke være større end 50 MB (52,428,800 byte) og kan indeholde maks.
+                50.000 webadresser. Disse grænser hjælper med at sikre, at webserveren ikke går
+                ned ved behandlingen af meget store filer. Det vil sige, at hvis dit websted indeholder
+                mere end 50.000 webadresser, eller dit Sitemap fylder mere end 50 MB, skal du oprette
+                flere Sitemap-filer og bruge en <a href="protocol.html#index">Sitemap-indeksfil</a>.
+                Du skal bruge en Sitemap-indeksfil, selvom du har et lille websted, men har planer
+                om at overskride 50.000 webadresser eller en filstørrelse på 50 MB. En Sitemap-indeksfil
+                kan indeholde op til 50.000 Sitemaps og må ikke fylde mere end 50 MB (52,428,800
+                bytes). Du kan også bruge gzip til at komprimere dine Sitemaps.</p>
+            <p class="question">
+                Spm.: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>Mit websted
+                har over ti millioner webadresser. Kan jeg nøjes med at sende dem, der er blevet
+                ændret for nylig?</p>
+            <p>
+                Du kan angive de webadresser, som ændres ofte, i et lille antal Sitemaps, og derefter
+                bruge koden <a href="protocol.html#lastmoddef">lastmod</a> i din <a href="protocol.html#index">
+                    Sitemap-indeksfil</a> til at identificere disse Sitemap-filer. Søgemaskinerne
+                kan derefter kun gennemgå de ændrede Sitemaps trinvist.</p>
+            <p class="question">
+                Spm.: <a name="faq_after_submission" id="faq_after_submission"></a>Hvad skal jeg
+                gøre, når jeg har oprettet mit Sitemap?</p>
+            <p>
+                Når du har oprettet dit Sitemap, skal du <a href="http://www.sitemaps.org/protocol.html#informing">
+                    lade søgemaskiner vide</a> om det ved at afsende direkte til dem, ping'e dem
+                eller tilføje Sitemap-placeringen til din robots.txt-fil.</p>
+            <p class="question">
+                Spm.: <a name="faq_url_format" id="faq_url_format"></a>Behøver webadresserne i Sitemap'et
+                at være angivet fuldstændigt?</p>
+            <p>
+                Ja. Du skal medtage protokollen (f.eks. http) i din webadresse. Du skal også medtage
+                en efterfølgende skråstreg i webadressen, hvis din webserver kræver det. F.eks.
+                er http://www.eksempel.com/ en gyldig webadresse i et Sitemap, mens www.eksempel.com
+                ikke er det.</p>
+            <p class="question">
+                Spm.: <a name="faq_http_vs_https" id="faq_http_vs_https"></a>Mit websted har både
+                en "http"- og "https"-version af webadresserne. Skal jeg angive begge versioner?</p>
+            <p class="answers">
+                Nej. Angiv kun én version af en webadresse i dine Sitemaps. Hvis du angiver flere
+                versioner af webadresser, kan det føre til ufuldstændig gennemgang af dit websted.</p>
+            <p class="question">
+                Spm.: <a name="faq_url_encoding" id="faq_url_encoding"></a>Webadresserne på mit
+                websted indeholder sessions-id'er. Skal jeg fjerne dem?</p>
+            <p>
+                Ja. Hvis du angiver sessions-id'er i webadresser, kan det føre til ufuldstændig
+                og overflødig gennemgang af dit websted.</p>
+            <p class="question">
+                Spm.: <a name="faq_url_position" id="faq_url_position"></a>Påvirker placeringen
+                af en webadresse i et Sitemap brugen af den?</p>
+            <p>
+                Nej. Placeringen af en webadresse i Sitemap'et har sandsynligvis ingen betydning
+                for, hvordan den bruges eller betragtes af søgemaskinerne.</p>
+            <p class="question">
+                Spm.: <a name="faq_frames" id="faq_frames"></a>Nogle af siderne på mit websted bruger
+                rammer. Skal jeg medtage rammesættets webadresser eller webadresserne i rammeindholdet?</p>
+            <p>
+                Medtag begge webadresser.</p>
+            <p class="question">
+                Spm.: <a name="faq_compression" id="faq_compression"></a>Kan jeg komprimere mine
+                Sitemaps som zip-filer, eller skal de komprimeres som gzip-filer?</p>
+            <p>
+                Brug gzip til at komprimere dine Sitemaps. Husk, at dit Sitemap ikke må være større
+                end 50 MB (52,428,800 bytes), hvad enten det er komprimeret eller ej.</p>
+            <p class="question">
+                Spm.: <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>Vil
+                tippet om prioritet i XML Sitemap'et ændre placeringen af mine sider i søgeresultaterne?</p>
+            <p>
+                Tippet "priority" i dit Sitemap angiver kun vigtigheden af en bestemt webadresse
+                i forhold til andre webadresser <i>på dit eget websted</i>, og det har ikke nogen
+                indflydelse på placeringen af dine sider i søgeresultater.</p>
+            <p class="question">
+                Spm.: <a name="faq_xml_schema" id="faq_xml_schema"></a>Findes der et XML-skema,
+                jeg kan bekræfte mit XML Sitemap på basis af?</p>
+            <p>
+                Ja. Du kan finde et XML-skema for Sitemap-filer på <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a> og et skema for
+                Sitemap-indeksfiler på <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a>. Du kan også læse
+                mere om validering af dit Sitemap <a href="protocol.html#validating">her</a>.</p>
+            <p class="question">
+                Spm.: <a name="more" id="more"></a>Hvad skal jeg gøre, hvis jeg har et andet spørgsmål
+                om brug af protokollen eller om at sende et Sitemap?</p>
+            <p>
+                Se dokumentationen for hver søgemaskine for flere detaljer omkring indsendelse og
+                brug af Sitemaps.</p>
+            <p class="backtotop">
+                <a href="#top">Tilbage til toppen</a></p>
+            <p class="date">
+                Senest opdateret: 21. november 2016</p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Vilkår og betingelser</a></p>
+    </div>
+</body>
+</html>

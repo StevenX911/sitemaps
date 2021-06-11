@@ -1,0 +1,1350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+
+    <title>sitemaps.org - プロトコル</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection" />
+
+</head>
+
+<body>
+
+    <a name="top" id="top"></a>
+
+    <div id="container">
+
+        <div id="intro">
+
+            <div id="pageHeader">
+
+                <h1>
+
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+
+            </div>
+
+            <div id="selectionbar">
+
+                <ul>
+
+                    <li><a href="faq.html">よくある質問</a></li>
+
+                    <li class="activelink"><a href="#">プロトコル</a></li>
+
+                    <li><a href="index.html">ホーム</a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="mainContent">
+
+            <h1>
+
+                <a name="sitemaps_protocol" id="sitemaps_protocol"></a>サイトマップの XML 形式
+
+            </h1>
+
+            <blockquote>
+
+                <b>次に移動:</b><br />
+
+                <a href="#xmlTagDefinitions">XML タグ定義</a><br />
+
+                <a href="#escaping">エンティティのエスケープ処理</a><br />
+
+                <a href="#index">サイトマップ インデックス ファイルの使用</a><br />
+
+				<a href="#otherformats">その他のサイトマップの形式</a><br />
+
+                <a href="#location">サイトマップ ファイルの場所</a><br />
+
+                <a href="#validating">サイトマップの検証</a><br />
+
+                <a href="#extending">サイトマップ プロトコルの拡張</a><br />
+
+                <a href="#informing">検索エンジンのクローラに通知</a>
+
+            </blockquote>
+
+            <p>
+
+                このドキュメントでは、サイトマップ プロトコルの XML スキーマについて説明します。</p>
+
+            <p>
+
+                サイトマップ プロトコル形式は、XML タグで構成されています。 サイトマップのすべてのデータ値には、<a href="#escaping">エンティティのエスケープ処理</a>を行う必要があります。
+
+                ファイルは UTF-8 エンコードで作成する必要があります。</p>
+
+            <p>
+
+                サイトマップの記述ルールは次のとおりです。</p>
+
+            <ul>
+
+                <li><code>&lt;<a href="#urlsetdef">urlset</a>&gt;</code> タグで始め、<code>&lt;/urlset&gt;</code>
+
+                    タグで閉じます。</li>
+
+                <li><code>&lt;urlset&gt;</code>タグ内にネームスペース (プロトコル標準) を指定します。 </li>
+
+                <li>各 URL に <code>&lt;<a href="#urldef">url</a>&gt;</code> エントリを XML 親タグとして含めます。</li>
+
+                <li>各親タグ <code>&lt;url&gt;</code>に子エントリ <code>&lt;<a href="#locdef">loc</a>&gt;</code>
+
+                    を含めます。</li>
+
+            </ul>
+
+            <p>
+
+                他のすべてのタグはオプションです。 これらのオプション タグがサポートされているかどうかは、検索エンジンによって異なります。 詳細については、お使いの検索エンジンのマニュアルを参照してください。</p>
+
+            <p>
+
+                サイトマップのすべての URL は www.example.com、 store.example.com などの単一のホストから参照されている必要があります。詳細については、「<a
+
+                    href="#location">サイトマップ ファイルの場所</a>」を参照してください。</p>
+
+            <h3>
+
+                XML サイトマップのサンプル</h3>
+
+            <p>
+
+                1 つの URL だけを含み、オプションのタグをすべて使用したサイトマップの例を次に示します。 オプションのタグはイタリックで表示されています。</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;</em>
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt; 
+
+</pre>
+
+            <p>
+
+                <a href="#sitemapXMLExample">複数の URL</a> の例もご覧ください。</p>
+
+            <h2>
+
+                <a name="xmlTagDefinitions" id="xmlTagDefinitions"></a>XML タグ定義</h2>
+
+            <p>
+
+                使用できる XML タグは次のとおりです。</p>
+
+            <table width="80%">
+
+                <th>
+
+                    属性
+
+                </th>
+
+                <th>
+
+                </th>
+
+                <th>
+
+                    説明
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        <a name="urlsetdef" id="urlsetdef"></a><code>&lt;urlset&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        必須
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            ファイルの他のタグを囲み、現在のプロトコル標準を参照します。</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="urldef" id="urldef"></a><code>&lt;url&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        必須
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            各 URL エントリの親タグです。 その他のタグは、このタグ内に含めます。</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="locdef" id="locdef"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        必須
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            ページの URL です。 ウェブ サーバーによっては、http などのプロトコルから始め、末尾にスラッシュを含める必要があります。 この値は 2,048 文字以下で指定する必要があります。</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="lastmoddef" id="lastmoddef"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        オプション
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            ファイルの最終更新日です。 この日付は <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime</a>
+
+                            形式で記述します。 必要な場合は、時刻の部分を省略して YYYY-MM-DD の形式で記述することもできます。</p>
+
+                        <p>
+
+                            このタグは、サーバーが返す If-Modified-Since (304) ヘッダーとは別のものです。検索エンジンは、両方のソースからの情報を別々に使用することがあります。</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="changefreqdef" id="changefreqdef"></a><code>&lt;changefreq&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        オプション
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            ページの更新頻度です。 検索エンジンではこの値を参考情報として使用しますが、指定した値とは異なる頻度でクロールされることがあります。 有効な値は次のとおりです。</p>
+
+                        <ul>
+
+                            <li>always</li>
+
+                            <li>hourly</li>
+
+                            <li>daily</li>
+
+                            <li>weekly</li>
+
+                            <li>monthly</li>
+
+                            <li>yearly</li>
+
+                            <li>never</li>
+
+                        </ul>
+
+                        <p>
+
+                            "always" 値は、アクセスするたびに内容が更新されるドキュメントに使用します。 "never" 値は、アーカイブ ページの URL に使用します。</p>
+
+                        <p>
+
+                            このタグの値は、コマンドではなくヒントとして使用されることに注意してください。検索エンジンのクローラは、この情報を使用してクロール頻度を調整しますが、実際のクロールは
+
+                            "hourly" と指定されたページでは 1 時間に 1 回以下、"yearly" と指定されたページでは 1 年に 1 回以上行われます。また、"never"
+
+                            と指定されたページも予期せず変更された場合に備えて定期的にクロールされます。</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="prioritydef" id="prioritydef"></a><code>&lt;priority&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        オプション
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            サイト内の他の URL と比較したこの URL の優先度です。0.0 から 1.0 までの値を指定できます。この値は他のサイトのページとの比較方法に影響するものではなく、検索エンジンのクローラに重要なページを知らせるためのものです。</p>
+
+                        <p>
+
+                            ページのデフォルトの優先度は 0.5 です。</p>
+
+                        <p>
+
+                            ページに割り当てた優先度が、検索エンジンの検索結果に表示されるページの掲載順位に影響することはほとんどありません。検索エンジンでは、この情報を使用してサイトから
+
+                            URL を選択するため、最も重要なページを検索インデックスに優先的に登録することができます。</p>
+
+                        <p>
+
+                            また、サイト内のすべての URL に高い優先度を設定しないでください。優先度は相対的なものであるため、サイト内で URL を選択する場合にのみ使用します。</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">トップへ戻る</a></p>
+
+            <h2>
+
+                <a name="escaping" id="escaping"></a>エンティティのエスケープ処理</h2>
+
+            <p>
+
+                サイトマップ ファイルは UTF-8 エンコードで作成する必要があります (ファイルを保存すると、通常は UTF-8 エンコードで保存されます)。 他の XML
+
+                ファイルと同じように、URL などのデータ値では、次の文字にエンティティのエスケープ コードを使用する必要があります。</p>
+
+            <table>
+
+                <th colspan="2">
+
+                    文字
+
+                </th>
+
+                <th>
+
+                    エスケープ コード
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        アンパサンド
+
+                    </td>
+
+                    <td>
+
+                        &amp;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;amp;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        一重引用符
+
+                    </td>
+
+                    <td>
+
+                        '
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;apos;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        二重引用符
+
+                    </td>
+
+                    <td>
+
+                        "
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;quot;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        不等記号 (より大)
+
+                    </td>
+
+                    <td>
+
+                        &gt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;gt;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        不等記号 (より小)
+
+                    </td>
+
+                    <td>
+
+                        &lt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;lt;</code>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p>
+
+                URL (サイトマップの URL を含む) はすべてエスケープ処理を行い、ホストするウェブ サーバーで読み取り可能な形式でエンコードする必要があります。スクリプト、ツール、ログ
+
+                ファイルなどを使用して URL を生成した場合、通常は手動で入力したデータ以外は適切にエンコードされます。URL は URI の <a href="http://asg.web.cmu.edu/rfc/rfc3986.html">
+
+                    RFC-3986</a> 基準、IRI の <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+
+                基準、および <a href="http://www.w3.org/TR/REC-xml/">XML 基準</a>に従っている必要があります。</p>
+
+            <p>
+
+                ASCII 以外の文字 (<code>&uuml;</code>) とエンティティのエスケープ処理が必要な文字 (<code>&amp;</code>) を含む
+
+                URL の例を次に示します。</p>
+
+            <pre>http://www.example.co.jp/&uuml;mlat.html&amp;q=name</pre>
+
+            <p>
+
+                ISO-8859-1 エンコードを使用するサーバーでホストされている場合は、次のように ISO-8859-1 エンコードで URL をエスケープします。</p>
+
+            <pre>http://www.example.co.jp/%FCmlat
+
+<wbr>.html&amp;q=name</pre>
+
+            <p>
+
+                UTF-8 エンコードを使用するサーバーでホストされている場合は、次のように UTF-8 エンコードで URL をエスケープします。</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                エンティティのエスケープ処理も行った URL は次のようになります。</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;amp;q=name</pre>
+
+            <h3>
+
+                <a name="sitemapXMLExample" id="sitemapXMLExample"></a>XML サイトマップのサンプル</h3>
+
+            <p>
+
+                次に、XML 形式のサイトマップの例を示します。 このサイトマップには複数の URL が含まれており、各 URL には異なるオプション パラメータが使用されています。</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=12&amp;amp;desc=vacation_hawaii&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=73&amp;amp;desc=vacation_new_zealand&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=74&amp;amp;desc=vacation_newfoundland&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23T18:00:15+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.3&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=83&amp;amp;desc=vacation_usa&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-11-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">トップへ戻る</a></p>
+
+            <h2>
+
+                <a name="index" id="index"></a>サイトマップ インデックス ファイル (複数のサイトマップ ファイルのインデックス) を使用する場合</h2>
+
+            <p>
+
+                複数のサイトマップ ファイルを送信できますが、各サイトマップ ファイルにリストする URL は 50,000 個まで、ファイル サイズは 50 MB (52,428,800
+
+                バイト) 以下とする必要があります。必要な場合は、サイトマップ ファイルを gzip 形式で 50 MB 以下に圧縮して、サーバーの負荷を軽減できます。<i></i>50,000
+
+                個以上の URL をリストする場合は、複数のサイトマップ ファイルを作成する必要があります。</p>
+
+            <p>
+
+                複数のサイトマップを使用する場合は、サイトマップ インデックス ファイルに各サイトマップ ファイルをリストする必要があります。 サイトマップ インデックス ファイルには、最大で
+
+                50,000 個のサイトマップをリストできます。サイズは 50 MB (52,428,800 バイト) 以下に圧縮する必要があります。 また、サイトマップ インデックス
+
+                ファイルが含まれている必要があります。サイトマップ インデックス ファイルの XML 形式は、サイトマップ ファイルとほぼ同じです。</p>
+
+            <p>
+
+                次に、サイトマップ インデックス ファイルの要件を示します。</p>
+
+            <ul>
+
+                <li><code>&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a>&gt;</code> タグで始め、<code>&lt;/sitemapindex&gt;</code>
+
+                    タグで閉じます。</li>
+
+                <li>各サイトマップに <code>&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;</code> エントリを
+
+                    XML 親タグとして含めます。</li>
+
+                <li>各親タグ <code>&lt;sitemap&gt;</code>に子エントリ <code>&lt;<a href="#sitemapIndex_loc">loc</a>&gt;</code>
+
+                    を含めます。</li>
+
+            </ul>
+
+            <p>
+
+                サイトマップ インデックス ファイルでは、オプションの <code>&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;</code>
+
+                タグも指定できます。</p>
+
+            <p>
+
+                <strong>注: </strong>サイトマップ インデックス ファイルには、このファイルと同じサイトにあるサイトマップのみを含めることができます。 たとえば、http://www.yoursite.co.jp/sitemap_index.xml
+
+                には、http://www.yoursite.co.jp のサイトマップを含めることができますが、http://www.example.co.jp や http://yourhost.yoursite.co.jp
+
+                のサイトマップを含めることはできません。 サイトマップと同様に、サイトマップ インデックス ファイルは UTF-8 エンコードで作成する必要があります。</p>
+
+            <h3>
+
+                <a name="sitemapIndexXMLExample" id="sitemapIndexXMLExample"></a>XML サイトマップ インデックスのサンプル</h3>
+
+            <p>
+
+                次の例では、2 つのサイトマップをリストするサイトマップ インデックスを作成します。</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap1.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2004-10-01T18:23:17+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap2.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p>
+
+                <strong>注:</strong> XML ファイルのすべての値と同様、サイトマップの URL には、<a href="#escaping">エンティティのエスケープ処理</a>を行う必要があります。</p>
+
+            <h3>
+
+                <a name="sitemapIndexTagDefinitions" id="sitemapIndexTagDefinitions"></a>サイトマップ
+
+                インデックスの XML タグ定義</h3>
+
+            <table width="80%">
+
+                <tr>
+
+                    <th>
+
+                        属性
+
+                    </th>
+
+                    <th>
+
+                    </th>
+
+                    <th>
+
+                        説明
+
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemapindex" id="sitemapIndex_sitemapindex"></a><code>&lt;sitemapindex&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        必須
+
+                    </td>
+
+                    <td>
+
+                        ファイル内のすべてのサイトマップに関する情報を囲みます。
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemap" id="sitemapIndex_sitemap"></a><code>&lt;sitemap&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        必須
+
+                    </td>
+
+                    <td>
+
+                        個々のサイトマップの情報を囲みます。
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_loc" id="sitemapIndex_loc"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        必須
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            サイトマップの場所を指定します。</p>
+
+                        <p>
+
+                            この場所には、サイトマップ、Atom ファイル、RSS ファイル、テキスト ファイルを配置できます。</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_lastmod" id="sitemapIndex_lastmod"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        オプション
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            対応するサイトマップ ファイルの更新時刻を指定します。 サイトマップにリストされているページの変更時刻ではありません。 lastmod タグの値は、<a href="http://www.w3.org/TR/NOTE-datetime">W3C
+
+                                Datetime</a> 形式で指定する必要があります。</p>
+
+                        <p>
+
+                            最終更新日のタイムスタンプを提供すると、検索エンジンのクローラがインデックス内の特定のサイトマップのみをクロールできるようになります。たとえば、特定の日付以降に更新されたサイトマップのみがクロールされます。このようにサイトマップを段階的にクロールすることで、大規模なサイトでも新しい
+
+                            URL を迅速に見つけることができます。</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">トップへ戻る</a></p>
+
+            <h2>
+
+                <a name="otherformats" id="otherformats"></a>その他のサイトマップの形式</h2>
+
+            <p>
+
+                サイトマップ プロトコルでは、ページに関する詳細を検索エンジンに伝えることができます。ページに関して URL 以外の追加情報を提供できるため、Google ではこのプロトコルの使用をお勧めしています。
+
+                この XML プロトコル以外に RSS フィードやテキスト ファイルもサポートされていますが、提供できる情報は制限されます。</p>
+
+            <h3>
+
+                シンジケーション フィード</h3>
+
+            <p>
+
+                RSS (リアリー シンプル シンジケーション) 2.0 または Atom 0.3 / 1.0 フィードを指定できます。 通常、この形式はサイトが既にシンジケーション
+
+                フィードに対応している場合に使用します。 フィードは最近の URL に関する情報しか提供できないため、この方法では検索エンジンにサイト内の URL をすべて伝えることはできませんが、検索エンジンは通常のクロール処理の際にこの情報を使用して、フィード上のページ内のリンクをたどることにより、サイト上の他のページに関する情報を見つけることができます。
+
+                フィードは、検索エンジンでクロールされるようにする最上位のディレクトリに置きます。 検索エンジンはフィード内の情報を次のように抽出します。</p>
+
+            <ul>
+
+                <li><strong>&lt;link&gt; フィールド</strong> - URL を示します</li>
+
+                <li><strong>更新日フィールド (RSS フィードでは &lt;pubDate&gt; フィールド、Atom フィードでは &lt;updated&gt;
+
+                    日)</strong> - 各 URL の最終更新日を示します。 更新日フィールドは必ずしも使用する必要はありません。 </li>
+
+            </ul>
+
+            <h3>
+
+                テキスト ファイル</h3>
+
+            <p>
+
+                1 行につき 1 つの URL を入力したテキスト ファイルを送信できます。 テキスト ファイルは次のガイドラインに従っている必要があります。</p>
+
+            <ul>
+
+                <li>テキスト ファイルには、1 行につき 1 つの URL を含める必要があります。 埋め込まれた改行を URL に含めることはできません。</li>
+
+                <li>http を含む完全な URL を指定する必要があります。</li>
+
+                <li>各テキスト ファイルに含められる URL は 50,000 個まで、ファイル サイズは 50 MB (52,428,800 バイト) 以下とする必要があります。サイトに
+
+                    50,000 個を超える URL がある場合は、リストを複数のテキスト ファイルに分けて、個別に追加できます。</li>
+
+                <li>テキスト ファイルは UTF-8 エンコードで作成する必要があります。 これには、ファイルを保存する時に UTF-8 エンコードを指定します (たとえば、メモ帳では
+
+                    [名前を付けて保存] ダイアログ ボックスの [文字コード] メニューから選択できます)。</li>
+
+                <li>テキスト ファイルには、URL のリスト以外の情報を含めることはできません。</li>
+
+                <li>テキスト ファイルには、ヘッダーやフッターの情報を含めることはできません。</li>
+
+                <li>必要な場合は、テキスト ファイルを gzip 形式で圧縮して、サーバーの負荷を軽減できます。</li>
+
+                <li>テキスト ファイルの名前は自由に設定できます。URL は URI の <a href="http://asg.web.cmu.edu/rfc/rfc3986.html">
+
+                    RFC-3986</a> 基準、IRI の <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+
+                    基準に従っている必要があります。</li>
+
+                <li>テキスト ファイルは、検索エンジンでクロールされるようにする最上位のディレクトリにアップロードする必要があります。テキスト ファイルには、このディレクトリより上位にある
+
+                    URL を含めないようにしてください。 </li>
+
+            </ul>
+
+            <p>
+
+                テキスト ファイルのエントリは次のように入力します。</p>
+
+            <pre>http://www.example.co.jp/catalog?item=1
+
+<br />http://www.example.co.jp/catalog?item=11
+
+<br /></pre>
+
+            <p class="backtotop">
+
+                <a href="#top">トップへ戻る</a></p>
+
+            <h2>
+
+                <a name="location" id="location"></a>サイトマップ ファイルの場所</h2>
+
+            <p>
+
+                サイトマップ ファイルを置く場所によって、サイトマップに含めることのできる URL は異なります。 サイトマップ ファイルを http://example.co.jp/catalog/sitemap.xml
+
+                に置いた場合は、http://example.co.jp/catalog/ から始まる URL を含めることができますが、http://example.co.jp/images/
+
+                から始まる URL を含めることはできません。</p>
+
+            <p>
+
+                http://example.org/path/sitemap.xml を変更する権限がある場合は、通常 http://example.org/path/ で始まる
+
+                URL の情報を含めることができます。http://example.com/catalog/sitemap.xml には、次のような URL を含めることができます。</p>
+
+            <pre>
+
+http://example.com/catalog/show?item=23
+
+http://example.com/catalog/show?item=233&amp;user=3453
+
+</pre>
+
+            <p>
+
+                たとえば、サイトマップを http://example.co.jp/catalog/sitemap.xml に置いた場合、次のような URL を含めることはできません。</p>
+
+            <pre>
+
+http://example.com/image/show?item=23
+
+http://example.com/image/show?item=233&amp;user=3453
+
+https://example.com/catalog/page1.html
+
+</pre>
+
+            <p>
+
+                つまり、サイトマップにリストされているすべての URL は、同じプロトコル (この例では http) を使用し、サイトマップと同じホスト上に存在しています。 たとえば、サイトマップが
+
+                http://www.example.co.jp/sitemap.xml にある場合、このサイトマップには http://subdomain.example.co.jp
+
+                の URL を含めることはできません。</p>
+
+            <p>
+
+                有効ではない URL はクロールされません。 サイトマップは、ウェブ サーバーのルート ディレクトリに置くことを強くお勧めします。 たとえば、ウェブサーバーが
+
+                example.co.jp にある場合、サイトマップ インデックス ファイルは http://example.co.jp/sitemap.xml に置きます。
+
+                セキュリティ保護のため組織内でディレクトリごとに異なる書き込み権限を設定している場合などは、パスごとにサイトマップを作成する必要があります。</p>
+
+            <p>
+
+                ポート番号付きのパスを使用してサイトマップを送信する場合は、サイトマップ ファイルにリストする各 URL のパスにポート番号を含める必要があります。たとえば、サイトマップが
+
+                http://www.example.com:100/sitemap.xml にある場合、サイトマップにリストする各 URL は、http://www.example.com:100
+
+                で始める必要があります。</p>
+
+            <h3>
+
+                サイトマップとクロス送信</h3>
+
+            <p>
+
+                単一ホストから複数ホスト用のサイトマップを送信するには、それに対する URL がサイトマップに送信されるホストの所有者であることを「証明」する必要があります。次に、例を示します。
+
+                3 つのホスト用のサイトマップを送信する場合を想定します。
+
+                <pre>
+
+www.host1.com に対するサイトマップ ファイル sitemap-host1.xml
+
+www.host2.com に対するサイトマップ ファイル sitemap-host2.xml
+
+www.host3.com に対するサイトマップ ファイル sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                また、それら 3 つのサイトマップを www.sitemaphost.com という単一ホスト上に配置する必要があるとします。この場合、サイトマップの URL
+
+                は次のようになります。
+
+                <pre>
+
+http://www.sitemaphost.com/sitemap-host1.xml
+
+http://www.sitemaphost.com/sitemap-host2.xml
+
+http://www.sitemaphost.com/sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                既定では、このようにすると「クロス送信」エラーになります。なぜなら、www.sitemaphost.com 上でホストされているサイトマップを通じて www.host1.com
+
+                用の URL を送信しようとしているからです (他の 2 つのホストについても同様です)。このエラーを回避する方法の 1 つは、自分が www.host1.com
+
+                の所有者である (ファイルを変更する権限がある) ことを証明することです。これを行うには、www.host1.com 上の robots.txt ファイルを、www.sitemaphost.com
+
+                上のサイトマップをポイントするように変更します。</p>
+
+            <p>
+
+                この例では、http://www.host1.com/robots.txt にある robots.txt ファイルに、"Sitemap: http://www.sitemaphost.com/sitemap-host1.xml"
+
+                という行を含めます。www.host1.com 上の robots.txt ファイルを変更して、www.sitemaphost.com 上のサイトマップをポイントするようにすることで、自分が
+
+                www.host1.com の所有者であることを暗黙的に証明したことになります。つまり、www.host1.com 上の robots.txt ファイルを制御するユーザーは、http://www.sitemaphost.com/sitemap-host1.xml
+
+                にあるサイトマップに www.host1.com 用の URL が含まれていると信頼します。他の 2 つのホストについても、同じプロセスを繰り返すことができます。</p>
+
+            <p>
+
+                これで、サイトマップを www.sitemaphost.com 上に送信できました。</p>
+
+            <p>
+
+                特定のホストの robots.txt (たとえば http://www.host1.com/robots.txt など) が、他のホスト上にあるサイトマップまたはサイトマップ
+
+                インデックスをポイントしている場合は、ターゲット サイトマップ (http://www.sitemaphost.com/sitemap-host1.xml など)
+
+                のそれぞれについて、すべての URL が、それをポイントしているホストに属する必要があります。なぜなら、前に説明したように、サイトマップは単一ホストの URL
+
+                のみを含むものと想定されているからです。</p>
+
+            <p class="backtotop">
+
+                <a href="#top">トップへ戻る</a></p>
+
+            <h2>
+
+                <a name="validating" id="validating"></a>サイトマップの検証</h2>
+
+            <p>
+
+                次の XML スキーマでは、サイトマップ ファイルの要素と属性を定義します。 このスキーマは下記のリンクからダウンロードできます。</p>
+
+            <p>
+
+                <b>サイトマップ情報:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br />
+
+                <b>サイトマップ インデックス ファイル:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
+
+            <p>
+
+                ツールを使用して、サイトマップの構造をこのスキーマに基づいて検証できます。 XML 関連ツールのリストは、次の場所から入手できます。<br />
+
+                <br />
+
+                <a href="http://www.w3.org/XML/Schema#Tools">http://www.w3.org/XML/Schema#Tools</a><br />
+
+                <a href="http://www.xml.com/pub/a/2000/12/13/schematools.html">http://www.xml.com/pub/a/2000/12/13/schematools.html</a></p>
+
+            <p>
+
+                サイトマップまたはサイトマップ インデックス ファイルのスキーマを検証するため、次のように追加ヘッダーを XML ファイルに含める必要があります。</p>
+
+            <p>
+
+                <strong>サイトマップ: </strong>
+
+            </p>
+
+            <pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p>
+
+                <strong>サイトマップ インデックス ファイル: </strong>
+
+            </p>
+
+			<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">トップへ戻る</a></p>
+
+            <h2>
+
+                <a name="extending" id="extending"></a>サイトマップ プロトコルの拡張</h2>
+
+            <p>
+
+                サイトマップ プロトコルは、独自のネームスペースを使用して拡張できます。 ルート要素にネームスペースを指定してください。 たとえば、次のように指定します。</p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:example=&quot;http://www.example.com/schemas/example_schema&quot;&gt; &lt;!-- namespace extension --&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">トップへ戻る</a></p>
+
+            <h2>
+
+                <a name="informing" id="informing"></a>検索エンジンのクローラに通知</h2>
+
+            <p>
+
+                サイトマップを作成し、ウェブサーバーに置いたら、このプロトコルをサポートする検索エンジンにその場所を伝える必要があります。 この操作は次の手順で行います。</p>
+
+            <ul>
+
+                <li><a href="#submit_engine">検索エンジンの送信インターフェースを使用して送信</a></li>
+
+                <li><a href="#submit_robots">場所をサイトの robots.txt ファイルで指定</a></li>
+
+                <li><a href="#submit_ping">HTTP リクエストの送信</a><br />
+
+                </li>
+
+            </ul>
+
+            <p>
+
+                検索エンジンでは、サイトマップを検索し、サイトマップにある URL をクロールできます。</p>
+
+            <h3>
+
+                <a name="submit_engine" id="submit_engine"></a>検索エンジンの送信インターフェースを使用してサイトマップを送信<br />
+
+            </h3>
+
+            <p>
+
+                サイトマップを検索エンジンに直接送信すると、ステータスの情報や処理エラーを受け取ることができます。これを行う方法については、検索エンジンのマニュアルをご覧ください。</p>
+
+            <h3>
+
+                <a name="submit_robots" id="submit_robots"></a>サイトマップの場所を robots.txt ファイルで指定<br />
+
+            </h3>
+
+            <p>
+
+                サイトマップの場所を指定するには、robots.txt ファイルを使用します。 次の行を追加してください。</p>
+
+            <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
+
+            <p>
+
+                このコマンドは user-agent の行には依存しないため、ファイル内の任意の場所に置くことができます。 サイトマップ インデックス ファイルをご利用の場合は、そのファイルの場所だけを含めることができます。
+
+                インデックス ファイルでリストされている個々のサイトマップをリストする必要はありません。</p>
+
+            <p>
+
+                robots.txt ファイルごとに複数のサイトマップを指定できます。</p>
+
+				<pre>Sitemap: http://www.example.com/sitemap-host1.xml
+
+Sitemap: http://www.example.com/sitemap-host2.xml</pre>
+
+            <h3>
+
+                <a name="submit_ping" id="submit_ping"></a>HTTP リクエストを使用してサイトマップを送信<br />
+
+            </h3>
+
+            <p>
+
+                HTTP リクエストを使用してサイトマップを送信するには、&lt;searchengine_URL&gt; を検索エンジンによって指定された URL に置き換え、リクエストを次の
+
+                URL に送信してください。</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=sitemap_url</pre>
+
+            <p>
+
+                たとえば、サイトマップをhttp://www.example.co.jp/sitemap.gz に置いた場合、URL は次のようになります。</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http://www.example.com/sitemap.gz</pre>
+
+            <p>
+
+                /ping?sitemap=: より後の文字列について、URL のエンコード処理を行います。</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http%3A%2F%2Fwww.yoursite.co.jp%2Fsitemap.gz</pre>
+
+            <p>
+
+                HTTP リクエストは、wget、curl、またはその他の方法を使用して送信できます。リクエストが正常に送信された場合は HTTP 200 の応答コードが返されますが、別の応答コードが返された場合はリクエストを再送信する必要があります。HTTP
+
+                200 の応答コードは、検索エンジンでサイトマップを受信したことを示すもので、サイトマップやサイトマップ内の URL が有効であることを示すものではありません。これを簡単に行うには、サイトマップを定期的に生成し送信する自動設定を作成します。<br />
+
+                <strong>注: </strong>サイトマップ インデックス ファイルを送信する場合は、サイトマップ インデックス ファイルの場所を含む 1 件の HTTP
+
+                リクエストだけを送信します。インデックス内の個々のサイトマップについてリクエストを送信する必要はありません。</p>
+
+            <p class="backtotop">
+
+                <a href="#top">トップへ戻る</a></p>
+
+            <h2>
+
+                コンテンツの除外</h2>
+
+            <p>
+
+                サイトマップ プロトコルでは、インデックスに登録するコンテンツを検索エンジンに伝えることができます。 これを行うには、robots.txt ファイルか、ロボットの
+
+                メタ タグを使用します。 検索エンジンからコンテンツを除外する方法の詳細については、<a href="http://www.robotstxt.org">robotstxt.org</a>
+
+                をご覧ください。</p>
+
+            <p>
+
+                &nbsp;</p>
+
+            <p class="backtotop">
+
+                <a href="#top">トップへ戻る</a></p>
+
+            <p class="date">
+
+                最終更新日: 2016 年 11 月 21 日
+
+            </p>
+
+        </div>
+
+        <!-- closes #maincontent -->
+
+    </div>
+
+    <!-- closes #container -->
+
+    <div id="footer">
+
+        <p>
+
+            <a href="terms.html">利用規約</a></p>
+
+    </div>
+
+</body>
+
+</html>
+

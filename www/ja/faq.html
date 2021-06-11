@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - よくある質問</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">よくある質問</a></li>
+                    <li><a href="protocol.html">プロトコル</a></li>
+                    <li><a href="index.html">ホーム</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                よくある質問</h1>
+            <p>
+                <a href="#faq_xml_encoding">サイトマップでは URL をどのように記述すればよいですか。</a></p>
+            <p>
+                <a href="#faq_output_encoding">サイトマップ ファイルはどの文字エンコードで作成すればよいですか。</a></p>
+            <p>
+                <a href="#faq_specifying_time">時刻を指定するにはどうすればよいですか。</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">最終更新日はどのように算出すればよいですか。</a></p>
+            <p>
+                <a href="#faq_sitemap_location">サイトマップはどこに置けばよいですか。</a></p>
+            <p>
+                <a href="#faq_sitemap_size">サイトマップの最大サイズはどのくらいですか。</a></p>
+            <p>
+                <a href="#faq_submitting_changes">サイトに多数の URL がある場合、最近変更した URL のみを送信できますか。</a></p>
+            <p>
+                <a href="#faq_after_submission">サイトマップを作成したら、次に何をすればよいですか。</a></p>
+            <p>
+                <a href="#faq_url_format">サイトマップには完全な URL を含める必要がありますか。</a></p>
+            <p>
+                <a href="#faq_http_vs_https">サイトに "http" と "https" の 2 種類の URL がある場合、 両方の URL をリストに含める必要がありますか。</a></p>
+            <p>
+                <a href="#faq_url_encoding">サイトの URL にセッション ID が含まれている場合、 セッション ID を削除する必要がありますか。</a></p>
+            <p>
+                <a href="#faq_url_position">サイトマップの URL の順序は URL の使用方法に影響しますか。</a></p>
+            <p>
+                <a href="#faq_frames">サイトにフレームを使用したページがある場合、 フレームセットの URL とフレームのコンテンツの URL のどちらを含めればよいですか。</a></p>
+            <p>
+                <a href="#faq_compression">サイトマップは圧縮できますか。その場合は、gzip 形式で圧縮する必要がありますか。</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">XML サイトマップの "priority" 値は検索結果でのページの掲載順位に影響しますか。</a></p>
+            <p>
+                <a href="#faq_xml_schema">XML サイトマップを検証するための XML スキーマはありますか。</a></p>
+            <p>
+                <a href="#more"></a>プロトコルの使用方法やサイトマップの送信について他に質問がある場合はどうすればよいですか。</p>
+            <hr />
+            <p class="question">
+                質問: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>サイトマップでは URL をどのように記述すればよいですか。</p>
+            <p>
+                他の XML ファイルと同じように、URL などのデータ値では、アンパサンド (&amp;)、一重引用符 (')、二重引用符 (")、不等記号 (より大) (&lt;)、不等記号
+                （より小） (&gt;) に<a href="#escaped">エンティティのエスケープ コード</a>を使用する必要があります。 URL はすべて URI
+                の <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a> 基準、IRI の <a href="http://www.ietf.org/rfc/rfc3987.txt">
+                    RFC-3987</a> 基準、および <a href="http://www.w3.org/TR/REC-xml/">XML 基準</a>に従っている必要があります。
+                URL の生成にスクリプトを使用している場合、通常はスクリプトで URL のエスケープ処理が行われます。 また、これらの URL のエンティティもエスケープ処理する必要があります。
+                たとえば、次の Python スクリプトでは http://www.example.co.jp/view?widget=3&amp;count&gt;2 のエンティティがエスケープされます。</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                処理後の URL は次のようになります。</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                質問: <a name="faq_output_encoding" id="faq_output_encoding"></a>サイトマップ ファイルはどの文字エンコードで作成すればよいですか。</p>
+            <p>
+                はい。 サイトマップ ファイルは UTF-8 エンコードで作成する必要があります。</p>
+            <p class="question">
+                質問: <a name="faq_specifying_time" id="faq_specifying_time"></a>時刻を指定するにはどうすればよいですか。</p>
+            <p>
+                lastmod タイムスタンプおよびこのプロトコルの日付と時刻にはすべて <a href="http://www.w3.org/TR/NOTE-datetime">W3C
+                    Datetime 形式のエンコード</a>を使用します。 例: 2004-09-22T14:12:14+00:00。</p>
+            <p>
+                このエンコードでは、ISO8601 形式の時刻の部分を省略できます。たとえば、2004-09-22 とすることができます。 ただし、サイトを頻繁に変更する場合は、クローラがサイトの情報をより正確に把握できるよう、時刻の部分も含めることをお勧めします。</p>
+            <p class="question">
+                質問: <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>最終更新日はどのように算出すればよいですか。</p>
+            <p>
+                静的なファイルの場合は、ファイルを実際に更新した日付となります。 この日付を取得するには、UNIX の date コマンドを使用します。</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                動的な URL の場合は、ページ内のデータが変更された日付や、定期的に更新している場合はこの更新日から概算して、最終更新日を簡単に割り出すことができます。 概算の日時やタイムスタンプであっても、この情報によりクローラが変更のない
+                URL をクロールしないようにでき、 ウェブ サーバーの負荷や CPU の使用量を軽減することができます。</p>
+            <p class="question">
+                質問: <a name="faq_sitemap_location" id="faq_sitemap_location"></a>サイトマップはどこに置けばよいですか。</p>
+            <p>
+                サイトマップは、たとえば、http://example.co.jp/sitemap.xml など、HTML サーバーのルート ディレクトリに置くことをお勧めします。</p>
+            <p>
+                セキュリティ保護のため組織内でディレクトリごとに異なる書き込み権限を設定している場合などは、サイトのパスごとにサイトマップを作成する必要があります。</p>
+            <p>
+                http://example.co.jp/path/sitemap.xml をアップロードする権限がある場合は、http://example.co.jp/path/
+                以下にあるメタデータも送信できます。</p>
+            <p>
+                サイトマップにリストされているすべての URL は、サイトマップと同じホストに存在している必要があります。 たとえば、サイトマップが http://www.example.co.jp/sitemap.xml
+                にある場合、このサイトマップには http://subdomain.example.co.jp の URL を含めることはできません。 たとえば、サイトマップが
+                http://www.example.co.jp/myfolder/sitemap.xml にある場合、このサイトマップには http://example.co.jp
+                の URL を含めることはできません。</p>
+            <p class="backtotop">
+                <a href="#top">トップへ戻る</a></p>
+            <p class="question">
+                質問: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>サイトマップの最大サイズはどのくらいですか。</p>
+            <p>
+                サイトマップのサイズは 50 MB (52,428,800 バイト) 以下、含める URL の数は 50,000 個以下にする必要があります。この制限は、容量の大きなファイルによってウェブ
+                サーバーに負荷がかかりすぎないようにするために設けられています。URL の数が 50,000 個を超える場合や、サイトマップのサイズが 50 MB を超える場合は、複数のサイトマップを作成し、<a
+                    href="protocol.html#index">サイトマップ インデックス ファイル</a>を使用する必要があります。現在はサイトの規模が小さくても、将来的に
+                URL の数が 50,000 個を超えたり、サイズが 50 MB を超えることが予想される場合は、サイトマップ インデックス ファイルを使用してください。サイトマップ
+                インデックス ファイルには、最大で 50,000 個のサイトマップをリストできます。サイズは 50 MB (52,428,800 バイト) 以下にする必要があります。gzip
+                形式を使用して、サイトマップを圧縮することもできます。</p>
+            <p class="question">
+                質問: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>サイトに多数の URL
+                がある場合、最近変更した URL のみを送信できますか。</p>
+            <p>
+                更新の頻繁な URL を一部のサイトマップにリストし、<a href="protocol.html#index">サイトマップ インデックス ファイル</a>に<a
+                    href="protocol.html#lastmoddef">lastmod</a>タグを使用して、これらのサイトマップ ファイルを区別します。 これにより、変更されたサイトマップのみが検索エンジンでクロールされるようになります。</p>
+            <p class="question">
+                質問: <a name="faq_after_submission" id="faq_after_submission"></a>サイトマップを作成したら、次に何をすればよいですか。</p>
+            <p>
+                Once you have created your Sitemap, <a href="http://www.sitemaps.org/protocol.html#informing">
+                    let search engines know</a> about it by submitting directly to them, pinging
+                them, or adding the Sitemap location to your robots.txt file.</p>
+            <p class="question">
+                質問: <a name="faq_url_format" id="faq_url_format"></a>サイトマップには完全な URL を含める必要がありますか。</p>
+            <p>
+                はい。 URL には、http などのプロトコルを含める必要があります。 また、ウェブ サーバーによっては、末尾のスラッシュも含める必要があります。 たとえば、http://www.example.co.jp/
+                はサイトマップで有効な URL ですが、www.example.co.jp は有効ではありません。</p>
+            <p class="question">
+                質問: <a name="faq_http_vs_https" id="faq_http_vs_https"></a>サイトに "http" と "https"
+                の 2 種類の URL がある場合、 両方の URL をリストに含める必要がありますか。</p>
+            <p class="answers">
+                いいえ。サイトマップには一方のバージョンの URL のみを含めてください。 複数のバージョンの URL を含めると、サイトのクロールが正確に行われない可能性があります。</p>
+            <p class="question">
+                質問: <a name="faq_url_encoding" id="faq_url_encoding"></a>サイトの URL にセッション ID が含まれている場合、
+                セッション ID を削除する必要がありますか。</p>
+            <p>
+                はい。 URL にセッション ID を含めると、サイトのクロールが正確に行われない可能性があります。</p>
+            <p class="question">
+                質問: <a name="faq_url_position" id="faq_url_position"></a>サイトマップの URL の順序は URL の使用方法に影響しますか。</p>
+            <p>
+                いいえ。サイトマップの URL の順序は、検索エンジンで URL をどのように使用または認識するかには影響しません。</p>
+            <p class="question">
+                質問: <a name="faq_frames" id="faq_frames"></a>サイトにフレームを使用したページがある場合、 フレームセットの URL
+                とフレームのコンテンツの URL のどちらを含めればよいですか。</p>
+            <p>
+                両方の URL を含めてください。</p>
+            <p class="question">
+                質問: <a name="faq_compression" id="faq_compression"></a>サイトマップは圧縮できますか。その場合は、gzip
+                形式で圧縮する必要がありますか。</p>
+            <p>
+                サイトマップの圧縮には gzip 形式を使用してください。サイトマップのサイズは、圧縮されているどうかにかわらず、50 MB (52,428,800 バイト)
+                以下にする必要があります。</p>
+            <p class="question">
+                質問: <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>XML
+                サイトマップの "priority" 値は検索結果でのページの掲載順位に影響しますか。</p>
+            <p>
+                サイトマップの "priority" 値は、特定の URL がサイト内の<i></i>他の URL と比べてどの程度重要であるかを示すヒントとして使用され、検索結果でのページの掲載順位には影響しません。</p>
+            <p class="question">
+                質問: <a name="faq_xml_schema" id="faq_xml_schema"></a>XML サイトマップを検証するための XML スキーマはありますか。</p>
+            <p>
+                はい。サイトマップ ファイルの XML スキーマは <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a> から入手できます。サイトマップ
+                インデックス ファイルのスキーマは <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a> から入手できます。サイトマップ検証の詳細については、<a
+                        href="protocol.html#validating">こちら</a>をご覧ください。</p>
+            <p class="question">
+                質問: <a name="more" id="more"></a>プロトコルの使用方法やサイトマップの送信について他に質問がある場合はどうすればよいですか。</p>
+            <p>
+                サイトマップの送信および使用方法の詳細については、お使いの検索エンジンのマニュアルをご覧ください。</p>
+            <p class="backtotop">
+                <a href="#top">トップへ戻る</a></p>
+            <p class="date">
+                最終更新日: 2016 年 11 月 21 日
+            </p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">利用規約</a></p>
+    </div>
+</body>
+</html>

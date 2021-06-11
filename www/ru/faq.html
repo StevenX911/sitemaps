@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - ЧаВо</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">Вопросы и ответы</a></li>
+                    <li><a href="protocol.html">Протокол</a>:</li>
+                    <li><a href="index.html">Главная страница</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Часто задаваемые вопросы</h1>
+            <p>
+                <a href="#faq_xml_encoding">Как представлять URL в файле Sitemap?</a></p>
+            <p>
+                <a href="#faq_output_encoding">Имеет ли значение, какой метод кодирования символов используется
+                    для создания моих файлов Sitemap?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Как указать время?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Как рассчитать дату последнего изменения?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Куда поместить мой файл Sitemap?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Какой размер файла Sitemap является допустимым?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">На моем сайте десятки миллионов URL-адресов; можно
+                    ли отправить только те из них, которые изменились недавно?</a></p>
+            <p>
+                <a href="#faq_after_submission">Что нужно делать после создания файла Sitemap?</a></p>
+            <p>
+                <a href="#faq_url_format">Нужно ли полностью указывать URL-адреса в файле Sitemap?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">В URL-адресах моего сайта используются оба префикса "http"
+                    и "https". Нужно ли перечислять оба варианта?</a></p>
+            <p>
+                <a href="#faq_url_encoding">URL-адреса на моем сайте включают идентификаторы сеанса.
+                    Нужно ли удалять эти индентификаторы?</a></p>
+            <p>
+                <a href="#faq_url_position">Влияет ли положение URL-адреса в файле Sitemap на его использование?</a></p>
+            <p>
+                <a href="#faq_frames">На некоторых страницах моего сайта используются фреймы. Нужно
+                    ли включать URL-адрес набора фреймов или URL-адрес содержания фреймов?</a></p>
+            <p>
+                <a href="#faq_compression">Можно ли использовать архиватор zip для моих файлов Sitemap,
+                    или их можно сжимать только с помощью архиватора gzip?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">Будет ли параметр приоритетности в XML-файле Sitemap
+                    влиять на рейтинг моих страниц в результатах поиска?</a></p>
+            <p>
+                <a href="#faq_xml_schema">Существует ли XML-схема, по которой можно проверить мой XML-файл
+                    Sitemap?</a></p>
+            <p>
+                <a href="#more">Куда мне обратиться, если у меня возникли другие вопросы по поводу использования
+                    протокола или процедуры отправки сведений о размещении файла Sitemap?</a></p>
+            <hr />
+            <p class="question">
+                Вопрос. <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Как представить URL-адрес
+                в файле Sitemap?</p>
+            <p>
+                В XML-файлах для всех значений данных (включая URL-адреса) <a href="#escaped">маскирование</a>
+                принято использовать для следующих символов: амперсанд (&amp;), одинарная кавычка
+                ('), двойная кавычка ("), знак "меньше" (&lt;) и знак "больше" (&gt;). Кроме того,
+                Вы должны убедиться в том, что все URL-адреса соответствуют стандарту <a href="http://www.ietf.org/rfc/rfc3986.txt">
+                    RFC-3986</a> для URI, стандарту <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+                для IRI и <a href="http://www.w3.org/TR/REC-xml/">XML-стандарту</a>. Если для создания
+                URL-адресов используются сценарии, маскирование символов в URL-адресе обычно является
+                частью этого сценария. Однако для них все равно необходимо применять маскирование
+                символов. Например, следующий сценарий "python" использует маскирование http://www.primer.ru/view?widget=3&amp;count&gt;2</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                В приведенном выше примере результирующим является следующий URL-адрес:</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                Вопрос. <a name="faq_output_encoding" id="faq_output_encoding"></a>Имеет ли значение
+                метод кодирования символов, который используется для создания моих файлов Sitemap?</p>
+            <p>
+                Да. Для файлов Sitemap должна использоваться кодировка UTF-8.</p>
+            <p class="question">
+                Вопрос. <a name="faq_specifying_time" id="faq_specifying_time"></a>Как указать время?</p>
+            <p>
+                Используйте <a href="http://www.w3.org/TR/NOTE-datetime">кодировку W3C Datetime</a>
+                для меток времени "lastmod" и всех других дат и времен в этом протоколе. Например,
+                2004-09-22T14:12:14+00:00.</p>
+            <p>
+                Эта кодировка позволяет опустить сегмент времени формата ISO8601; например, использование
+                формата 22-09-2004 также допустимо. Однако, если Ваш сайт часто изменяется, рекомендуется
+                включить сегмент времени, чтобы сканеры получили более полную информацию о Вашем
+                сайте.</p>
+            <p class="question">
+                Вопрос. <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Как рассчитать
+                дату последнего изменения?</p>
+            <p>
+                Для статических файлов это фактическая дата обновления файла. Для получения этой
+                даты можно использовать команду "UNIX date":</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                Для многих динамических URL-адресов можно легко рассчитать дату последнего изменения
+                на основе даты изменения исходных данных или с помощью приближения на основе периодических
+                обновлений (если применимо). Даже использование приблизительной даты или отметки
+                времени может помочь сканерам избежать сканирования URL-адресов, которые не были
+                изменены. Это позволяет снизить требования, предъявляемые к пропускной способности
+                канала и к процессорам веб-серверов.</p>
+            <p class="question">
+                Вопрос. <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Куда поместить
+                мой Sitemap?</p>
+            <p>
+                Настоятельно рекомендуется поместить файл Sitemap в корневой каталог на Вашем HTML-сервере
+                по адресу http://primer.ru/sitemap.xml.</p>
+            <p>
+                Возможно, в некоторых случаях нужно будет создать несколько файлов Sitemap для различных
+                путей на Вашем сайте, &mdash; например, если полномочия доступа в Вашей организации
+                установлены таким образом, что доступ с правом записи к различным каталогам предоставляется
+                отдельно.</p>
+            <p>
+                Если у Вас есть разрешение на загрузку файла http://primer.ru/path/sitemap.xml,
+                то предполагается, что у Вас также имеется разрешение размещать отчеты по метаданным
+                по адресу http://primer.ru/path/.</p>
+            <p>
+                Все URL-адреса, указанные в том или ином файле Sitemap, должны размещаться на том
+                же хосте, что и файл Sitemap. Например, если файл Sitemap расположен по адресу http://www.primer.ru/sitemap.xml,
+                в нем могут быть указаны URL-адреса из субдомена http://subdomen.primer.ru. Если
+                файл Sitemap расположен по адресу http://www.primer.ru/mojapapka/sitemap.xml, в
+                нем могут быть указаны URL-адреса из субдомена http://www.primer.ru.</p>
+            <p class="backtotop">
+                <a href="#top">К началу</a></p>
+            <p class="question">
+                Вопрос. <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Какой размер файла
+                Sitemap является допустимым?</p>
+            <p>
+                Размер файлов Sitemap не должен превышать 50 МБ (52428800 байт), и эти файлы не
+                должны включать более 50000 URL. Эти ограничения помогают исключить остановки веб-сервера
+                при размещении очень больших файлов. Это означает, что если Ваш сайт содержит более
+                50000 URL или размер файла Sitemap превышает 50 МБ, необходимо создать несколько
+                файлов Sitemap и использовать <a href="protocol.html#index">файл индекса Sitemap</a>.
+                Необходимо использовать файл индекса Sitemap даже для небольшого сайта, если предполагается,
+                что количество URL превысит 50000 или размер файла будет больше 50 МБ. В файле индекса
+                Sitemap может быть перечислено не более 50000 файлов Sitemap. Размер этого файла
+                не может превышать 50 МБ. Кроме того, для сжатия файлов Sitemap можно использовать
+                архиватор gzip.</p>
+            <p class="question">
+                Вопрос. <a name="faq_submitting_changes" id="faq_submitting_changes"></a>На моем
+                сайте десятки миллионов URL-адресов, можно ли передать только те из них, которые
+                были изменены недавно?</p>
+            <p>
+                Можно перечислить часто изменяемые URL-адреса лишь в некоторых файлах Sitemap, а
+                затем использовать тег <a href="protocol.html#lastmoddef">lastmod</a> в <a href="protocol.html#index">
+                    файле индекса Sitemap</a> для идентификации этих файлов Sitemap. После этого
+                поисковые системы могут последовательно сканировать только измененные файлы Sitemap.</p>
+            <p class="question">
+                Вопрос. <a name="faq_after_submission" id="faq_after_submission"></a>Что нужно делать
+                после создания файла Sitemap?</p>
+            <p>
+                После создания файла Sitemap <a href="http://www.sitemaps.org/protocol.html#informing">
+                    сообщите о нем поисковым системам</a>, передав его напрямую, проверив связь
+                с ними или добавив местоположение файла Sitemap в файл robots.txt.</p>
+            <p class="question">
+                Вопрос. <a name="faq_url_format" id="faq_url_format"></a>Необходимо ли полностью
+                указывать URL-адреса в Sitemap?</p>
+            <p>
+                Да. Необходимо включить протокол (например, HTTP) в Ваш URL-адрес. Кроме того, необходимо
+                включить концевую косую черту, если этого требует Ваш веб-сервер. Например, адрес
+                http://www.primer.ru/ является допустимым URL-адресом для файла Sitemap, а адрес
+                www.primer.ru — нет.</p>
+            <p class="question">
+                Вопрос. <a name="faq_http_vs_https" id="faq_http_vs_https"></a>В URL-адресах моего
+                сайта используются оба префикса "http" и "https". Нужно ли перечислять оба варианта?</p>
+            <p class="answers">
+                Нет. Укажите в своих файлах Sitemap только одну версию URL-адреса. Добавление нескольких
+                версий URL-адреса может привести к неполному сканированию Вашего сайта.</p>
+            <p class="question">
+                Вопрос. <a name="faq_url_encoding" id="faq_url_encoding"></a>URL-адреса на моем
+                сайте включают идентификаторы сеанса. Нужно ли удалять эти идентификаторы?</p>
+            <p>
+                Да. Включение идентификаторов сеансов в URL-адреса может привести к неполному и
+                излишнему сканированию Вашего сайта.</p>
+            <p class="question">
+                Вопрос. <a name="faq_url_position" id="faq_url_position"></a>Влияет ли положение
+                URL-адреса в файле Sitemap на его использование?</p>
+            <p>
+                Нет. Положение URL в файле Sitemap не влияет на то, как он будет использоваться
+                или рассматриваться поисковыми системами.</p>
+            <p class="question">
+                Вопрос. <a name="faq_frames" id="faq_frames"></a>На некоторых станицах моего сайта
+                используются фреймы. Нужно ли включать URL-адреса набора фреймов или URL-адреса
+                содержания фреймов?</p>
+            <p>
+                Включите оба URL-адреса.</p>
+            <p class="question">
+                Вопрос. <a name="faq_compression" id="faq_compression"></a>Можно ли использовать
+                архиватор zip для моих файлов Sitemap, или их можно сжимать только с помощью архиватора
+                gzip?</p>
+            <p>
+                Используйте архиватор gzip для сжатия файлов Sitemap. Помните, что размер файла
+                Sitemap (как в сжатом, так и в несжатом виде) не должен превышать 50 МБ.</p>
+            <p class="question">
+                Вопрос. <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>
+                Будет ли параметр приоритетности в XML-файле Sitemap влиять на рейтинг моих страниц
+                в результатах поиска?</p>
+            <p>
+                Параметр "приоритетность" в файле Sitemap используется для того, чтобы определить
+                очередность обработки URL <i>в пределах Вашего собственного сайта</i> и не влияет
+                на рейтинг страниц в результатах поиска.</p>
+            <p class="question">
+                Вопрос. <a name="faq_xml_schema" id="faq_xml_schema"></a>Существует ли XML-схема,
+                по которой можно проверить мой XML-файл Sitemap?</p>
+            <p>
+                Да. XML-схема для файлов Sitemap приведена на странице <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a>, а схема для файлов
+                индекса Sitemap — на странице <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a>. Дополнительную
+                информацию о проверке файлов Sitemap см. <a href="protocol.html#validating">здесь</a>.</p>
+            <p class="question">
+                Вопрос. <a name="more" id="more"></a>Куда мне обратиться, если у меня возникли другие
+                вопросы по поводу использования протокола или процедуры отправки сведений о размещении
+                файла Sitemap?</p>
+            <p>
+                Обратитесь к доступной документации поисковых систем, чтобы получить дополнительную
+                информацию относительно отправки сведений о размещении файла и о работе с файлами
+                Sitemaps.</p>
+            <p class="backtotop">
+                <a href="#top">К началу</a></p>
+            <p class="date">
+                Последнее обновление: 21 ноября 2016 г.
+            </p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Общие положения и условия</a></p>
+    </div>
+</body>
+</html>

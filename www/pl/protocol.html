@@ -1,0 +1,1586 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+
+    <title>sitemaps.org – protokół</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection" />
+
+</head>
+
+<body>
+
+    <a name="top" id="top"></a>
+
+    <div id="container">
+
+        <div id="intro">
+
+            <div id="pageHeader">
+
+                <h1>
+
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+
+            </div>
+
+            <div id="selectionbar">
+
+                <ul>
+
+                    <li><a href="faq.html">Najczęściej zadawane pytania</a></li>
+
+                    <li class="activelink"><a href="#">Protokół</a></li>
+
+                    <li><a href="index.html">Strona główna</a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="mainContent">
+
+            <h1>
+
+                <a name="sitemaps_protocol" id="sitemaps_protocol"></a>Format XML mapy witryny
+
+            </h1>
+
+            <blockquote>
+
+                <b>Przejdź do:</b><br>
+
+                <a href="#xmlTagDefinitions">Definicje tagów XML</a><br>
+
+                <a href="#escaping">Stosowanie kodów ucieczki encji</a><br>
+
+                <a href="#index">Używanie plików indeksu map witryn</a><br>
+
+				<a href="#otherformats">Inne formaty mapy witryny</a><br />
+
+                <a href="#location">Lokalizacja pliku mapy witryny</a><br>
+
+                <a href="#validating">Sprawdzanie poprawności mapy witryny</a><br>
+
+                <a href="#extending">Rozszerzanie protokołu Sitemap</a><br>
+
+                <a href="#informing">Informowanie robotów indeksujących wyszukiwarek</a>
+
+            </blockquote>
+
+            <p>
+
+                Ten dokument zawiera opis schematu XML protokołu Sitemap.</p>
+
+            <p>
+
+                Format protokołu Sitemap składa się z tagów XML. Wszystkie wartości danych w mapie
+
+                witryny muszą zawierać <a href="#escaping">kody ucieczki encji</a>. Sam plik musi
+
+                mieć kodowanie UTF-8.</p>
+
+            <p>
+
+                Mapa witryny musi:</p>
+
+            <ul>
+
+                <li>Zacznij od otwierającego tagu <code>&lt;<a href="#urlsetdef">urlset</a>&gt;</code>
+
+                    i zakończ zamykającym tagiem <code>&lt;/urlset&gt;</code>.</li>
+
+                <li>Określ przestrzeń nazw (standard protokołu) w tagu <code>&lt;urlset&gt;</code>.
+
+                </li>
+
+                <li>Dołącz wpis <code>&lt;<a href="#urldef">url</a>&gt;</code> każdego adresu URL jako
+
+                    nadrzędny tag XML.</li>
+
+                <li>Dołącz wpis podrzędny <code>&lt;<a href="#locdef">loc</a>&gt;</code> dla każdego
+
+                    tagu nadrzędnego <code>&lt;url&gt;</code>.</li>
+
+            </ul>
+
+            <p>
+
+                Wszystkie inne tagi są opcjonalne. Niektóre wyszukiwarki mogą nie obsługiwać tych
+
+                tagów opcjonalnych. Szczegółowe informacje zawiera dokumentacja poszczególnych wyszukiwarek.</p>
+
+            <p>
+
+                Ponadto wszystkie adresy URL w mapie witryny muszą należeć do jednego hosta, np.
+
+                www.przyklad.com lub sklep.przyklad.com. Więcej informacji można znaleźć w części
+
+                <a href="#location">Lokalizacja pliku mapy witryny</a></p>
+
+            <h3>
+
+                Przykład indeksu mapy witryny w formacie XML</h3>
+
+            <p>
+
+                Poniżej przedstawiono przykład mapy witryny zawierającej tylko jeden adres URL,
+
+                w której zastosowano wszystkie tagi opcjonalne. Tagi opcjonalne wskazane są kursywą.
+
+            </p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;</em>
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt; 
+
+</pre>
+
+            <p>
+
+                Zobacz również nasz przykład z <a href="#sitemapXMLExample">wieloma adresami URL</a>.</p>
+
+            <h2>
+
+                <a name="xmlTagDefinitions" id="xmlTagDefinitions"></a>Definicje tagów XML</h2>
+
+            <p>
+
+                Dostępne tagi XML przedstawiono poniżej.</p>
+
+            <table width="80%">
+
+                <th>
+
+                    Atrybut
+
+                </th>
+
+                <th>
+
+                </th>
+
+                <th>
+
+                    Opis
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        <a name="urlsetdef" id="urlsetdef"></a><code>&lt;urlset&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        wymagany
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Zawiera plik i odwołanie do bieżącego standardu protokołu.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="urldef" id="urldef"></a><code>&lt;url&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        wymagany
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Tag nadrzędny każdego wpisu adresu URL. Pozostałe tagi są elementami podrzędnymi
+
+                            tego tagu.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="locdef" id="locdef"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        wymagany
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Adres URL strony. Ten adres URL musi zaczynać się od prefiksu protokołu (na przykład
+
+                            http) i kończyć kreską ułamkową, jeśli wymaga jej Twój serwer internetowy. Ta wartość
+
+                            musi być krótsza niż 2048 znaków.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="lastmoddef" id="lastmoddef"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        opcjonalny
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Data ostatniej modyfikacji pliku. Ta data powinna mieć format <a href="http://www.w3.org/TR/NOTE-datetime">
+
+                                W3C Datetime</a>. Format ten umożliwia pominięcie godziny i podanie samej daty
+
+                            w postaci RRRR-MM-DD.</p>
+
+                        <p>
+
+                            Należy pamiętać, że ten tag jest niezależny od nagłówka If-Modified-Since (304),
+
+                            który może zwracać serwer, a wyszukiwarki mogą używać informacji z tych dwóch źródeł
+
+                            w odmienny sposób.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="changefreqdef" id="changefreqdef"></a><code>&lt;changefreq&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        opcjonalny
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Częstotliwość zmian strony. Ta wartość podaje wyszukiwarkom ogólne informacje i
+
+                            nie może dokładnie korelować częstotliwości indeksowania strony. Prawidłowe wartości
+
+                            to:</p>
+
+                        <ul>
+
+                            <li>always</li>
+
+                            <li>hourly</li>
+
+                            <li>daily</li>
+
+                            <li>weekly</li>
+
+                            <li>monthly</li>
+
+                            <li>yearly</li>
+
+                            <li>never</li>
+
+                        </ul>
+
+                        <p>
+
+                            Wartość „always” należy stosować do opisu dokumentów zmieniających się przy każdym
+
+                            otwarciu. Wartość „never” należy stosować do opisu zarchiwizowanych adresów URL.</p>
+
+                        <p>
+
+                            Należy pamiętać, że wartość tego tagu stanowi <i>wskazówkę</i>, a nie polecenie.
+
+                            Nawet jeśli roboty indeksujące wyszukiwarki uwzględniają te informacje podczas podejmowania
+
+                            decyzji, mogą indeksować strony oznaczone do sprawdzania „hourly” (co godzinę) rzadziej
+
+                            niż co godzinę, a strony oznaczane do sprawdzania „yearly” (co rok) częściej niż
+
+                            co rok. Roboty indeksujące mogą również co pewien czas indeksować strony oznaczone
+
+                            do sprawdzania „never” (nigdy), aby uwzględnić nieoczekiwane zmiany tych stron.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="prioritydef" id="prioritydef"></a><code>&lt;priority&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        opcjonalny
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Priorytet tego adresu URL w odniesieniu do innych adresów URL w witrynie. Prawidłowy
+
+                            jest zakres wartości od 0.0 do 1.0. Ta wartość nie ma wpływu na porównywanie Twoich
+
+                            stron ze stronami innych witryn. Umożliwia ona jedynie wskazanie wyszukiwarkom,
+
+                            które strony powinny być indeksowane przez roboty w pierwszej kolejności.</p>
+
+                        <p>
+
+                            Domyślny priorytet strony jest równy 0.5.</p>
+
+                        <p>
+
+                            Należy pamiętać, że priorytet przypisany stronie nie ma zazwyczaj wpływu na pozycję
+
+                            Twoich adresów URL na stronach wyników wyszukiwania wyszukiwarki. Wyszukiwarki mogą
+
+                            używać tych informacji podczas wybierania adresów URL z tej samej witryny. Ten tag
+
+                            zwiększa prawdopodobieństwo uwzględnienia najważniejszych stron witryny w indeksie
+
+                            wyszukiwarki.</p>
+
+                        <p>
+
+                            Należy również pamiętać, że przypisanie wysokiego priorytetu wszystkim adresom URL
+
+                            w witrynie raczej w niczym nie pomoże. Priorytet jest względny, czyli jest używany
+
+                            tylko do określania istotności adresów URL w danej witrynie.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Powrót na początek</a></p>
+
+            <h2>
+
+                <a name="escaping" id="escaping"></a>Stosowanie kodów ucieczki encji</h2>
+
+            <p>
+
+                Plik mapy witryny musi mieć kodowanie UTF-8 (można je zazwyczaj ustawić podczas
+
+                zapisywania pliku). Tak jak w przypadku wszystkich plików XML, wszelkie wartości
+
+                danych (włącznie z adresami URL) muszą zawierać kody ucieczki encji znaków podanych
+
+                w poniższej tabeli.</p>
+
+            <table>
+
+                <th colspan="2">
+
+                    Znak
+
+                </th>
+
+                <th>
+
+                    Kod ucieczki
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        Znak &amp;
+
+                    </td>
+
+                    <td>
+
+                        &amp;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;amp;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Pojedynczy cudzysłów
+
+                    </td>
+
+                    <td>
+
+                        '
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;apos;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Podwójny cudzysłów
+
+                    </td>
+
+                    <td>
+
+                        "
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;quot;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Znak większości
+
+                    </td>
+
+                    <td>
+
+                        &gt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;gt;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Znak mniejszości
+
+                    </td>
+
+                    <td>
+
+                        &lt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;lt;</code>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p>
+
+                Ponadto wszystkie adresy URL (włącznie z adresem URL mapy witryny) muszą zawierać
+
+                kody ucieczki URL i być zakodowane w sposób umożliwiający ich odczytanie przez serwer
+
+                internetowy, na którym się znajdują. Jeśli jednak do generowania adresów URL używasz
+
+                jakichkolwiek skryptów, narzędzi lub plików dziennika (czegokolwiek poza ręcznym
+
+                wpisywaniem), zazwyczaj jest to już wykonane. Należy się upewnić, że wszystkie adresy
+
+                URL są zgodne ze standardem <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>
+
+                dla identyfikatorów URI, standardem <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+
+                dla identyfikatorów IRI i <a href="http://www.w3.org/TR/REC-xml/">standardem XML</a>.</p>
+
+            <p>
+
+                Poniżej przedstawiono przykład adresu URL zawierającego znak spoza zestawu ASCII
+
+                (<code>&uuml;</code>) oraz znak wymagający kodu ucieczki encji (<code>&amp;</code>):</p>
+
+            <pre>http://www.przyklad.com/&uuml;mlat.html&amp;q=name</pre>
+
+            <p>
+
+                Poniżej przedstawiono ten sam adres URL w kodowaniu ISO-8859-1 (do celów hostingu
+
+                na serwerze stosującym to kodowanie) i ze znakami ucieczki:</p>
+
+            <pre>http://www.example.com/%FCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Poniżej przedstawiono ten sam adres URL w kodowaniu UTF-8 (do celów hostingu na
+
+                serwerze stosującym to kodowanie) i ze znakami ucieczki:</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Poniżej przedstawiono ten sam adres URL, ale z kodami ucieczki encji:</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;amp;q=name</pre>
+
+            <h3>
+
+                <a name="sitemapXMLExample" id="sitemapXMLExample"></a>Przykład indeksu mapy witryny
+
+                w formacie XML</h3>
+
+            <p>
+
+                Poniższy przykład przedstawia mapę witryny w formacie XML. Mapa witryny w przykładzie
+
+                zawiera niewielką liczbę adresów URL, z których każdy zawiera inny zestaw parametrów
+
+                opcjonalnych.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=12&amp;amp;desc=vacation_hawaii&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=73&amp;amp;desc=vacation_new_zealand&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=74&amp;amp;desc=vacation_newfoundland&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23T18:00:15+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.3&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=83&amp;amp;desc=vacation_usa&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-11-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Powrót na początek</a></p>
+
+            <h2>
+
+                <a name="index" id="index"></a>Używanie plików indeksu mapy witryny (w celu grupowania
+
+                wielu plików map witryn)</h2>
+
+            <p>
+
+                Możesz przesłać wiele plików map witryn, ale każdy plik mapy witryny musi zawierać
+
+                nie więcej niż 50 000 adresów URL i mieć rozmiar nie większy niż 50 MB (52 428 800
+
+                bajtów). Jeśli chcesz, możesz skompresować pliki map witryn za pomocą narzędzia
+
+                gzip, aby zmniejszyć obciążenie łącza, jednak po zdekompresowaniu ich wielkość nie
+
+                może przekraczać 50 MB. Jeśli chcesz podać więcej niż 50 000 adresów URL, musisz
+
+                utworzyć wiele plików map witryn.</p>
+
+            <p>
+
+                W razie zgłaszania wielu map witryn ich listę należy podać w pliku indeksu map witryn.
+
+                Pliki indeksu map witryn mogą zawierać listę nie więcej niż 50 000 map witryn, a ich
+
+                rozmiar nie może przekraczać 50 MB (52&nbsp;428&nbsp;800 bajtów). Można je kompresować.
+
+                Można także przekazać kilka plików indeksu map witryn. Format XML pliku indeksu
+
+                map witryn jest bardzo podobny do formatu XML pliku mapy witryny.</p>
+
+            <p>
+
+                Plik indeksu map witryn musi:</p>
+
+            <ul>
+
+                <li>Zacznij od otwierającego tagu <code>&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a>&gt;</code>
+
+                    i zakończ zamykającym tagiem <code>&lt;/sitemapindex&gt;</code>.</li>
+
+                <li>Dołącz wpis <code>&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;</code> każdej
+
+                    mapy witryny jako nadrzędny tag XML.</li>
+
+                <li>Dołącz wpis podrzędny <code>&lt;<a href="#sitemapIndex_loc">loc</a>&gt;</code> dla
+
+                    każdego tagu nadrzędnego <code>&lt;sitemap&gt;</code>.</li>
+
+            </ul>
+
+            <p>
+
+                Opcjonalny tag <code>&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;</code>
+
+                jest również dostępny w przypadku plików indeksu map witryn.</p>
+
+            <p>
+
+                <strong>Uwaga!</strong> Plik indeksu map witryn może określać jedynie mapy witryn
+
+                znajdujące się w tej samej witrynie, co plik indeksu map witryn. Na przykład, plik
+
+                http://www.twojawitryna.com/sitemap_index.xml może zawierać mapy witryn znajdujące
+
+                się w lokalizacji http://www.twojawitryna.com, ale nie w lokalizacji http://www.przyklad.com
+
+                lub http://twójhost.twojawitryna.com. Plik indeksu witryn musi mieć, tak jak mapy
+
+                witryn, kodowanie UTF-8.</p>
+
+            <h3>
+
+                <a name="sitemapIndexXMLExample" id="sitemapIndexXMLExample"></a>Przykład indeksu
+
+                mapy witryny w formacie XML</h3>
+
+            <p>
+
+                Poniższy przykład przedstawia indeks map witryn zawierający dwie mapy witryn:</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap1.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2004-10-01T18:23:17+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap2.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Uwaga!</strong> Adresy URL map witryn, jak wszystkie inne wartości w plikach
+
+                XML, muszą zawierać <a href="#escaping">kody ucieczki encji</a>.</p>
+
+            <h3>
+
+                <a name="sitemapIndexTagDefinitions" id="sitemapIndexTagDefinitions"></a>Definicje
+
+                tagów XML indeksu mapy witryny</h3>
+
+            <table width="80%">
+
+                <tr>
+
+                    <th>
+
+                        Atrybut
+
+                    </th>
+
+                    <th>
+
+                    </th>
+
+                    <th>
+
+                        Opis
+
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemapindex" id="sitemapIndex_sitemapindex"></a><code>&lt;sitemapindex&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        wymagany
+
+                    </td>
+
+                    <td>
+
+                        Zawiera informacje dotyczące wszystkich map witryn w pliku.
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemap" id="sitemapIndex_sitemap"></a><code>&lt;sitemap&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        wymagany
+
+                    </td>
+
+                    <td>
+
+                        Zawiera informacje dotyczące pojedynczej mapy witryny.
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_loc" id="sitemapIndex_loc"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        wymagany
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Identyfikuje lokalizację mapy witryny.</p>
+
+                        <p>
+
+                            Ta lokalizacja może być mapą witryny, plikiem Atom, plikiem RSS lub zwykłym plikiem
+
+                            tekstowym.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_lastmod" id="sitemapIndex_lastmod"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        opcjonalny
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Identyfikuje czas modyfikacji odpowiedniego pliku mapy witryny. Nie wskazuje on
+
+                            czasu modyfikacji żadnej ze stron wymienionych w tej mapie witryny. Wartość tagu
+
+                            lastmod powinna mieć format <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime</a>.</p>
+
+                        <p>
+
+                            Podając sygnaturę czasową ostatniej modyfikacji, umożliwisz robotom indeksującym
+
+                            wyszukiwarki pobranie tylko podzestawu map witryn z indeksu, czyli robot indeksujący
+
+                            będzie mógł pobrać tylko mapy witryn zmodyfikowane po określonej dacie. Przyrostowy
+
+                            mechanizm pobierania map witryn umożliwia szybkie wykrywanie nowych adresów URL
+
+                            w bardzo dużych witrynach.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Powrót na początek</a></p>
+
+            <h2>
+
+                <a name="otherformats" id="otherformats"></a>Inne formaty mapy witryny</h2>
+
+            <p>
+
+                Protokół Sitemap umożliwia podanie wyszukiwarkom szczegółów dotyczących stron. Zachęcamy
+
+                do jego używania – protokół ten umożliwia podawanie dodatkowych informacji o stronach
+
+                witryny, a nie tylko ich adresów URL. Oprócz protokołu XML obsługujemy również kanały
+
+                RSS i pliki tekstowe, za pomocą których można podać nieco bardziej ograniczone informacje.</p>
+
+            <h3>
+
+                Kanał dystrybucji danych</h3>
+
+            <p>
+
+                Można podać kanał RSS (Real Simple Syndication) 2.0 oraz Atom 0.3 lub 1.0. Tego
+
+                formatu warto używać tylko jeśli w witrynie jest już stosowany kanał dystrybucyjny.
+
+                Należy pamiętać, że ta metoda nie zapewnia poinformowania wyszukiwarek o wszystkich
+
+                adresach URL w witrynie, ponieważ kanał może zawierać jedynie informacje o najnowszych
+
+                adresach URL. Wyszukiwarki mogą jednak użyć tych informacji do znalezienia innych
+
+                stron w witrynie podczas normalnego procesu indeksowania, w którym robot indeksujący
+
+                sprawdza linki na stronach podanych w kanale. Upewnij się, że kanał znajduje się
+
+                w katalogu na najwyższym poziomie, który mają zaindeksować wyszukiwarki. Wyszukiwarki
+
+                wyodrębniają informacje z kanału w następujący sposób:</p>
+
+            <ul>
+
+                <li><strong>Pole &lt;link&gt; </strong>- wskazuje adres URL</li>
+
+                <li><strong>pole daty modyfikacji (&lt;pubDate&gt; w kanałach RSS i &lt;updated&gt;
+
+                    w kanałach Atom)</strong> - wskazuje datę ostatniej modyfikacji adresu URL. Stosowanie
+
+                    pola daty modyfikacji jest opcjonalne. </li>
+
+            </ul>
+
+            <h3>
+
+                Plik tekstowy</h3>
+
+            <p>
+
+                Możesz dostarczyć zwykłe pliki tekstowe zawierające po jednym adresie URL w każdym
+
+                wierszu. Plik tekstowy musi spełniać następujące wymogi:</p>
+
+            <ul>
+
+                <li>Każdy adres URL musi być podany w pliku tekstowym w oddzielnym wierszu. Adresy URL
+
+                    nie mogą zawierać nowych wierszy.</li>
+
+                <li>Należy podawać pełne adresy URL, włącznie z przedrostkiem http.</li>
+
+                <li>Każdy plik tekstowy może zawierać maksymalnie 50&nbsp;000 adresów URL, a jego wielkość
+
+                    nie może przekraczać 50 MB (52&nbsp;428&nbsp;800 bajtów). Jeśli witryna zawiera
+
+                    ponad 50&nbsp;000 adresów URL, można podzielić ich listę na wiele plików tekstowych
+
+                    i dodać oddzielnie każdy plik.</li>
+
+                <li>Plik tekstowy musi mieć kodowanie UTF-8. Można je określić w chwili zapisywania
+
+                    pliku (na przykład w Notatniku kodowanie to znajduje się w menu rozwijanym Kodowanie
+
+                    w oknie dialogowym Zapisz jako).</li>
+
+                <li>Plik tekstowy może zawierać tylko listę adresów URL i żadnych innych informacji.</li>
+
+                <li>Plik tekstowy nie może zawierać żadnych informacji nagłówka ani stopki.</li>
+
+                <li>Jeśli chcesz, możesz skompresować pliki map witryn za pomocą narzędzia gzip, aby
+
+                    zmniejszyć obciążenie łącza.</li>
+
+                <li>Plik tekstowy może mieć dowolną nazwę. Upewnij się, że adresy URL są zgodne ze standardem
+
+                    <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a> dla identyfikatorów URI
+
+                    oraz standardem <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a> dla identyfikatorów
+
+                    IRI.</li>
+
+                <li>Plik tekstowy należy umieścić w katalogu najwyższego poziomu, który mają indeksować
+
+                    wyszukiwarki. W pliku tekstowym nie wolno podawać adresów URL znajdujących się w
+
+                    katalogu z wyższego poziomu. </li>
+
+            </ul>
+
+            <p>
+
+                Poniżej przedstawiono przykładowe wpisy pliku tekstowego.</p>
+
+            <pre>http://www.przyklad.com/catalog?item=1
+
+<br>
+
+http://www.przyklad.com/catalog?item=11
+
+<br /></pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Powrót na początek</a></p>
+
+            <h2>
+
+                <a name="location" id="location"></a>Lokalizacja pliku mapy witryny</h2>
+
+            <p>
+
+                Lokalizacja pliku mapy witryny określa zestaw adresów URL, które można uwzględnić
+
+                w tej mapie witryny. Plik mapy witryny znajdujący się w lokalizacji http://przyklad.com/catalog/sitemap.xml
+
+                może zawierać wszelkie adresy URL zaczynające się od http://przyklad.com/catalog/,
+
+                ale nie może zawierać adresów URL zaczynających się od http://przyklad.com/images/.</p>
+
+            <p>
+
+                Jeśli masz uprawnienie do zmiany ścieżki http://przyklad.org/sciezka/sitemap.gz,
+
+                to przyjmuje się, że masz również uprawnienie do podania informacji dotyczących
+
+                adresów URL z prefiksem http://przyklad.org/sciezka/. Przykłady adresów URL uznawanych
+
+                za poprawne w przypadku adresu http://przyklad.pl/katalog/sitemap.gz obejmują:</p>
+
+            <pre>
+
+http://przyklad.com/catalog/show?item=23
+
+http://przyklad.com/catalog/show?item=233&amp;user=3453
+
+</pre>
+
+            <p>
+
+                Przykłady adresów URL uznawanych za niepoprawne w przypadku adresu http://przyklad.com/catalog/sitemap.xml
+
+                obejmują:</p>
+
+            <pre>
+
+http://przyklad.com/image/show?item=23
+
+http://przyklad.com/image/show?item=233&amp;user=3453
+
+https://przyklad.com/catalog/page1.html
+
+</pre>
+
+            <p>
+
+                Należy pamiętać, że to oznacza, iż wszystkie adresy URL podane w mapie witryny muszą
+
+                korzystać z tego samego protokołu (w tym przykładzie http) i znajdować się na tym
+
+                samym serwerze, co mapa witryny. Jeśli mapa witryny znajduje się na przykład w lokalizacji
+
+                http://www.przyklad.com/sitemap.xml, nie może ona zawierać adresów URL z lokalizacji
+
+                http://poddomena.przyklad.com.</p>
+
+            <p>
+
+                Adresy URL uznawane za niepoprawne są odrzucane i nie są już analizowane. Zaleca
+
+                się umieszczenie mapy witryny w katalogu głównym serwera internetowego. Na przykład,
+
+                jeśli serwer internetowy znajduje się w domenie przyklad.com, plik indeksu map witryn
+
+                należy umieścić w lokalizacji http://przyklad.com/sitemap.xml. W niektórych sytuacjach
+
+                należy wygenerować różne mapy witryn dla różnych ścieżek w witrynie (na przykład,
+
+                jeśli uprawnienia zabezpieczeń w organizacji dzielą użytkowników na różne kategorie
+
+                pod względem praw zapisu w różnych katalogach).</p>
+
+            <p>
+
+                W przypadku zgłaszania mapy witryny przy użyciu ścieżki z numerem portu konieczne
+
+                jest podawanie numeru portu jako części ścieżki w każdym adresie URL znajdującym
+
+                się w pliku mapy witryny. Na przykład, jeśli mapa witryny znajduje się pod adresem
+
+                http://www.przyklad.pl:100/sitemap.xml, wszystkie adresy URL zawarte w tej mapie
+
+                witryny muszą zaczynać się od http://www.przyklad.pl:100.</p>
+
+            <h3>
+
+                Mapy witryn i wielokrotne zgłoszenia</h3>
+
+            <p>
+
+                W celu zgłoszenia mapy witryny obejmującej wiele hostów z jednego hosta należy udowodnić
+
+                posiadanie hostów, których adresy URL są zgłaszane w mapie witryny. Na przykład,
+
+                załóżmy, że chcesz zgłosić mapę witryny obejmującą 3 hosty:
+
+                <pre>
+
+www.host1.com za pomocą pliku mapy witryny sitemap-host1.xml
+
+www.host2.com za pomocą pliku mapy witryny sitemap-host2.xml
+
+www.host3.com za pomocą pliku mapy witryny sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                Ponadto chcesz umieścić wszystkie trzy mapy witryn na jednym hoście: www.sitemaphost.com.
+
+                Adresy URL map witryn będą wyglądały następująco:
+
+                <pre>
+
+http://www.sitemaphost.com/sitemap-host1.xml
+
+http://www.sitemaphost.com/sitemap-host2.xml
+
+http://www.sitemaphost.com/sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                Zazwyczaj doprowadzi to do wystąpienia błędu wielokrotnego zgłoszenia, ponieważ
+
+                próbujesz zgłosić adresy URL hosta www.host1.com za pośrednictwem mapy witryny,
+
+                która znajduje się na hoście www.sitemaphost.com (to samo dotyczy pozostałych dwóch
+
+                hostów). Jednym ze sposobów na uniknięcie tego błędu jest udowodnienie, że jesteś
+
+                w posiadaniu hosta www.host1.com (tzn. masz uprawnienia do modyfikowania jego plików).
+
+                Możesz tego dokonać, modyfikując plik robots.txt na hoście www.host1.com, tak aby
+
+                wskazywał on mapę witryny znajdującą się na hoście www.sitemaphost.com.</p>
+
+            <p>
+
+                W powyższym przykładzie plik robots.txt znajdujący się w lokalizacji http://www.host1.com/robots.txt
+
+                zawiera wiersz „Sitemap: http://www.sitemaphost.com/sitemap-host1.xml”. Modyfikacja
+
+                pliku robots.txt na hoście www.host1.com, tak aby wskazywał on mapę witryny na hoście
+
+                www.sitemaphost.com, umożliwiła udowodnienie, że jesteś w posiadaniu hosta www.host1.com.
+
+                Innymi słowy, każdy, kto kontroluje plik robots.txt na hoście www.host1.com zgłasza
+
+                mapie witryny znajdującej się w lokalizacji http://www.sitemaphost.com/sitemap-host1.xml
+
+                adresy URL z hosta www.host1.com. Tę samą procedurę można powtórzyć w odniesieniu
+
+                do pozostałych dwóch hostów.</p>
+
+            <p>
+
+                Teraz można zgłosić mapy witryn do hosta www.sitemaphost.com.</p>
+
+            <p>
+
+                Jeśli plik robots.txt określonego hosta, np. http://www.host1.com/robots.txt, wskazuje
+
+                mapę witryny lub indeks mapy witryny na innym hoście, oczekuje się, że wszystkie
+
+                adresy URL docelowych map witryn, np. http://www.sitemaphost.com/sitemap-host1.xml,
+
+                należą do hosta, na którym znajduje się plik robots.txt. Dzieje się tak, ponieważ,
+
+                jak zauważono wcześniej, oczekuje się, że mapa witryny zawiera adresy URL z tylko
+
+                jednego hosta.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Powrót na początek</a></p>
+
+            <h2>
+
+                <a name="validating" id="validating"></a>Sprawdzanie poprawności mapy witryny</h2>
+
+            <p>
+
+                Poniższe schematy XML definiują elementy i atrybuty, które może zawierać plik mapy
+
+                witryny. Możesz pobrać ten schemat, korzystając z poniższych linków:</p>
+
+            <p>
+
+                <b>W przypadku map witryn:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br>
+
+                <b>W przypadku plików indeksu map witryn:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
+
+            <p>
+
+                Dostępnych jest wiele narzędzi umożliwiających sprawdzenie poprawności struktury
+
+                mapy witryny opartej na tym schemacie. Listę narzędzi XML można znaleźć w każdej
+
+                z następujących lokalizacji:<br>
+
+                <br>
+
+                <a href="http://www.w3.org/XML/Schema#Tools">http://www.w3.org/XML/Schema#Tools</a><br>
+
+                <a href="http://www.xml.com/pub/a/2000/12/13/schematools.html">http://www.xml.com/pub/a/2000/12/13/schematools.html</a></p>
+
+            <p>
+
+                Aby możliwe było sprawdzenie poprawności pliku mapy witryny lub indeksu mapy witryny
+
+                przy użyciu schematu, konieczne jest wprowadzenie dodatkowych nagłówków w pliku
+
+                XML w sposób przedstawiony poniżej.</p>
+
+            <p>
+
+                <strong>Mapa witryny:</strong></p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Plik indeksu mapy witryny:</strong></p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Powrót na początek</a></p>
+
+            <h2>
+
+                <a name="extending" id="extending"></a>Rozszerzanie protokołu Sitemaps</h2>
+
+            <p>
+
+                Protokół Sitemap można rozszerzyć za pomocą własnej przestrzeni nazw. Wystarczy
+
+                określić tę przestrzeń nazw w elemencie głównym. Na przykład:</p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:example=&quot;http://www.example.com/schemas/example_schema&quot;&gt; &lt;!-- namespace extension --&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Powrót na początek</a></p>
+
+            <h2>
+
+                <a name="informing" id="informing"></a>Informowanie robotów indeksujących wyszukiwarek</h2>
+
+            <p>
+
+                Po utworzeniu pliku mapy witryny i umieszczeniu go na serwerze internetowym należy
+
+                zgłosić lokalizację pliku wyszukiwarkom obsługującym ten protokół. Dostępne są następujące
+
+                metody:</p>
+
+            <ul>
+
+                <li><a href="#submit_engine">zgłaszanie za pomocą interfejsu zgłaszania wyszukiwarki</a></li>
+
+                <li><a href="#submit_robots">określanie lokalizacji w pliku robots.txt witryny</a></li>
+
+                <li><a href="#submit_ping">wysyłanie żądania HTTP</a><br />
+
+                </li>
+
+            </ul>
+
+            <p>
+
+                Wyszukiwarki mogą wówczas pobrać mapę witryny i udostępnić adresy URL swoim robotom
+
+                indeksującym.</p>
+
+            <h3>
+
+                <a name="submit_engine" id="submit_engine"></a>Zgłaszanie mapy witryny przy użyciu
+
+                interfejsu zgłaszania wyszukiwarki<br />
+
+            </h3>
+
+            <p>
+
+                Aby zgłosić mapę witryny bezpośrednio do wyszukiwarki (dzięki czemu można będzie
+
+                otrzymać informacje o stanie i ewentualnych błędach przetwarzania), należy wykonać
+
+                instrukcje podane w dokumentacji wyszukiwarki.</p>
+
+            <h3>
+
+                <a name="submit_robots" id="submit_robots"></a>Określanie lokalizacji mapy witryny
+
+                w pliku robots.txt<br />
+
+            </h3>
+
+            <p>
+
+                Lokalizację mapy witryny można określić w pliku robots.txt. W tym celu należy dodać
+
+                następujący wiersz:</p>
+
+            <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
+
+            <p>
+
+                Ta instrukcja jest niezależna od wiersza user-agent, a zatem można ją umieścić w
+
+                dowolnym miejscu pliku. Jeśli masz plik indeksu map witryn, możesz podać tylko lokalizację
+
+                tego pliku. Nie musisz podawać poszczególnych map witryn zawartych w pliku indeksu.</p>
+
+            <p>
+
+                W pliku robots.txt można określić kilka plików map witryn.</p>
+
+            	<pre>Sitemap: http://www.example.com/sitemap-host1.xml
+
+Sitemap: http://www.example.com/sitemap-host2.xml</pre>
+
+            <h3>
+
+                <a name="submit_ping" id="submit_ping"></a>Zgłaszanie mapy witryny przy użyciu żądania
+
+                HTTP<br />
+
+            </h3>
+
+            <p>
+
+                Aby zgłosić mapę witryny za pomocą żądania HTTP (tag &lt;adres_URL_wyszukiwarki&gt;
+
+                zastąp adresem URL podanym przez wyszukiwarkę), należy wysłać żądanie na następujący
+
+                adres URL:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=adres_url_mapy_witryny</pre>
+
+            <p>
+
+                Jeśli mapa witryny znajduje się w lokalizacji http://www.przyklad.com/sitemap.gz,
+
+                adres URL będzie mieć postać:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http://www.example.com/sitemap.gz</pre>
+
+            <p>
+
+                Zastosuj kodowanie URL do wszystkich znaków za ciągiem /ping?sitemap=:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http%3A%2F%2Fwww.twojawitryna.com%2Fsitemap.gz</pre>
+
+            <p>
+
+                Żądanie HTTP można wysłać przy użyciu poleceń wget, curl lub innego żądanego mechanizmu.
+
+                W razie powodzenia żądania zostanie zwrócony kod 200 protokołu HTTP. Jeśli otrzymasz
+
+                inną odpowiedź, ponownie wyślij żądanie. Kod 200 protokołu HTTP w odpowiedzi wskazuje
+
+                jedynie, że wyszukiwarka otrzymała mapę witryny. Nie znaczy to, że mapa witryny
+
+                lub zawarte w niej adresy URL są prawidłowe. Prosty sposób polega na skonfigurowaniu
+
+                zautomatyzowanego zadania generowania i zgłaszania map witryn w określonych odstępach
+
+                czasu.<br>
+
+                <strong>Uwaga!</strong> Jeśli stosujesz plik indeksu map witryn, wyślij jedno żądanie
+
+                HTTP zawierające lokalizację pliku indeksu map witryn. Nie trzeba wysyłać oddzielnych
+
+                żądań dla poszczególnych map witryn wskazanych w indeksie.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Powrót na początek</a></p>
+
+            <h2>
+
+                Wykluczanie treści</h2>
+
+            <p>
+
+                Protokół Sitemaps umożliwia informowanie wyszukiwarek o treściach, które powinny
+
+                zostać zaindeksowane. W celu poinformowania wyszukiwarek, których treści nie powinny
+
+                indeksować, należy użyć pliku robots.txt lub metatagu robots. Więcej informacji
+
+                na temat wykluczania treści z wyszukiwarek można znaleźć w witrynie <a href="http://www.robotstxt.org">
+
+                    robotstxt.org</a>.</p>
+
+            <p>
+
+                &nbsp;</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Powrót na początek</a></p>
+
+            <p class="date">
+
+                Ostatnia aktualizacja: 21 listopad 2016 r.
+
+            </p>
+
+        </div>
+
+        <!-- closes #maincontent -->
+
+    </div>
+
+    <!-- closes #container -->
+
+    <div id="footer">
+
+        <p>
+
+            <a href="terms.html">Warunki umowy</a></p>
+
+    </div>
+
+</body>
+
+</html>
+

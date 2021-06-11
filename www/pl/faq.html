@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org – Najczęściej zadawane pytania</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">Najczęściej zadawane pytania</a></li>
+                    <li><a href="protocol.html">Protokół</a></li>
+                    <li><a href="index.html">Strona główna</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Najczęściej zadawane pytania</h1>
+            <p>
+                <a href="#faq_xml_encoding">Jak przedstawić adresy URL w mapie witryny?</a></p>
+            <p>
+                <a href="#faq_output_encoding">Czy metoda kodowania znaków używana do generowania plików
+                    map witryn ma znaczenie?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Jak określić czas?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Jak obliczyć datę lastmod?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Gdzie umieścić mapę witryny?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Jak duża może być mapa witryny?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">Moja witryna zawiera dziesiątki milionów adresów URL.
+                    Czy jest jakiś sposób umożliwiający przesłanie tylko tych, które zostały ostatnio
+                    zmienione?</a></p>
+            <p>
+                <a href="#faq_after_submission">Co należy zrobić po utworzeniu mapy witryny?</a></p>
+            <p>
+                <a href="#faq_url_format">Czy trzeba podawać pełne adresy URL w mapie witryny?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">Moja witryna ma adresy URL zarówno w wersji „http”, jak
+                    i „https”. Czy trzeba podać obie wersje?</a></p>
+            <p>
+                <a href="#faq_url_encoding">Adresy URL w mojej witrynie zawierają identyfikatory sesji.
+                    Czy trzeba je usunąć?</a></p>
+            <p>
+                <a href="#faq_url_position">Czy pozycja adresu URL w mapie witryny ma wpływ na jego
+                    użytkowanie?</a></p>
+            <p>
+                <a href="#faq_frames">Na niektórych stronach w mojej witrynie stosowane są ramki. Czy
+                    muszę podać adresy URL zestawów ramek, czy adresy URL treści ramek?</a></p>
+            <p>
+                <a href="#faq_compression">Czy mogę skompresować mapy witryn w formacie zip, czy też
+                    muszą one mieć format gzip?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">Czy wskazówka „priority” w mapie witryny w formacie
+                    XML zmienia ranking moich stron w wynikach wyszukiwania?</a></p>
+            <p>
+                <a href="#faq_xml_schema">Czy jest dostępny schemat XML służący do sprawdzania poprawności
+                    mapy witryny w formacie XML?</a></p>
+            <p>
+                <a href="#more">Co zrobić, jeśli mam inne pytanie na temat używania protokołu lub zgłaszania
+                    mapy witryny?</a></p>
+            <hr />
+            <p class="question">
+                P. <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Jak przedstawić adresy URL
+                w mapie witryny?</p>
+            <p>
+                Tak jak w przypadku wszystkich plików XML, wszelkie wartości danych (włącznie z
+                adresami URL) muszą zawierać <a href="#escaped">kody ucieczki encji</a> następujących
+                znaków: znak „&amp;”, pojedynczy cudzysłów ('), podwójny cudzysłów ("), znak mniejszości
+                (&lt;) i znak większości (&gt;). Należy również sprawdzić, czy wszystkie adresy
+                URL są zgodne ze standardem <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>
+                dla identyfikatorów URI, standardem <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+                dla identyfikatorów IRI i <a href="http://www.w3.org/TR/REC-xml/">standardem XML</a>.
+                Jeśli do generowania adresów URL używasz skryptu, możesz zastosować w nich kody
+                ucieczki URL za pomocą skryptu. Konieczne będzie zastosowanie kodów ucieczki encji.
+                Na przykład poniższy skrypt w języku Python wstawia kody ucieczki encji http://www.przyklad.com/view?widget=3&amp;count&gt;2</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                Wynikowy adres URL z powyższego przykładu to:</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                P. <a name="faq_output_encoding" id="faq_output_encoding"></a>Czy metoda kodowania
+                znaków używana do generowania plików map witryn ma znaczenie?</p>
+            <p>
+                Tak. Pliki map witryn muszą mieć kodowanie UTF-8.</p>
+            <p class="question">
+                P. <a name="faq_specifying_time" id="faq_specifying_time"></a>Jak określić czas?</p>
+            <p>
+                Zastosuj <a href="http://www.w3.org/TR/NOTE-datetime">kodowanie W3C Datetime</a>
+                do sygnatur czasowych parametru lastmod i wszystkich innych dat i godzin w tym protokole.
+                Przykład: 2004-09-22T14:12:14+00:00.</p>
+            <p>
+                To kodowanie umożliwia pominięcie wartości godziny w formacie ISO8601; na przykład
+                wartość 2004-09-22 jest także prawidłowa. Jeśli jednak Twoja witryna jest często
+                zmieniana, zachęcamy do uwzględnienia wartości godziny, aby podawać robotom indeksującym
+                pełniejsze informacje o witrynie.</p>
+            <p class="question">
+                P. <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Jak obliczyć datę
+                lastmod?</p>
+            <p>
+                W przypadku plików statycznych jest to rzeczywista data aktualizacji pliku. Aby
+                uzyskać tę datę, można użyć polecenia systemu UNIX „date”:</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                W przypadku wielu dynamicznych adresów URL można z łatwością obliczyć datę lastmod
+                na podstawie daty zmiany danych źródłowych lub stosując przybliżenia oparte na aktualizacjach
+                okresowych (jeśli są stosowane). Użycie nawet przybliżonej daty lub sygnatury czasowej
+                ułatwi robotom indeksującym uniknięcie indeksowania adresów URL, które się nie zmieniły.
+                Zmniejszy to obciążenie łącza sieciowego i procesorów Twoich serwerów internetowych.</p>
+            <p class="question">
+                P. <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Gdzie umieścić mapę
+                witryny?</p>
+            <p>
+                Zaleca się umieszczenie mapy witryny w katalogu głównym serwera HTML, czyli w ścieżce
+                http://przyklad.com/sitemap.xml.</p>
+            <p>
+                W niektórych sytuacjach można wygenerować różne mapy witryn dla różnych ścieżek
+                w witrynie &mdash; na przykład, jeśli uprawnienia zabezpieczeń w organizacji dzielą
+                użytkowników na różne kategorie pod względem praw zapisu w różnych katalogach.</p>
+            <p>
+                Przyjmujemy, że skoro masz uprawnienia do przesłania na serwer pliku http://przyklad.com/path/sitemap.xml,
+                to masz również uprawnienia do zgłaszania metadanych w ścieżce http://przyklad.com/path/.</p>
+            <p>
+                Wszystkie adresy URL zawarte w mapie witryny muszą znajdować się na tym samym serwerze,
+                co mapa witryny. Jeśli mapa witryny znajduje się na przykład w lokalizacji http://www.przyklad.com//sitemap.xml,
+                nie może ona zawierać adresów URL z lokalizacji http://poddomena.przyklad.com. Jeśli
+                mapa witryny znajduje się w lokalizacji http://www.przyklad.com/mójfolder/sitemap.xml,
+                nie może zawierać adresów URL z lokalizacji http://www.przyklad.com.</p>
+            <p class="backtotop">
+                <a href="#top">Powrót na początek</a></p>
+            <p class="question">
+                P. <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Jak duża może być mapa witryny?</p>
+            <p>
+                Rozmiar map witryn nie może przekraczać 50 MB (52 428 800 bajtów). Mapa witryny
+                może zawierać co najwyżej 50 000 adresów URL. Te limity gwarantują że Twój serwer
+                internetowy nie zostanie przeciążony, obsługując bardzo duże pliki. To znaczy, że
+                jeśli witryna zawiera więcej niż 50 000 adresów URL lub rozmiar mapy witryny przekracza
+                50 MB, należy utworzyć wiele plików map witryn i użyć <a href="protocol.html#index">pliku
+                    indeksu map witryn</a>. Pliku indeksu map witryn należy użyć nawet w przypadku
+                mniejszych witryn, jeśli planowany jest ich rozwój powyżej 50 000 adresów URL lub
+                oczekiwany jest wzrost rozmiaru pliku do ponad 50 MB. Plik indeksu map witryn może
+                zawierać listę maksimum 50000 map witryn, a jego rozmiar nie może przekraczać 50
+                MB (52 428 800 bajtów). Do skompresowania map witryn można również użyć kompresora
+                gzip.</p>
+            <p class="question">
+                P. <a name="faq_submitting_changes" id="faq_submitting_changes"></a>Moja witryna
+                zawiera dziesiątki milionów adresów URL. Czy jest jakiś sposób umożliwiający przesłanie
+                tylko tych, które zostały ostatnio zmienione?</p>
+            <p>
+                Często zmieniające się adresy URL można podać w kilku małych mapach witryn, a następnie
+                za pomocą tagu <a href="protocol.html#lastmoddef">lastmod</a> w <a href="protocol.html#index">
+                    pliku indeksu map witryn</a> wskazać te pliki map witryn. Wyszukiwarki mogą
+                wówczas przyrostowo indeksować tylko zmienione mapy witryn.</p>
+            <p class="question">
+                P. <a name="faq_after_submission" id="faq_after_submission"></a>Co należy zrobić
+                po utworzeniu mapy witryny?</p>
+            <p>
+                Po utworzeniu mapy witryny należy <a href="http://www.sitemaps.org/protocol.html#informing">
+                    poinformować o niej wyszukiwarki</a>, zgłaszając mapę witryny bezpośrednio w
+                wyszukiwarkach, wysyłając pakiety ping do wyszukiwarek lub podając lokalizację mapy
+                witryny w pliku robots.txt.</p>
+            <p class="question">
+                P. <a name="faq_url_format" id="faq_url_format"></a>Czy trzeba podawać pełne adresy
+                URL w mapie witryny?</p>
+            <p>
+                Tak. W adresie URL należy uwzględnić przedrostek określający protokół (na przykład
+                http). Należy również dołączyć na końcu adresu URL kreskę ułamkową, jeśli wymaga
+                tego Twój serwer internetowy. Adres http://www.przyklad.com/ jest na przykład prawidłowym
+                adresem URL mapy witryny, w odróżnieniu od adresu www.przyklad.com.</p>
+            <p class="question">
+                P. <a name="faq_http_vs_https" id="faq_http_vs_https"></a>Moja witryna ma adresy
+                URL zarówno w wersji „http”, jak i „https”. Czy trzeba podać obie wersje?</p>
+            <p class="answers">
+                Nie. Podaj tylko jedną wersję adresu URL w mapach witryny. Podanie wielu wersji
+                adresów URL może skutkować niepełnym zaindeksowaniem witryny.</p>
+            <p class="question">
+                P. <a name="faq_url_encoding" id="faq_url_encoding"></a>Adresy URL w mojej witrynie
+                zawierają identyfikatory sesji. Czy trzeba je usunąć?</p>
+            <p>
+                Tak. Podanie identyfikatorów sesji w adresach URL może skutkować niepełnym i zduplikowanym
+                zaindeksowaniem witryny.</p>
+            <p class="question">
+                P. <a name="faq_url_position" id="faq_url_position"></a>Czy pozycja adresu URL w
+                mapie witryny ma wpływ na jego użytkowanie?</p>
+            <p>
+                Nie. Pozycja adresu URL w mapie witryny nie ma zazwyczaj żadnego wpływu na sposób
+                jego używania ani traktowania przez wyszukiwarki.</p>
+            <p class="question">
+                P. <a name="faq_frames" id="faq_frames"></a>Na niektórych stronach w mojej witrynie
+                stosowane są ramki. Czy muszę podać adresy URL zestawów ramek, czy adresy URL treści
+                ramek?</p>
+            <p>
+                Podaj oba adresy URL.</p>
+            <p class="question">
+                P. <a name="faq_compression" id="faq_compression"></a>Czy mogę skompresować mapy
+                witryn w formacie zip, czy też muszą one mieć format gzip?</p>
+            <p>
+                Użyj kompresora gzip do skompresowania map witryn. Pamiętaj, że rozmiar mapy witryny,
+                skompresowanej lub nieskompresowanej, nie może przekraczać 50 MB (52 428 800 bajtów).</p>
+            <p class="question">
+                P. <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>Czy
+                wskazówka „priority” w mapie witryny w formacie XML zmienia ranking moich stron
+                w wynikach wyszukiwania?</p>
+            <p>
+                Wskazówka "priority" w mapie witryny wskazuje jedynie wagę danego adresu URL w odniesieniu
+                do innych adresów URL <i>w Twojej własnej witrynie</i> i nie ma żadnego wpływu na
+                pozycję Twoich stron w rankingu wyników wyszukiwania.</p>
+            <p class="question">
+                P. <a name="faq_xml_schema" id="faq_xml_schema"></a>Czy jest dostępny schemat XML
+                służący do sprawdzania poprawności mapy witryny w formacie XML?</p>
+            <p>
+                Tak. Schemat XML plików map witryn jest dostępny pod adresem <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a>, a schemat plików
+                indeksu map witryn jest dostępny pod adresem <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a>. Więcej informacji
+                o <a href="protocol.html#validating">sprawdzaniu poprawności mapy witryny</a>.</p>
+            <p class="question">
+                P. <a name="more" id="more"></a>Co zrobić, jeśli mam inne pytanie na temat używania
+                protokołu lub zgłaszania mapy witryny?</p>
+            <p>
+                Szczegółowe informacje na temat zgłaszania i stosowania map witryn zawiera dokumentacja
+                poszczególnych wyszukiwarek.</p>
+            <p class="backtotop">
+                <a href="#top">Powrót na początek</a></p>
+            <p class="date">
+                Ostatnia aktualizacja: 21 listopad 2016 r.
+            </p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Warunki umowy</a></p>
+    </div>
+</body>
+</html>

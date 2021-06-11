@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="ro" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org – Întrebări frecvente</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">Întrebări frecvente</a></li>
+                    <li><a href="protocol.html">Protocol</a></li>
+                    <li><a href="index.html">Pagină de pornire</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Întrebări adresate frecvent</h1>
+            <p>
+                <a href="#faq_xml_encoding">Cum reprezint URL-urile în Sitemap?</a></p>
+            <p>
+                <a href="#faq_output_encoding">Contează ce metodă de codificare a caracterelor utilizez
+                    pentru a genera fişierele mele Sitemap?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Cum specific ora?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Cum calculez data lastmod?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Unde plasez Sitemap-ul?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Cât de mare poate fi Sitemap-ul meu?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">Site-ul meu are zeci de milioane de URL-uri; există
+                    o metodă prin care să pot să le trimit doar pe cele pe care le-am modificat recent?</a></p>
+            <p>
+                <a href="#faq_after_submission">Ce fac după ce am creat Sitemap-ul meu?</a></p>
+            <p>
+                <a href="#faq_url_format">URL-urile din Sitemap trebuie specificate complet?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">Site-ul meu are şi versiunea „http” şi versiunea „https”
+                    de URL-uri. Trebuie să le listez pe amândouă?</a></p>
+            <p>
+                <a href="#faq_url_encoding">URL-urile de pe site-ul meu au ID-uri de sesiune în ele.
+                    Este necesar să le elimin?</a></p>
+            <p>
+                <a href="#faq_url_position">Influenţează poziţia unui URL dintr-un Sitemap utilizarea
+                    lui?</a></p>
+            <p>
+                <a href="#faq_frames">Unele dintre paginile site-ului meu utilizează cadre. Ar trebui
+                    să includ URL-urile cadrului sau URL-urile din cuprinsul cadrului?</a></p>
+            <p>
+                <a href="#faq_compression">Pot să-mi arhivez Sitemap-urile sau trebuie să fie garhivate?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">Va schimba sugestia „prioritate” din Sitemap-ul
+                    XML evaluarea paginilor mele în rezultatele de căutare?</a></p>
+            <p>
+                <a href="#faq_xml_schema">Este o schemă XML faţă de care îmi pot valida Sitemap-ul XML?</a></p>
+            <p>
+                <a href="#more">Ce fac dacă am o altă întrebare despre utilizarea protocolului sau despre
+                    transmiterea unui Sitemap?</a></p>
+            <hr />
+            <p class="question">
+                Î: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Cum reprezint URL-urile
+                în Sitemap?</p>
+            <p>
+                Ca la toate fişierele XML, orice valori ale datelor (inclusiv URL-uri) trebuie să
+                utilizeze <a href="#escaped">coduri de ieşire entitate</a> pentru următoarele caractere:
+                ampersand (&amp;), citat simplu ('), citat dublu ("), mai puţin de (&lt;) şi mai
+                mare de (&gt;). De asemenea, ar trebui să vă asiguraţi că toate URL-urile sunt conforme
+                standardului pentru URI-uri <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>,
+                standardului pentru IRI-uri <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+                precum şi standardului <a href="http://www.w3.org/TR/REC-xml/">XML</a>. Dacă utilizaţi
+                un script pentru generarea URL-urilor dvs., puteţi să le asiguraţi ieşirea ca URL
+                ca parte a acelui script. Va fi necesar să le asiguraţi şi ieşirea ca entitate.
+                De exemplu, următorul script python are ieşirea ca entitate http://www.exemplu.ro/viz?widget=3&amp;numar&gt;2</p>
+            <pre>$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.exemplu.ro/viz?widget=3&amp;numar&gt;2")</pre>
+            <p>
+                URL-ul rezultat din exemplul de mai sus este:</p>
+            <pre>http://www.exemplu.ro/viz?widget=3&amp;amp;numar&amp;gt;2</pre>
+            <p class="question">
+                Î: <a name="faq_output_encoding" id="faq_output_encoding"></a>Contează ce metodă
+                de codificare a caracterelor utilizez pentru a genera fişierele mele Sitemap?</p>
+            <p>
+                Da. Fişierele dvs. Sitemap trebuie să utilizeze codificare UTF-8.</p>
+            <p class="question">
+                Î: <a name="faq_specifying_time" id="faq_specifying_time"></a>Cum specific ora?</p>
+            <p>
+                Utilizaţi <a href="http://www.w3.org/TR/NOTE-datetime">codificarea W3C Datetime</a>
+                pentru marcajele de timp lastmod şi pentru toate celelalte date şi ore din acest
+                protocol. De exemplu, 2004-09-22T14:12:14+00:00.</p>
+            <p>
+                Această codificare vă permite să omiteţi porţiunea de timp a formatului ISO8601;
+                de exemplu, şi 2004-09-22 este validă. Totuşi, dacă site-ul dvs. este modificat
+                frecvent, sunteţi încurajat să includeţi porţiunea de timp pentru ca crawlerele
+                să aibă informaţii mai complete despre site-ul dvs.</p>
+            <p class="question">
+                Î: <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Cum calculez ultima
+                dată?</p>
+            <p>
+                Pentru fişiere statistice, aceasta este data actuala de actualizare a fişierului.
+                Puteţi utiliza comanda UNIX de date pentru a obţine acest fişier:</p>
+            <pre>$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00</pre>
+            <p>
+                Pentru multe dintre URL-urile dinamice, este posibil să puteţi calcula uşor o dată
+                lastmod pe baza momentului în care se modifică datele sursă sau utilizând o anumită
+                aproximare pe baza actualizărilor periodice (dacă este cazul). Utilizarea unei date
+                sau a unui marcaj de timp, chiar şi aproximativ, poate ajuta crawlerele să evite
+                accesarea URL-urilor care nu s-au modificat. Se vor reduce astfel cerinţele de lăţime
+                de bandă şi de procesor pentru serverele dvs. Web.</p>
+            <p class="question">
+                Î: <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Unde plasez Sitemap-ul?</p>
+            <p>
+                Vă recomandăm insistent să amplasaţi Sitemap-ul în the directorul rădăcină al serverului
+                dvs. HTML; mai exact, amplasaţi-l la http://example.ro/sitemap.xml.</p>
+            <p>
+                În unele cazuri, s-ar putea să doriţi să faceţi Sitemap-uri diferite pentru căi
+                diferite de pe site-ul dvs. &mdash; de exemplu, dacă permisiunile de securitate
+                din organizaţia dvs. compartimentează accesul la scriere în diferite directoare.</p>
+            <p>
+                Presupunem că dacă aveţi permisiunea să încărcaţi http://exemplu.ro/path/sitemap.xml,
+                aveţi şi permisiunea să raportaţi datele meta prin http://exemplu.ro/path/.</p>
+            <p>
+                Toate URL-urile listate în Sitemap trebuie să aibă aceeaşi gazdă ca şi Sitemap-ul.
+                De exemplu, dacă Sitemap-ul este localizat la http://www.exemplu.ro/sitemap.xml,
+                poate include URL-uri din http://subdomeniu.exemplu.ro. Dacă Sitemap-ul este localizat
+                la http://www.exemplu.ro/fişierulmeu/sitemap.xml, poate include URL-uri din http://subdomeniu.exemplu.ro.</p>
+            <p class="backtotop">
+                <a href="#top">Înapoi la început</a></p>
+            <p class="question">
+                Î: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Cât de mare poate Sitemap-ul
+                meu să fie?</p>
+            <p>
+                Sitemap-urile nu trebuie să fie mai mari de 50 MO (52,428,800 octeţi) şi pot conţine
+                un număr maxim de 50.000 de URL-uri. Aceste limite ne ajută să ne asigurăm că serverul
+                dvs. Web nu se blochează din cauza unor fişiere foarte mari. Aceasta înseamnă că
+                dacă site-ul dvs. conţine mai mult de 50.000 de URL-uri sau Sitemap-ul dvs. este
+                mai mare de 50 MO, trebuie să creaţi fişiere Sitemap multiple şi să utilizaţi un
+                <a href="protocol.html#index">Fişier index Sitemap</a>. Ar trebui să utilizaţi un
+                fişier index Sitemap chiar dacă aveţi un site mic dar plănuiţi să crească cu mai
+                mult de 50.000 de URL-uri sau o mărime de fişier de 50 MO. Un fişier index Sitemap
+                poate include până la 50.000 de Sitemap-uri şi nu trebuie să depăşească 50 MO (52,428,800
+                octeţi). Puteţi utiliza, de asemenea, gzip pentru a comprima Sitemap-urile dvs.</p>
+            <p class="question">
+                Î: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>Site-ul meu
+                are zeci de milioane de URL-uri; există o metodă prin care să pot să le trimit doar
+                pe cele pe care le-am modificat recent?</p>
+            <p>
+                Puteţi lista URL-urile care se modifică frecvent într-un număr mic de Sitemaps,
+                apoi să utilizaţi eticheta <a href="protocol.html#lastmoddef">lastmod</a> în <a href="protocol.html#index">
+                    fişierul dvs. index Sitemap</a> pentru a identifica acele fişiere Sitemap. Motoarele
+                de căutare vor accesa apoi cu crawlere diferenţial numai Sitemaps modificate.</p>
+            <p class="question">
+                Î: <a name="faq_after_submission" id="faq_after_submission"></a>Ce fac după ce am
+                creat Sitemap-ul?</p>
+            <p>
+                Odată ce aţi creat Sitemap-ul, <a href="http://www.sitemaps.org/protocol.html#informing">
+                    anunţaţi motoarele de căutare</a> despre aceasta apelându-le direct, trimiţându-le
+                pachete ping sau adăugând locaţia Sitemap-ului la fişierul dvs. robots.txt.</p>
+            <p class="question">
+                Î: <a name="faq_url_format" id="faq_url_format"></a>URL-urile din Sitemap trebuie
+                specificate complet?</p>
+            <p>
+                Da. Este necesar să includeţi protocolul (de exemplu, http) în URL-ul dvs. Este
+                necesar, de asemenea, să includeţi un slash de final în URL-ul dvs. dacă serverul
+                dvs. Web server o cere. De exemplu, http://www.exemplu.ro/ este un URL valid pentru
+                un Sitemap, pe când www.exemplu.ro nu este.</p>
+            <p class="question">
+                Î: <a name="faq_http_vs_https" id="faq_http_vs_https"></a>Site-ul meu are şi versiunea
+                „http" şi versiunea „https” de URL-uri. Trebuie să le listez pe amândouă?</p>
+            <p class="answers">
+                Nu. Listaţi numai o versiune a unui URL în Sitemap-urile dvs. Includerea unor versiuni
+                multiple de URL-uri poate duce la accesarea cu crawlere incompletă a site-ului dvs.</p>
+            <p class="question">
+                Î: <a name="faq_url_encoding" id="faq_url_encoding"></a>URL-urile de pe site-ul
+                meu au ID-uri de sesiune în ele. Este necesar să le elimin?</p>
+            <p>
+                Da. Includerea de ID-uri de sesiune în URL-uri poate avea ca rezultat o accesare
+                cu crawlere incompletă şi redundantă a site-ului dvs.</p>
+            <p class="question">
+                Î: <a name="faq_url_position" id="faq_url_position"></a>Poziţia unui URL într-un
+                Sitemap influenţează utilizarea sa?</p>
+            <p>
+                Nu. Poziţia unui URL în Sitemap nu este probabil să aibă un impact asupra modului
+                în care acesta este utilizat şi văzut de către motoarele de căutare.</p>
+            <p class="question">
+                Î: <a name="faq_frames" id="faq_frames"></a>Unele dintre paginile site-ului meu
+                utilizează cadre. Ar trebui să includ URL-urile cadrului sau URL-urile din conţinutul
+                cadrului?</p>
+            <p>
+                Includeţi ambele URL-uri.</p>
+            <p class="question">
+                Î: <a name="faq_compression" id="faq_compression"></a>Pot să comprim Sitemap-urile
+                mele sau trebuie să fie comprimate cu gzip?</p>
+            <p>
+                Utilizaţi gzip pentru a comprima Sitemap-urile dvs. Nu uitaţi, Sitemap-ul dvs. nu
+                trebuie să fie mai mare de 50 MO (52,428,800 octeţi), indiferent dacă este sau nu
+                comprimat.</p>
+            <p class="question">
+                Î: <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>Va schimba
+                sugestia „prioritate" din Sitemap-ul XML evaluarea paginilor mele în rezultatele
+                de căutare?</p>
+            <p>
+                Sugestia de „prioritate” din Sitemap-ul dvs. indică doar importanţa unui URL particular
+                în legătură cu alte URL-uri<i>de pe propriul dvs. site</i> şi nu implică vreun efect
+                la evaluarea paginilor dvs. în rezultatele de căutare.</p>
+            <p class="question">
+                Î: <a name="faq_xml_schema" id="faq_xml_schema"></a>Există o schemă XML cu care
+                să pot valida Sitemap-ul meu XML?</p>
+            <p>
+                Da. O schemă XML este disponibilă pentru fişierele Sitemap la <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a> şi o schemă pentru
+                fişierele index Sitemap este disponibilă la <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a>. De asemenea,
+                puteţi citi mai multe despre <a href="protocol.html#validating">validarea Sitemap</a>.</p>
+            <p class="question">
+                Î: <a name="more" id="more"></a>Ce se întâmplă dacă am o altă întrebare despre utilizarea
+                protocolului sau trimiterea unui Sitemap?</p>
+            <p>
+                Vedeţi documentaţia disponibilă pentru fiecare motor de căutare pentru mai multe
+                detalii despre trimiterea şi utilizarea de Sitemaps.</p>
+            <p class="backtotop">
+                <a href="#top">Înapoi la început</a></p>
+            <p class="date">
+                Ultima Actualizare: 21 noiembrie 2016</p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Termeni şi condiţii</a></p>
+    </div>
+</body>
+</html>

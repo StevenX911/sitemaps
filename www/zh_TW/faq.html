@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh-TW" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - 常見問題</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">常見問題</a></li>
+                    <li><a href="protocol.html">通訊協定</a></li>
+                    <li><a href="index.html">首頁</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                常見問題</h1>
+            <p>
+                <a href="#faq_xml_encoding">如何表示在 Sitemap 中的 URL？</a></p>
+            <p>
+                <a href="#faq_output_encoding">使用不同的字元編碼方式來產生 Sitemap 檔案，會有什麼影響嗎？</a></p>
+            <p>
+                <a href="#faq_specifying_time">如何指定時間？</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">如何推算 lastmod 日期？</a></p>
+            <p>
+                <a href="#faq_sitemap_location">要在哪裡放置我的 Sitemap？</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Sitemap 的檔案大小上限為何？</a></p>
+            <p>
+                <a href="#faq_submitting_changes">我的網站中有成千上萬個 URL，我可以只提交最近變更過的部分嗎？</a></p>
+            <p>
+                <a href="#faq_after_submission">在我建立 Sitemap 之後，下一步該做什麼？</a></p>
+            <p>
+                <a href="#faq_url_format">我必須完整指定 Sitemap 中的 URL 嗎？</a></p>
+            <p>
+                <a href="#faq_http_vs_https">我的網站有 http 和 https 兩種版本的 URL，我該將兩者都列出嗎？</a></p>
+            <p>
+                <a href="#faq_url_encoding">我網站中的 URL 含有工作階段 ID。我需要將它們移除嗎？</a></p>
+            <p>
+                <a href="#faq_url_position">URL 在 Sitemap 中的位置會不會影響其用途？</a></p>
+            <p>
+                <a href="#faq_frames">我的網站中有某些網頁使用頁框，我是否應該將頁框組的 URL 或頁框內容的 URL 也包含在內？</a></p>
+            <p>
+                <a href="#faq_compression">我可以自行壓縮我的 Sitemap 嗎？還是一定要使用 gzip 來壓縮？</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">XML Sitemap 中的 priority 提示是否會變更我的網頁在搜尋結果中的排名？</a></p>
+            <p>
+                <a href="#faq_xml_schema">有沒有可用來驗證 XML Sitemap 的 XML 配置？</a></p>
+            <p>
+                <a href="#more">如果我有其他關於使用通訊協定或提交 Sitemap 的問題該怎麼辦？</a></p>
+            <hr />
+            <p class="question">
+                問：<a name="faq_xml_encoding" id="faq_xml_encoding"></a>如何表示在 Sitemap 中的 URL？</p>
+            <p>
+                如同所有的 XML 檔案一樣，下列字元的任何資料值 (包括 URL)，都必須使用<a href="#escaped">實體逸出碼</a>：AND 符號 (&amp;)、單引號
+                (')、雙引號 (")、小於 (&lt;) 以及大於 (&gt;)。同時您也應該確認所有的 URL 都遵循 <a href="http://www.ietf.org/rfc/rfc3986.txt">
+                    RFC-3986</a> URI 標準、<a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+                IRI 標準，以及 <a href="http://www.w3.org/TR/REC-xml/">XML 標準</a>。如果您使用指令碼來產生 URL，通常可以在該指令碼中加入
+                URL 逸出的指令。您還是必須將它們實體逸出。例如，以下 python 指令碼會將實體逸出 http://www.example.com/view?widget=3&amp;count&gt;2</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                上述範例的結果 URL 為：</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                問：<a name="faq_output_encoding" id="faq_output_encoding"></a>使用不同的字元編碼方式來產生 Sitemap
+                檔案，會有什麼影響嗎？</p>
+            <p>
+                是的。您的 Sitemap 檔案必須使用 UTF-8 編碼。</p>
+            <p class="question">
+                問：<a name="faq_specifying_time" id="faq_specifying_time"></a>如何指定時間？</p>
+            <p>
+                此通訊協定中的 lastmod 時間戳記以及其他日期與時間，請使用 <a href="http://www.w3.org/TR/NOTE-datetime">W3C 日期時間編碼</a>。例如，2004-09-22T14:12:14+00:00。</p>
+            <p>
+                此編碼允許您略過 ISO8601 格式中時間的部分，例如，2004-09-22 也是有效的。不過，如果您的網站經常變更，建議您將時間部分包含在內，以便讓搜尋器得到更多關於您網站的完整資訊。</p>
+            <p class="question">
+                問：<a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>如何推算 lastmod 日期？</p>
+            <p>
+                對靜態檔案而言，這是指實際的檔案更新日期。您可以使用 UNIX 的 date 指令來取得這個日期：</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                對於大部分的動態 URL，您或許可以根據基本資料何時變更，或者根據定期的更新大概日期 (若適用的話)，來輕易地推斷出 lastmod 日期。您甚至可以使用大約的日期或時間戳記，以避免搜尋器檢索尚未變更的
+                URL。這樣可以降低您網頁伺服器對頻寬和 CPU 的需求。</p>
+            <p class="question">
+                問：<a name="faq_sitemap_location" id="faq_sitemap_location"></a>我的 Sitemap 要放在哪裡？</p>
+            <p>
+                我們強烈建議您將 Sitemap 放在您 HTML 伺服器的根目錄中，也就是位於 http://example.com/sitemap.xml。</p>
+            <p>
+                在某些情況下，您可能想要針對您網站上不同的路徑來產生不同的 Sitemap，例如，當您組織的安全性權限會針對不同目錄劃分不同的使用權限時。</p>
+            <p>
+                我們假定您有權限上載 http://example.com/path/sitemap.xml，則您也有報告 http://example.com/path/ 下之中繼資料的權限。</p>
+            <p>
+                列在 Sitemap 中的所有 URL 必須和 Sitemap 位於同一個主機。例如，如果 Sitemap 位於 http://www.example.com/sitemap.xml，就不可包含來自
+                http://subdomain.example.com 的 URL。如果 Sitemap 位於 http://www.example.com/myfolder/sitemap.xml，就不可包含來自
+                http://www.example.com 的 URL。</p>
+            <p class="backtotop">
+                <a href="#top">回到頁首</a></p>
+            <p class="question">
+                問：<a name="faq_sitemap_size" id="faq_sitemap_size"></a>Sitemap 的檔案大小上限為何？</p>
+            <p>
+                Sitemaps 不得大於 50MB (52,428,800 位元組)，且最多能包含 50,000 個 URL。這些限制是為了確保您的網頁伺服器不會因為傳送的檔案過大而當機。表示如果您的網站包含
+                50,000 個以上的 URL，或您的 Sitemap 大於 50MB,，您必須建立多個 Sitemap 檔案，並且使用 <a href="protocol.html#index">
+                    Sitemap 索引檔</a>。即使您擁有的是一個小型網站，但如果您計劃將網站成長至含 50,000 個 URL 或 50MB. 大小的檔案的規模，則仍應使用
+                Sitemap 索引檔。Sitemap 索引檔至多可包含 50,000 個 Sitemap，且不可超過 50MB (52,428,800 位元組)。您也可以使用
+                gzip 來壓縮您的 Sitemap。</p>
+            <p class="question">
+                問：<a name="faq_submitting_changes" id="faq_submitting_changes"></a>我的網站中有成千上萬個 URL，我可以只提交最近變更過的部分嗎？</p>
+            <p>
+                您可以將經常更新的 URL 列在少數的 Sitemap 中，然後在您的 <a href="protocol.html#index">Sitemap 索引檔</a>中使用
+                <a href="protocol.html#lastmoddef">lastmod</a> 標記來辨識這些 Sitemap 檔案。這樣一來搜尋引擎只會額外檢索已變更的
+                Sitemap。</p>
+            <p class="question">
+                問：<a name="faq_after_submission" id="faq_after_submission"></a>在我建立 Sitemap 之後，下一步該做什麼？</p>
+            <p>
+                Once you have created your Sitemap, <a href="http://www.sitemaps.org/protocol.html#informing">
+                    let search engines know</a> about it by submitting directly to them, pinging
+                them, or adding the Sitemap location to your robots.txt file.</p>
+            <p class="question">
+                問：<a name="faq_url_format" id="faq_url_format"></a>我必須完整指定 Sitemap 中的 URL 嗎？</p>
+            <p>
+                是的。您需要在 URL 中加入通訊協定 (例如 http)。如果您的網頁伺服器有要求尾端斜線的話，您也必須在 URL 的尾端加入斜線。例如，http://www.example.com/
+                對於 Sitemap 而言是有效的 URL，而 www.example.com 則不是。</p>
+            <p class="question">
+                問：<a name="faq_http_vs_https" id="faq_http_vs_https"></a>我的網站有 http 和 https 兩種版本的
+                URL，我該將兩者都列出嗎？</p>
+            <p class="answers">
+                不是，請列出您 Sitemaps 中的一種 URL 版本即可。包含多個版本的 URL，可能會讓搜尋器無法完整檢索您的網站。</p>
+            <p class="question">
+                問：<a name="faq_url_encoding" id="faq_url_encoding"></a>我網站中的 URL 含有工作階段 ID。我需要移除它們嗎？</p>
+            <p>
+                是的。在 URL 中包含工作階段 ID，可能會造成網站檢索不完整與多餘的檢索。</p>
+            <p class="question">
+                問：<a name="faq_url_position" id="faq_url_position"></a>URL 在 Sitemap 中的位置會不會影響其用途？</p>
+            <p>
+                否，URL 在 Sitemap 中的位置並不會影響搜尋引擎使用或辨識該 URL 的方式。</p>
+            <p class="question">
+                問：<a name="faq_frames" id="faq_frames"></a>我的網站中有某些網頁使用頁框，我是否應該將頁框組的 URL 或頁框內容的
+                URL 也包含在內？</p>
+            <p>
+                請附上這兩個 URL。</p>
+            <p class="question">
+                問：<a name="faq_compression" id="faq_compression"></a>我可以自行壓縮我的 Sitemap 嗎？還是一定要使用
+                gzip 來壓縮？</p>
+            <p>
+                請使用 gzip 來壓縮 Sitemap。請記住，無論是否有壓縮，您的 Sitemap 均不可大於 50MB (52,428,800 位元組)。</p>
+            <p class="question">
+                問：<a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>XML Sitemap
+                中的 "priority" 提示是否會變更我的網頁在搜尋結果中的排名？</p>
+            <p>
+                Sitemap 中的「優先順序」提示只是用來表示<i></i>您自己網站中的某特定 URL 在和其餘 URL 相較之下的重要性，而這對您網頁在搜尋結果中的排名並不會有任何影響。</p>
+            <p class="question">
+                問：<a name="faq_xml_schema" id="faq_xml_schema"></a>有沒有可用來驗證 XML Sitemap 的 XML 配置？</p>
+            <p>
+                是的。您可以在 <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a>
+                取得 Sitemap 檔案的 XML 配置，也可以在 <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a> 取得 Sitemap 索引檔的配置。您也可以參閱更多關於<a
+                        href="protocol.html#validating">驗證 Sitemap</a> 的詳細資訊。</p>
+            <p class="question">
+                問：<a name="more" id="more"></a>如果我有其他關於使用通訊協定或提交 Sitemap 的問題該怎麼辦？</p>
+            <p>
+                請參閱各搜尋引擎的說明文件，以瞭解更多關於 Sitemap 的提交方式和用法。</p>
+            <p class="backtotop">
+                <a href="#top">回到頁首</a></p>
+            <p class="date">
+                上次更新日期：2016 年 11 月 21 日
+            </p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">條款及細則</a></p>
+    </div>
+</body>
+</html>

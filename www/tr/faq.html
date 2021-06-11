@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="tr" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - SSS</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">SSS</a></li>
+                    <li><a href="protocol.html">Protokol</a></li>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Sık sorulan sorular</h1>
+            <p>
+                <a href="#faq_xml_encoding">URL'leri Site Haritasında nasıl gösterebilirim?</a></p>
+            <p>
+                <a href="#faq_output_encoding">Site Haritası dosyalarımı oluşturmak için hangi karakter
+                    kodlama yöntemini kullandığım önemli mi?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Saati nasıl belirtebilirim?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Son değiştirme tarihini nasıl hesaplayabilirim?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Site Haritamı nereye yerleştirebilirim?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Site Haritam ne kadar büyük olabilir?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">Sitemde on milyonlarca URL var; yalnızca yakın zamanda
+                    değişenleri göndermem mümkün mü?</a></p>
+            <p>
+                <a href="#faq_after_submission">Site Haritamı oluşturduktan sonra ne yapacağım?</a></p>
+            <p>
+                <a href="#faq_url_format">URL'lerin Site Haritası'nda tam olarak belirtilmesi gerekir
+                    mi?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">Sitem, URL'lerin hem "http" hem de "https" versiyonlarını
+                    içeriyor. Her ikisini de listelemem gerekiyor mu?</a></p>
+            <p>
+                <a href="#faq_url_encoding">Sitemdeki URL'ler oturum kimlikleri içeriyor. Onları çıkarmam
+                    gerekiyor mu?</a></p>
+            <p>
+                <a href="#faq_url_position">Bir URL'nin bir Site Haritasındaki konumu kullanımını etkiler
+                    mi?</a></p>
+            <p>
+                <a href="#faq_frames">Sitemdeki bazı sayfalarda çerçeve kullanılır. Çerçeve kümesi URL'lerini
+                    mi, yoksa çerçeve içeriklerinin URL'lerini mi eklemeliyim?</a></p>
+            <p>
+                <a href="#faq_compression">Site Haritalarımı zip'leyebilir miyim, yoksa gzip'lenmeleri
+                    mi gerekir?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">XML Site Haritasındaki "öncelik" ipucu, sayfalarımın
+                    arama sonuçlarındaki sıralamasını değiştirir mi?</a></p>
+            <p>
+                <a href="#faq_xml_schema">XML Site Haritamı doğrulamak için kullanabileceğim bir XML
+                    şeması var mı?</a></p>
+            <p>
+                <a href="#more">Protokolü kullanma veya bir Site Haritası gönderme hakkında başka bir
+                    sorum daha varsa, ne yapabilirim?</a></p>
+            <hr />
+            <p class="question">
+                S: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>URL'leri Site Haritasında
+                nasıl gösterebilirim?</p>
+            <p>
+                Tüm XML dosyalarında olduğu gibi, aşağıdaki karakterler için tüm veri değerleri
+                (URL'ler dahil) <a href="#escaped">entity escape kodları</a> kullanmalıdır: ve işareti
+                (&amp;), tek tırnak ('), çift tırnak ("), küçüktür (&lt;) ve büyüktür (&gt;). Ayrıca,
+                tüm URL'lerin URI'lar için <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>
+                standardına, IRI'lar için <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+                standardına ve <a href="http://www.w3.org/TR/REC-xml/">XML standardına</a> uyduğundan
+                emin olmalısınız. URL'lerinizi oluşturmak için komut dosyası kullanıyorsanız, bu
+                komut dosyasının bir parçası olarak genelde bunları 'URL escape' olarak belirleyebilirsiniz.
+                Yine de bunları 'entity escape' olarak belirlemeniz gerekecektir. Örneğin, aşağıdaki
+                python komut dosyası http://www.example.com/view?widget=3&amp;count&gt;2 URL'sini
+                'entity escape' olarak belirler.</p>
+            <pre>$ python
+Python 2.2.2 (#1, 24 Şub 2003, 19:13:11)  
+&gt;&gt;&gt; içe aktar xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")</pre>
+            <p>
+                Yukarıdaki örnekte oluşan URL:</p>
+            <pre>http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2</pre>
+            <p class="question">
+                S: <a name="faq_output_encoding" id="faq_output_encoding"></a>Site Haritası dosyalarımı
+                oluşturmak için hangi karakter kodlama yöntemini kullandığım önemli mi?</p>
+            <p>
+                Evet. Site Haritası dosyalarınızda UTF-8 kodlaması kullanılmalıdır.</p>
+            <p class="question">
+                S: <a name="faq_specifying_time" id="faq_specifying_time"></a>Saati nasıl belirtebilirim?</p>
+            <p>
+                Son değiştirme zaman damgaları ve bu protokoldeki tüm diğer tarihler ve saatler
+                için <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime kodlamasını</a> kullanın.
+                Örneğin, 2004-09-22T14:12:14+00:00.</p>
+            <p>
+                Bu kodlama, ISO8601 biçiminin saat bölümünü çıkarmanıza olanak sağlar; örneğin,
+                2004-09-22 de geçerlidir. Bununla birlikte, siteniz sık sık değişiyorsa, tarayıcıların
+                sitenizle ilgili daha bütünlüklü bilgiye sahip olmaları için saat bölümünü eklemeniz
+                tavsiye edilir.</p>
+            <p class="question">
+                S: <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Son değiştirme
+                tarihini nasıl hesaplayabilirim?</p>
+            <p>
+                Statik dosyalar için, bu gerçek dosya güncelleme tarihidir. Bu tarihi almak için
+                UNIX tarih komutunu kullanabilirsiniz:</p>
+            <pre>$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00</pre>
+            <p>
+                Birçok dinamik URL için, gerideki verilerin ne zaman değiştirildiğine dayalı olarak
+                veya düzenli güncellemelere (varsa) dayalı bazı tahminler kullanarak, bir son güncelleme
+                tarihini kolayca hesaplayabilirsiniz. Bir tahmini tarih veya zaman damgası kullanmak
+                bile, tarayıcıların değiştirilmemiş olan URL'leri taramaktan kaçınmalarına yardımcı
+                olabilir. Bu, web sunucularınız için bant genişliğini ve CPU gereksinimlerini azaltır.</p>
+            <p class="question">
+                S: <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Site Haritamı nereye
+                yerleştirebilirim?</p>
+            <p>
+                Site Haritanızı HTML sunucunuzun kök dizinine yerleştirmeniz önemle tavsiye edilir;
+                yani, http://example.com/sitemap.xml adresine yerleştirin.</p>
+            <p>
+                Bazı durumlarda, örneğin kuruluşunuzdaki güvenlik izinleri farklı dizinlere yazma
+                erişimini bölümlendirirse, sitenizdeki farklı yollar için farklı Site Haritaları
+                üretmek isteyebilirsiniz.</p>
+            <p>
+                http://example.com/path/sitemap.xml dosyasını karşıya yükleme izniniz varsa, http://example.com/path/
+                altında meta verileri bildirme izninizin de olduğunu varsayarız.</p>
+            <p>
+                Site Haritasında listelenen tüm URL'ler, Site Haritası ile aynı ana bilgisayarda
+                bulunmalıdır. Örneğin, Site Haritası http://www.example.com/sitemap.xml adresinde
+                bulunuyorsa, http://subdomain.example.com sitesinden URL'ler içeremez. Site Haritası
+                http://www.example.com/myfolder/sitemap.xml adresinde bulunuyorsa, http://www.example.com
+                sitesinden URL'ler içeremez.</p>
+            <p class="backtotop">
+                <a href="#top">Başa dön</a></p>
+            <p class="question">
+                S: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Site Haritam ne kadar büyük
+                olabilir?</p>
+            <p>
+                Site Haritaları 50MB'den (52,428,800 bayt) büyük olmamalı ve en fazla 50.000 URL
+                içermelidir. Bu limitler, web sunucunuzun çok büyük dosyalar sunması nedeniyle kilitlenmemesini
+                sağlar. Bu, siteniz 50.000'den fazla URL içeriyorsa veya Site Haritanız 50MB,'den
+                büyükse, birden fazla Site Haritası dosyası oluşturmanız ve bir <a href="protocol.html#index">
+                    Site Haritası dizin dosyası</a> kullanmanız gerektiği anlamına gelir. Küçük
+                bir siteniz olsa bile, 50.000'den fazla URL içerecek veya dosya büyüklüğü 50MB'yi
+                aşacak şekilde büyütmeyi planlıyorsanız, Site Haritası dizin dosyası kullanmalısınız.
+                Site Haritası dizin dosyası en çok 50000 Site Haritası içerebilir ve 50MB'yi (52,428,800
+                bayt) aşmamalıdır. Site Haritalarınızı sıkıştırmak için gzip de kullanabilirsiniz.</p>
+            <p class="question">
+                S: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>Sitemde on milyonlarca
+                URL var; yalnızca yakın zamanda değişenleri göndermem mümkün mü?</p>
+            <p>
+                Az sayıdaki Site Haritalarında sık sık değişen URL'leri listeleyebilir ve sonra
+                o Site Haritası dosyalarını tanıtmak için <a href="protocol.html#index">Site Haritası
+                    dizini dosyasında</a> <a href="protocol.html#lastmoddef">lastmod</a> etiketini
+                kullanabilirsiniz. Arama motorları daha sonra, yalnızca değiştirilen Site Haritalarını
+                artımlı olarak tarayabilir.</p>
+            <p class="question">
+                S: <a name="faq_after_submission" id="faq_after_submission"></a>Site Haritamı oluşturduktan
+                sonra ne yapacağım?</p>
+            <p>
+                Once you have created your Sitemap, <a href="http://www.sitemaps.org/protocol.html#informing">
+                    let search engines know</a> about it by submitting directly to them, pinging
+                them, or adding the Sitemap location to your robots.txt file.</p>
+            <p class="question">
+                S: <a name="faq_url_format" id="faq_url_format"></a>URL'lerin Site Haritası'nda
+                tam olarak belirtilmesi gerekir mi?</p>
+            <p>
+                Evet. URL'nize protokolü (örneğin, http) eklemeniz gerekir. Web sunucunuz gerektiriyorsa,
+                URL'nizin sonuna bir eğik çizgi de eklemeniz gerekir. Örneğin, http://www.example.com/
+                bir Site Haritası için geçerli bir URL'dir, www.example.com ise geçerli değildir.</p>
+            <p class="question">
+                S: <a name="faq_http_vs_https" id="faq_http_vs_https"></a>Sitem, URL'lerin hem "http"
+                hem de "https" versiyonlarını içeriyor. Her ikisini de listelemem gerekiyor mu?</p>
+            <p class="answers">
+                Hayır. Lütfen Site Haritalarınızda URL'nin tek bir sürümünü listeleyin. URL'lerin
+                birden fazla sürümünün eklenmesi, sitenizin eksik taranmasına neden olabilir.</p>
+            <p class="question">
+                S: <a name="faq_url_encoding" id="faq_url_encoding"></a>Sitemdeki URL'ler oturum
+                kimlikleri içerir. Onları çıkarmam gerekiyor mu?</p>
+            <p>
+                Evet. Oturum kimliklerini URL'lere eklemek, sitenizin eksik ve gereksiz yere taranmasına
+                neden olabilir.</p>
+            <p class="question">
+                S: <a name="faq_url_position" id="faq_url_position"></a>Bir URL'nin bir Site Haritasındaki
+                konumu kullanımını etkiler mi?</p>
+            <p>
+                Hayır. URL'nin Site Haritası içindeki konumunun, arama motoru tarafından nasıl kullanıldığını
+                ve değerlendirildiğini etkilemesi olası değildir.</p>
+            <p class="question">
+                S: <a name="faq_frames" id="faq_frames"></a>Sitemdeki bazı sayfalarda çerçeve kullanılıyor.
+                Çerçeve kümesi URL'lerini mi, yoksa çerçeve içeriklerinin URL'lerini mi eklemeliyim?</p>
+            <p>
+                Lütfen her iki URL'yi de ekleyin.</p>
+            <p class="question">
+                S: <a name="faq_compression" id="faq_compression"></a>Site Haritalarımı zip'leyebilir
+                miyim, yoksa gzip'lenmeleri mi gerekir?</p>
+            <p>
+                Site Haritalarınızı sıkıştırmak için lütfen gzip kullanın. Unutmayın, Site Haritanız
+                sıkıştırılmış olsun veya olmasın 50MB'den 50MB (52,428,800 bayt) büyük olmamalıdır.</p>
+            <p class="question">
+                S: <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>XML
+                Site Haritasındaki "öncelik" ipucu, sayfalarımın arama sonuçlarındaki sıralamasını
+                değiştirir mi?</p>
+            <p>
+                Site Haritanızdaki "öncelik" ipucu, yalnızca <i>kendi sitenizdeki</i> diğer URL'lere
+                göre belirli bir URL'nin önemini belirtir ve sayfalarınızın arama sonuçlarındaki
+                sıralaması üzerinde hiçbir etkisi olmaz.</p>
+            <p class="question">
+                S: <a name="faq_xml_schema" id="faq_xml_schema"></a>XML Site Haritamı doğrulamak
+                için kullanabileceğim bir XML şeması var mı?</p>
+            <p>
+                Evet. Site Haritası dosyaları için bir XML şeması <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a> adresinde ve Site
+                Haritası dizini dosyaları için bir şema <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a> adresinde bulunur.
+                Ayrıca, <a href="protocol.html#validating">Site Haritanızı doğrulamak</a> ile ilgili
+                daha fazla bilgi de okuyabilirsiniz.</p>
+            <p class="question">
+                S: <a name="more" id="more"></a>Protokolü kullanma veya bir Site Haritası gönderme
+                hakkında başka bir sorum daha varsa, ne yapabilirim?</p>
+            <p>
+                Site Haritalarının gönderilmesi ve kullanımıyla ilgili daha fazla ayrıntı için,
+                her bir arama motorunda erişilebilir olan belgelere bakın.</p>
+            <p class="backtotop">
+                <a href="#top">Başa dön</a></p>
+            <p class="date">
+                Son Güncelleme: 21 Kasım 2016</p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Şartlar ve Koşullar</a></p>
+    </div>
+</body>
+</html>

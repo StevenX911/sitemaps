@@ -1,0 +1,1386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+
+    <title>sitemaps.org – 프로토콜</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection" />
+
+</head>
+
+<body>
+
+    <a name="top" id="top"></a>
+
+    <div id="container">
+
+        <div id="intro">
+
+            <div id="pageHeader">
+
+                <h1>
+
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+
+            </div>
+
+            <div id="selectionbar">
+
+                <ul>
+
+                    <li><a href="faq.html">FAQ</a></li>
+
+                    <li class="activelink"><a href="#">프로토콜</a></li>
+
+                    <li><a href="index.html">홈</a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="mainContent">
+
+            <h1>
+
+                <a name="sitemaps_protocol" id="sitemaps_protocol"></a>Sitemap XML 형식
+
+            </h1>
+
+            <blockquote>
+
+                <b>바로 이동:</b><br />
+
+                <a href="#xmlTagDefinitions">XML 태그 정의</a><br />
+
+                <a href="#escaping">엔티티 이스케이프</a><br />
+
+                <a href="#index">Sitemap 색인 파일 사용</a><br />
+
+				<a href="#otherformats"> 기타 Sitemap 형식</a><br />
+
+                <a href="#location">Sitemap 파일 위치</a><br />
+
+                <a href="#validating">Sitemap 확인</a><br />
+
+                <a href="#extending">Sitemap 프로토콜 확장</a><br />
+
+                <a href="#informing">검색 엔진 크롤러에 정보 제공</a>
+
+            </blockquote>
+
+            <p>
+
+                이 문서에서는 Sitemap 프로토콜의 XML 스키마를 설명합니다.</p>
+
+            <p>
+
+                Sitemap 프로토콜 형식은 XML 태그로 구성됩니다. Sitemap의 모든 데이터 값은 <a href="#escaping">엔티티 이스케이프</a>되어야
+
+                하며 파일 자체는 UTF-8로 인코딩되어 있어야 합니다.</p>
+
+            <p>
+
+                Sitemap은 다음 사항을 만족해야 합니다.</p>
+
+            <ul>
+
+                <li>여는 <code>&lt;<a href="#urlsetdef">urlset</a>&gt;</code> 태그로 시작해 닫는 <code>&lt;/urlset&gt;</code>
+
+                    태그로 끝납니다</li>
+
+                <li><code>&lt;urlset&gt;</code> 태그 안에 네임스페이스(프로토콜 표준)를 지정합니다. </li>
+
+                <li>각 URL의 <code>&lt;<a href="#urldef">url</a>&gt;</code> 항목을 상위 XML 태그로 포함시켜야 합니다.</li>
+
+                <li>각 <code>&lt;url&gt;</code> 상위 태그에 <code>&lt;<a href="#locdef">loc</a>&gt;</code>
+
+                    하위 항목을 포함시켜야 합니다.</li>
+
+            </ul>
+
+            <p>
+
+                나머지 태그는 모두 옵션입니다. 이러한 옵션 태그에 대한 지원 여부는 검색 엔진에 따라 다를 수 있습니다. 자세한 내용을 보려면 각 검색 엔진
+
+                설명서를 참조하십시오.</p>
+
+            <p>
+
+                또한 Sitemap의 모든 URL은 www.example.com이나 store.example과 같이 호스트가 하나여야 합니다. 자세한 내용은 <a
+
+                    href="#location">Sitemap 파일 위치</a>를 참조하십시오.</p>
+
+            <h3>
+
+                샘플 XML Sitemap</h3>
+
+            <p>
+
+                URL이 하나만 들어 있으며 모든 옵션 태그를 사용하는 Sitemap의 예는 아래와 같습니다. 옵션 태그는 기울임체로 표시됩니다.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;</em>
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt; 
+
+</pre>
+
+            <p>
+
+                <a href="#sitemapXMLExample">여러 개의 URL</a>이 있는 예도 참조하실 수 있습니다.</p>
+
+            <h2>
+
+                <a name="xmlTagDefinitions" id="xmlTagDefinitions"></a>XML 태그 정의</h2>
+
+            <p>
+
+                사용 가능한 XML 태그에 대해서는 아래에 설명되어 있습니다.</p>
+
+            <table width="80%">
+
+                <th>
+
+                    속성
+
+                </th>
+
+                <th>
+
+                </th>
+
+                <th>
+
+                    설명
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        <a name="urlsetdef" id="urlsetdef"></a><code>&lt;urlset&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        필수
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            파일을 캡슐화하고 현재 프로토콜 표준을 참조합니다.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="urldef" id="urldef"></a><code>&lt;url&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        필수
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            각 URL 항목의 상위 태그. 나머지 태그는 이 태그의 하위 태그입니다.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="locdef" id="locdef"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        필수
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            페이지의 URL. 해당 URL은 http 같은 프로토콜로 시작해야 하며 웹서버에 따라 슬래시로 끝나야 합니다. 이 값은 2,048자 미만이어야
+
+                            합니다.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="lastmoddef" id="lastmoddef"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        옵션
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            파일을 마지막으로 수정한 날짜입니다. 이 날짜는 <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime</a>
+
+                            형식이어야 합니다. 이 형식에서는 시간 부분을 생략할 수 있으며 원하는 경우 YYYY-MM-DD 형식을 사용할 수 있습니다.</p>
+
+                        <p>
+
+                            이 태그는 서버에서 반환할 수 있는 If-Modified-Since(304) 헤더와 다르므로 검색 엔진은 두 소스에서 다른 정보를 사용할 수 있습니다.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="changefreqdef" id="changefreqdef"></a><code>&lt;changefreq&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        옵션
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            페이지가 변경되는 빈도. 이 값은 검색 엔진에 일반적인 정보를 제공하며 검색 엔진에서 페이지를 크롤링하는 정확한 빈도와는 관련이 없을 수도 있습니다.
+
+                            유효한 값은 다음과 같습니다.</p>
+
+                        <ul>
+
+                            <li>always</li>
+
+                            <li>hourly</li>
+
+                            <li>daily</li>
+
+                            <li>weekly</li>
+
+                            <li>monthly</li>
+
+                            <li>yearly</li>
+
+                            <li>never</li>
+
+                        </ul>
+
+                        <p>
+
+                            값 "always"는 액세스할 때마다 변경되는 문서를 설명하는 데 사용해야 합니다. 값 "never"는 보관된 URL을 설명하는 데 사용해야 합니다.</p>
+
+                        <p>
+
+                            태그의 값은 <i>힌트</i> 이지 명령이 아닙니다.검색 엔진 크롤러에서 결정을 내릴 때 해당 정보를 고려하더라도 "hourly"이라고 표시된
+
+                            페이지를 이보다 더 적은 빈도로 크롤링하고 "yearly"이라고 표시된 페이지를 이보다 더 자주 크롤링할 수 있습니다.크롤러는 "절대 하지 않음(never)"이라고
+
+                            표시된 페이지가 예기치 않게 변경되더라도 이를 처리할 수도 있도록해당 페이지도 정기적으로 크롤링합니다.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="prioritydef" id="prioritydef"></a><code>&lt;priority&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        옵션
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            해당 사이트의 기타 URL에 대한 특정 URL의 상대적 우선순위.유효값 범위는 0.0-1.0입니다.이 값은 다른 사이트의 페이지와 귀하의 페이지를
+
+                            비교하는 방식에 아무런 영향을 주지 않으며, 귀하가 귀하의 사이트에서 크롤러에 가장 중요하다고 생각하는 페이지를 검색 엔진에 알리기만 합니다.</p>
+
+                        <p>
+
+                            페이지의 기본 우선순위는 0.5입니다.</p>
+
+                        <p>
+
+                            귀하가 페이지에 지정한 우선순위는 검색 엔진의 결과 페이지에서 URL의 순위에 별 영향을 미치지 않습니다.검색 엔진에서는 같은 사이트에 있는 URL
+
+                            중 하나를 선택할 때 이러한 정보를 사용할 수 있으므로 해당 태그를 사용하면 같은 사이트 내에서 중요도가 높은 페이지가 검색색인에 나타나게 할
+
+                            가능성을 높일 수는 있습니다.</p>
+
+                        <p>
+
+                            또한 사이트의 모든 URL에 높은 우선순위를 지정해도 사이트의 순위를 높이는 데는 아무런 도움이 되지 않습니다.우선순위는 상대적인 것으로 사이트
+
+                            내의 URL 중 하나를 선택하는 데만 사용됩니다.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">맨위로</a></p>
+
+            <h2>
+
+                <a name="escaping" id="escaping"></a>엔티티 이스케이프</h2>
+
+            <p>
+
+                Sitemap 파일은 UTF-8로 인코딩해야 합니다. 일반적으로 파일을 저장할 때 인코딩을 지정할 수 있습니다. 모든 XML 파일과 마찬가지로
+
+                모든 데이터 값(URL 포함)은 아래 표에 나와 있는 문자에 대해 엔티티 이스케이프 코드를 사용해야 합니다.</p>
+
+            <table>
+
+                <th colspan="2">
+
+                    문자
+
+                </th>
+
+                <th>
+
+                    이스케이프 코드
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        앰퍼샌드
+
+                    </td>
+
+                    <td>
+
+                        &amp;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;amp;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        작은 따옴표
+
+                    </td>
+
+                    <td>
+
+                        '
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;apos;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        큰 따옴표
+
+                    </td>
+
+                    <td>
+
+                        "
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;quot;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        보다 큼
+
+                    </td>
+
+                    <td>
+
+                        &gt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;gt;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        보다 작음
+
+                    </td>
+
+                    <td>
+
+                        &lt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;lt;</code>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p>
+
+                또한 Sitemap의 URL을 포함한 모든 URL은 해당 URL이 위치한 웹서버에서 쉽게 읽을 수 있도록 인코딩되어야 하며 URL-이스케이프(URL-escaped)가
+
+                되어 있어야 합니다.그러나 URL을 직접 입력하여 작성하는 대신 어떤 종류이든 상관없이 스크립트, 도구 또는 로그파일을 사용하여 URL을 작성하면
+
+                보통 해당 작업이 알아서 완료됩니다. 또한 귀하의 URL이 URI의 <a href="http://www.ietf.org/rfc/rfc3986.txt">
+
+                    RFC-3986</a> 표준, IRI의 <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+
+                표준 및 <a href="http://www.w3.org/TR/REC-xml/">XML 표준</a>을 따르는지 확인하십시오.</p>
+
+            <p>
+
+                다음은 비ASCII 문자(<code>&uuml;</code>) 및 엔티티 이스케이프(<code>&amp;</code>)가 필요한 문자를 사용하는
+
+                URL의 예입니다.</p>
+
+            <pre>http://www.example.com/&uuml;mlat.html&amp;q=name</pre>
+
+            <p>
+
+                다음은 ISO-8859-1로 인코딩되고(해당 인코딩을 사용하는 서버에서 호스팅하는 경우) URL이 이스케이프된 URL의 예입니다.</p>
+
+            <pre>http://www.example.com/%FCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                다음은 UTF-8로 인코딩되고(해당 인코딩을 사용하는 서버에서 호스팅하는 경우) URL이 이스케이프된 URL의 예입니다.</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                아래에는 엔티티 이스케이프된 URL이 나와 있습니다.</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;amp;q=name</pre>
+
+            <h3>
+
+                <a name="sitemapXMLExample" id="sitemapXMLExample"></a>샘플 XML Sitemap</h3>
+
+            <p>
+
+                다음 예에서는 XML 형식의 Sitemap을 보여 줍니다. 이 예의 Sitemap에는 몇 개의 URL이 들어 있으며 URL마다 다른 옵션 매개변수
+
+                집합이 사용됩니다.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=12&amp;amp;desc=vacation_hawaii&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=73&amp;amp;desc=vacation_new_zealand&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=74&amp;amp;desc=vacation_newfoundland&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23T18:00:15+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.3&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=83&amp;amp;desc=vacation_usa&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-11-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">맨위로</a></p>
+
+            <h2>
+
+                <a name="index" id="index"></a>Sitemap 색인 파일을 사용하여 여러 Sitemap 파일을 그룹화하기</h2>
+
+            <p>
+
+                여러 개의 Sitemap 파일을 제공할 수는 있지만 각 Sitemap 파일마다 URL을 50,000개까지만 포함할 수 있으며 파일 크기는 50MB(52,428,800바이트)를
+
+                초과할 수 없습니다. 필요한 경우 대역폭 요구사항을 줄이기 위해 gzip을 사용하여 Sitemap 파일을 압축할 수 있습니다. 그러나 파일의 압축을
+
+                풀었을 때에도 50MB를 초과하면 안 됩니다. URL을 50,000개 이상 나열하려면 Sitemap 파일을 여러 개 만들어야 합니다.</p>
+
+            <p>
+
+                Sitemap을 여러 개 제공해야 하는 경우 Sitemap 색인 파일에 각 Sitemap 파일을 나열해야 합니다. Sitemap 색인 파일에는
+
+                Sitemap을 50,000개까지만 나열할 수 있으며 크기는 50MB(52,428,800바이트)를 초과할 수 없습니다. 단, 압축할 수 있으며 Sitemap
+
+                색인 파일을 두 개 이상 만들 수 있습니다. Sitemap 색인 파일의 XML 형식은 Sitemap 파일의 XML 형식과 매우 비슷합니다.</p>
+
+            <p>
+
+                Sitemap 색인 파일은 다음 사항을 만족해야 합니다.</p>
+
+            <ul>
+
+                <li>여는 <code>&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a>&gt;</code> 태그로
+
+                    시작해 닫는 <code>&lt;/sitemapindex&gt;</code> 태그로 끝납니다.</li>
+
+                <li>각 Sitemap의 <code>&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;</code> 항목을
+
+                    상위 XML 태그로 포함시키십시오.</li>
+
+                <li>각 <code>&lt;sitemap&gt;</code> 상위 태그에 대한 <code>&lt;<a href="#sitemapIndex_loc">loc</a>&gt;</code>
+
+                    하위 항목을 포함시키십시오.</li>
+
+            </ul>
+
+            <p>
+
+                <code>&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;</code> 옵션 태그도 Sitemap
+
+                색인 파일에 사용할 수 있습니다.</p>
+
+            <p>
+
+                <strong>참고사항:</strong> Sitemap 색인 파일은 Sitemap 색인 파일과 같은 사이트에서 찾을 수 있는 Sitemap만 지정할
+
+                수 있습니다. 예를 들어, http://www.yoursite.com/sitemap_index.xml에는 http://www.yoursite.com에
+
+                있는 Sitemap만 포함될 수 있으며, http://www.example.com 또는 http://yourhost.yoursite.com에 있는
+
+                Sitemap은 포함될 수 없습니다. Sitemap과 마찬가지로 Sitemap 색인 파일도 UTF-8로 인코딩되어야 합니다.</p>
+
+            <h3>
+
+                <a name="sitemapIndexXMLExample" id="sitemapIndexXMLExample"></a>샘플 XML Sitemap
+
+                색인</h3>
+
+            <p>
+
+                다음 예에서는 두 가지 Sitemap이 나와 있는 Sitemap 색인을 보여 줍니다.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap1.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2004-10-01T18:23:17+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap2.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p>
+
+                <strong>참고사항:</strong> XML 파일의 모든 값과 마찬가지로 Sitemap URL은 <a href="#escaping">엔티티 이스케이프</a>
+
+                처리를 해야 합니다.</p>
+
+            <h3>
+
+                <a name="sitemapIndexTagDefinitions" id="sitemapIndexTagDefinitions"></a>Sitemap
+
+                색인 XML 태그 정의</h3>
+
+            <table width="80%">
+
+                <tr>
+
+                    <th>
+
+                        속성
+
+                    </th>
+
+                    <th>
+
+                    </th>
+
+                    <th>
+
+                        설명
+
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemapindex" id="sitemapIndex_sitemapindex"></a><code>&lt;sitemapindex&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        필수
+
+                    </td>
+
+                    <td>
+
+                        파일에 있는 모든 Sitemap에 대한 정보를 포함합니다.
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemap" id="sitemapIndex_sitemap"></a><code>&lt;sitemap&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        필수
+
+                    </td>
+
+                    <td>
+
+                        개별 Sitemap에 대한 정보를 포함합니다.
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_loc" id="sitemapIndex_loc"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        필수
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Sitemap의 위치를 식별합니다.</p>
+
+                        <p>
+
+                            해당 위치는 Sitemap, Atom 파일, RSS 파일 또는 간단한 텍스트 파일이 될 수 있습니다.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_lastmod" id="sitemapIndex_lastmod"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        옵션
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            해당 Sitemap 파일이 수정된 시간을 식별합니다. 해당 Sitemap에 나와 있는 페이지의 수정 시간과 일치하지 않습니다. lastmod 태그의
+
+                            값은 <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime</a> 형식을 따라야 합니다.</p>
+
+                        <p>
+
+                            마지막 수정 시간기록을 제공하면 검색 엔진 크롤러가 색인에서 하나의 Sitemap 하위 세트만 검색하도록 설정할 수 있습니다. 예를 들어, 크롤러가
+
+                            특정 날짜 이후에 수정된 Sitemap만 검색하도록 할 수 있습니다.이러한 증분 Sitemap 가져오기 메커니즘을 사용하면 크기가 매우 큰 사이트에서
+
+                            새 URL을 빠르게 검색할 수 있습니다.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">맨위로</a></p>
+
+            <h2>
+
+               <a name="otherformats" id="otherformats"></a> 기타 Sitemap 형식</h2>
+
+            <p>
+
+                Sitemap 프로토콜을 사용하면 검색 엔진에 귀하의 페이지에 대한 세부정보를 제공할 수 있으며, URL만이 아니라 사이트 페이지에 대한 추가
+
+                정보도 제공할 수 있으므로 Sitemap 프로토콜 사용을 권장합니다. 그러나 XML 프로토콜 외에, 보다 제한된 정보를 제공하는 RSS 피드 및
+
+                텍스트 파일도 지원됩니다.</p>
+
+            <h3>
+
+                신디케이션 피드</h3>
+
+            <p>
+
+                RSS(Real Simple Syndication) 2.0이나 Atom 0.3 또는 Atom 1.0 피드를 제공할 수 있습니다. 일반적으로 사이트에
+
+                이미 신디케이션 피드가 있는 경우에만 이 형식을 사용하게 됩니다. 이 방법을 사용할 경우 피드에서 최신 URL에 대한 정보만 제공하므로 사이트의
+
+                일부 URL을 검색 엔진에 알리지 못할 수도 있습니다. 그러나 검색 엔진에서 정상적인 크롤링 과정 중에 피드의 페이지 내에 있는 링크를 따라가는
+
+                방법으로 해당 정보를 사용하여 사이트의 다른 페이지에 대한 정보를 찾을 수는 있습니다. 피드는 검색 엔진을 통해 크롤링하려는 최상위 디렉토리에
+
+                두어야 합니다. 검색 엔진은 다음과 같이 피드에서 정보를 추출합니다.</p>
+
+            <ul>
+
+                <li><strong>&lt;링크&gt; 입력란</strong> – URL을 나타냄</li>
+
+                <li><strong>수정된 날짜 입력란(RSS 피드의 경우 &lt;pubDate&gt; 입력란, Atom 피드의 경우 &lt;updated&gt;
+
+                    날짜)</strong> - 각 URL이 마지막으로 언제 수정되었는지 나타냅니다. 수정된 날짜 입력란을 사용할지 여부는 옵션입니다. </li>
+
+            </ul>
+
+            <h3>
+
+                텍스트 파일</h3>
+
+            <p>
+
+                한 줄에 URL이 하나씩 포함된 간단한 텍스트 파일을 제공할 수 있습니다. 텍스트 파일은 다음 가이드라인을 따라야 합니다.</p>
+
+            <ul>
+
+                <li>텍스트 파일에는 URL이 한 줄에 하나씩 포함되어야 합니다. URL 내에 새 줄이 포함되어서는 안 됩니다.</li>
+
+                <li>http를 포함하는 전체 URL을 입력해야 합니다.</li>
+
+                <li>각 텍스트 파일에는 최대 50,000개의 URL을 포함할 수 있으며 50MB(52,428,800바이트)를 넘을 수 없습니다. 사이트에 포함된 URL의
+
+                    수가 50,000개를 넘는 경우, 목록을 여러 개의 텍스트 파일로 분리하여 따로 추가하십시오.</li>
+
+                <li>텍스트 파일은 UTF-8 인코딩을 사용해야 합니다. 인코딩은 파일을 저장할 때 지정할 수 있습니다. 예를 들어, 메모장의 경우 '다른 이름으로
+
+                    저장' 대화 상자의 '인코딩' 메뉴에 보면 UTF-8 인코딩이 나와 있습니다.</li>
+
+                <li>텍스트 파일은 URL 목록 외에 다른 정보를 포함할 수 없습니다.</li>
+
+                <li>텍스트 파일에 머리글 또는 바닥글 정보가 포함되어서는 안 됩니다.</li>
+
+                <li>필요한 경우, 대역폭 요구 사항을 줄이기 위해 gzip을 사용하여 Sitemap 텍스트 파일을 압축할 수 있습니다.</li>
+
+                <li>텍스트 파일의 이름은 원하는 대로 지정할 수 있습니다. URL이 URI의 <a href="http://www.ietf.org/rfc/rfc3986.txt">
+
+                    RFC-3986</a> 표준과 IRI의 <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+
+                    표준을 따르는지 확인하십시오.</li>
+
+                <li>검색 엔진에서 크롤링하려는 최상위 디렉토리에 텍스트 파일을 업로드해야 하며, 보다 상위 디렉토리에 있는 텍스트 파일에는 URL을 나열하지 않도록
+
+                    해야 합니다. </li>
+
+            </ul>
+
+            <p>
+
+                예제 텍스트 파일 항목은 다음과 같습니다.</p>
+
+            <pre>http://www.example.com/catalog?item=1
+
+<br />http://www.example.com/catalog?item=11
+
+<br /></pre>
+
+            <p class="backtotop">
+
+                <a href="#top">맨위로</a></p>
+
+            <h2>
+
+                <a name="location" id="location"></a>Sitemap 파일 위치</h2>
+
+            <p>
+
+                Sitemap 파일의 위치에 따라 해당 Sitemap에 포함될 수 있는 URL 집합이 결정됩니다. http://example.com/catalog/sitemap.xml에
+
+                위치한 Sitemap 파일은 http://example.com/catalog/로 시작하는 모든 URL을 포함할 수 있지만 http://example.com/images/로
+
+                시작하는 URL은 포함할 수 없습니다.</p>
+
+            <p>
+
+                http://example.org/path/sitemap.xml 페이지를 변경할 수 있는 권한이 있는 경우 접두어가 http://example.org/path/인
+
+                URL에 대한 정보를 제공할 수 있는 권한도 있는 것으로 간주됩니다.http://example.co.kr/catalog/sitemap.xml 페이지에서
+
+                유효한 URL로 간주되는 URL의 예는 다음과 같습니다.</p>
+
+            <pre>
+
+http://example.com/catalog/show?item=23
+
+http://example.com/catalog/show?item=233&amp;user=3453
+
+</pre>
+
+            <p>
+
+                http://example.com/catalog/sitemap.xml에서 유효한 URL로 간주되지 않는 URL로는 다음과 같은 것들이 있습니다.</p>
+
+            <pre>
+
+http://example.com/image/show?item=23
+
+http://example.com/image/show?item=233&amp;user=3453
+
+https://example.com/catalog/page1.html
+
+</pre>
+
+            <p>
+
+                이는 Sitemap에 나열된 모든 URL이 동일한 프로토콜(이 예에서는 http)을 사용하고 Sitemap과 같은 호스트에 있다는 뜻입니다..
+
+                예를 들어, Sitemap이 http://www.example.com/sitemap.xml에 있는 경우 http://subdomain.example.com의
+
+                URL은 포함할 수 없습니다.</p>
+
+            <p>
+
+                유효한 URL로 간주되지 않는 URL은 추가 고려대상에서 제외됩니다. Sitemap을 웹서버의 루트 디렉토리에 배치하실 것을 적극 권장해 드립니다.
+
+                예를 들어, 웹서버가 example.com에 있는 경우 Sitemap 색인 파일은 http://example.com/sitemap.xml에 있습니다.
+
+                조직의 보안 권한에 따라 다른 디렉토리에 대한 읽기 권한이 분류되는 경우와 같이 어떤 상황에서는 사이트의 여러 경로에 대해 서로 다른 Sitemap을
+
+                만들어야 할 수도 있습니다.</p>
+
+            <p>
+
+                포트 번호가 있는 경로를 사용하여 Sitemap을 제출한 경우 Sitemap 파일에 나열된 각 URL 경로에 포트 번호를 포함시켜야 합니다.예를
+
+                들어, Sitemap이 http://www.example.co.kr:100/sitemap.xml에 있는 경우 Sitemap에 나열된 각 URL은
+
+                http://www.example.co.kr:100으로 시작되어야 합니다.</p>
+
+            <h3>
+
+                Sitemap 및 교차 제출</h3>
+
+            <p>
+
+                한 개의 호스트에서 호스트 여러 개에 대한 Sitemap을 제출하려면 Sitemap에 제출할 URL의 호스트를 소유하고 있다는 사실을 "증명"해야
+
+                합니다. 호스트 3개에 대한 Sitemap을 제출해야 한다고 가정했을 때 예제는 다음과 같습니다.
+
+                <pre>
+
+www.host1.com with Sitemap file sitemap-host1.xml
+
+www.host2.com with Sitemap file sitemap-host2.xml
+
+www.host3.com with Sitemap file sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                또한 한 개의 호스트(www.sitemaphost.com)에 세 개의 사이트를 모두 포함시키려면 Sitemap URL은 다음과 같게 됩니다.
+
+                <pre>
+
+http://www.sitemaphost.com/sitemap-host1.xml
+
+http://www.sitemaphost.com/sitemap-host2.xml
+
+http://www.sitemaphost.com/sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                이렇게 되면 기본적으로 "교차 제출" 오류가 발생합니다. www.sitemaphost.com에서 호스트하는 Sitemap을 통해 www.host1.com의
+
+                URL을 제출했기 때문입니다(다른 두 개의 호스트에 대해서도 마찬가지임). 이러한 오류를 방지하려면 www.host1.com의 소유권(예: 파일
+
+                수정 권한)을 증명해야 합니다. 이때는 www.sitemaphost.com의 Sitemap을 가리키도록 www.host1.com의 robots.txt
+
+                파일을 수정하면 됩니다.</p>
+
+            <p>
+
+                이 예제의 경우, http://www.host1.com/robots.txt의 robots.txt 파일은 "Sitemap: http://www.sitemaphost.com/sitemap-host1.xml"이라는
+
+                행을 포함하게 됩니다. www.sitemaphost.com에 있는 Sitemap을 가리키도록 www.host1.com의 robots.txt 파일을
+
+                수정하면 www.host1.com의 소유자라는 것이 명백하게 증명됩니다. 즉, www.host1.com의 robots.txt 파일 관리자는 www.host1.com의
+
+                URL을 포함할 http://www.sitemaphost.com/sitemap-host1.xml의 Sitemap을 신뢰한다는 의미입니다. 다른
+
+                두 개의 호스트에 대해서도 같은 프로세스를 반복할 수 있습니다.</p>
+
+            <p>
+
+                이제 www.sitemaphost.com에 Sitemap을 제출하면 됩니다.</p>
+
+            <p>
+
+                특정 호스트의 robots.txt(http://www.host1.com/robots.txt)가 다른 호스트의 Sitemap이나 Sitemap 색인을
+
+                가리킨다면 모든 대상 Sitemap(http://www.sitemaphost.com/sitemap-host1.xml)에서 모든 URL이 해당 호스트에
+
+                속하게 됩니다. 앞에서 언급한 것과 같이 Sitemap은 호스트 한 개의 URL만 포함할 수 있기 때문입니다.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">맨 위로</a></p>
+
+            <h2>
+
+                <a name="validating" id="validating"></a>Sitemap 확인</h2>
+
+            <p>
+
+                다음 XML 스키마는 Sitemap 파일에 표시될 수 있는 요소와 속성을 정의합니다. 다음 링크에서 이 스키마를 다운로드할 수 있습니다.</p>
+
+            <p>
+
+                <b>Sitemap의 경우:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br />
+
+                <b>Sitemap 색인 파일의 경우:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
+
+            <p>
+
+                이 스키마를 기준으로 Sitemap 구조의 유효성을 확인하는 데 도움이 되는 여러 가지 도구가 제공됩니다. 다음 각각의 위치에서 XML 관련 도구
+
+                목록을 찾으실 수 있습니다.<br />
+
+                <br />
+
+                <a href="http://www.w3.org/XML/Schema#Tools">http://www.w3.org/XML/Schema#Tools</a><br />
+
+                <a href="http://www.xml.com/pub/a/2000/12/13/schematools.html">http://www.xml.com/pub/a/2000/12/13/schematools.html</a></p>
+
+            <p>
+
+                Sitemap이나 Sitemap 색인 파일을 스키마와 비교해 유효성을 확인하기 위해서는 아래 표시된 것처럼 XML 파일에 추가 헤더가 있어야 합니다.</p>
+
+            <p>
+
+                <strong>Sitemap:</strong></p>
+
+            <pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Sitemap 색인 파일:</strong></p>
+
+            <pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">맨 위로</a></p>
+
+            <h2>
+
+                <a name="extending" id="extending"></a>Sitemap 프로토콜 확장</h2>
+
+            <p>
+
+                자체 네임스페이스를 사용하여 Sitemap 프로토콜을 확장할 수 있습니다. 루트 요소에 이 네임스페이스를 지정하면 됩니다. 예:</p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:example=&quot;http://www.example.com/schemas/example_schema&quot;&gt; &lt;!-- namespace extension --&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">맨 위로</a></p>
+
+            <h2>
+
+                <a name="informing" id="informing"></a>검색 엔진 크롤러에 정보 제공</h2>
+
+            <p>
+
+                Sitemap 파일을 만들고 귀하의 웹서버에 이를 배치한 경우, 해당 프로토콜을 지원하는 검색 엔진에 Sitemap 파일의 위치를 알려야 합니다.
+
+                방법은 다음과 같습니다.</p>
+
+            <ul>
+
+                <li><a href="#submit_engine">검색 엔진 제출 인터페이스를 통해 제출하기</a></li>
+
+                <li><a href="#submit_robots">사이트의 robots.txt 파일에 위치 지정</a></li>
+
+                <li><a href="#submit_ping">HTTP 요청 보내기</a><br />
+
+                </li>
+
+            </ul>
+
+            <p>
+
+                그 후 검색 엔진이 귀하의 Sitemap을 검색하고 해당 크롤러에서 URL을 검색할 수 있도록 만듭니다.</p>
+
+            <h3>
+
+                <a name="submit_engine" id="submit_engine"></a>검색 엔진 제출 인터페이스를 통해 Sitemap 제출하기<br />
+
+            </h3>
+
+            <p>
+
+                검색 엔진에 Sitemap을 직접 제출하여 상태정보 및 처리오류 정보를 받을 수 있도록 하려면 각 검색 엔진 설명서를 참조하십시오.</p>
+
+            <h3>
+
+                <a name="submit_robots" id="submit_robots"></a>robots.txt 파일에 Sitemap 위치 지정<br />
+
+            </h3>
+
+            <p>
+
+                robots.txt 파일을 사용하여 Sitemap의 위치를 지정할 수 있습니다. 다음 줄을 추가하십시오.</p>
+
+            <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
+
+            <p>
+
+                해당 명령어는 user-agent 줄과는 무관하므로 파일의 어느 곳에나 배치할 수 있습니다. Sitemap 색인 파일이 있는 경우 해당 파일의
+
+                위치만 포함시킬 수 있으며, 색인 파일에 나와 있는 각각의 Sitemap을 나열할 필요는 없습니다.</p>
+
+            <p>
+
+                robots.txt 파일 당 Sitemap 파일을 두 개 이상 지정할 수 있습니다.</p>
+
+           	<pre>Sitemap: http://www.example.com/sitemap-host1.xml
+
+Sitemap: http://www.example.com/sitemap-host2.xml</pre>
+
+            <h3>
+
+                <a name="submit_ping" id="submit_ping"></a>HTTP 요청을 통해 Sitemap 제출하기<br />
+
+            </h3>
+
+            <p>
+
+                HTTP 요청을 사용하여 Sitemap을 제출하려면(&lt;searchengine_URL&gt;을 검색 엔진에서 제공하는 URL로 대체) 다음
+
+                URL로 요청을 발급하십시오.</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=sitemap_url</pre>
+
+            <p>
+
+                예를 들어, Sitemap이 http://www.example.com/sitemap.gz에 있을 경우 귀하의 URL은 다음과 같이 됩니다.</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http://www.example.com/sitemap.gz</pre>
+
+            <p>
+
+                /ping?sitemap= 다음의 모든 항목을 URL 인코딩하십시오.</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http%3A%2F%2Fwww.yoursite.com%2Fsitemap.gz</pre>
+
+            <p>
+
+                wget, curl 또는 원하는 기타 메커니즘을 사용하여 HTTP 요청을 발행할 수 있습니다.요청이 발행되면 HTTP 200 응답 코드가 반환됩니다.
+
+                다른 응답을 받은 경우 요청을 다시 제출해야 합니다.HTTP 200 응답 코드는 검색 엔진이 Sitemap을 접수했음을 의미할 뿐이며, Sitemap
+
+                자체 또는 그 안에 포함된 URL이 유효하다는 것을 의미하지는 않습니다.정기적으로 Sitemap을 생성 및 제출하는 자동화된 작업을 설정하면 작업을
+
+                쉽게 수행할 수 있습니다.<br />
+
+                <strong>참고:</strong> Sitemap 색인 파일을 제공할 경우, Sitemap 색인 파일의 위치가 포함된 HTTP 요청을 하나만
+
+                발급하면 됩니다. 색인에 있는 Sitemap마다 개별적으로 요청을 발급할 필요가 없습니다.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">맨 위로</a></p>
+
+            <h2>
+
+                콘텐츠 제외</h2>
+
+            <p>
+
+                Sitemaps 프로토콜을 사용하면 검색 엔진에 색인을 생성하고자 하는 콘텐츠 정보를 알릴 수 있습니다. 검색 엔진에 색인생성을 원치 않는 콘텐츠를
+
+                알리려면 robots.txt 파일 또는 로봇 메타태그를 사용하십시오. 검색 엔진에서 콘텐츠를 제외시키는 방법은 <a href="http://www.robotstxt.org">
+
+                    robotstxt.org</a>를 참조하십시오.</p>
+
+            <p>
+
+                &nbsp;</p>
+
+            <p class="backtotop">
+
+                <a href="#top">맨 위로</a></p>
+
+            <p class="date">
+
+                최종 업데이트 날짜: 2016년 11월 21일
+
+            </p>
+
+        </div>
+
+        <!-- closes #maincontent -->
+
+    </div>
+
+    <!-- closes #container -->
+
+    <div id="footer">
+
+        <p>
+
+            <a href="terms.html">이용약관</a></p>
+
+    </div>
+
+</body>
+
+</html>
+

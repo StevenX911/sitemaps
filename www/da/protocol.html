@@ -1,0 +1,1552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+
+    <title>sitemaps.org - Protokol</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection" />
+
+</head>
+
+<body>
+
+    <a name="top" id="top"></a>
+
+    <div id="container">
+
+        <div id="intro">
+
+            <div id="pageHeader">
+
+                <h1>
+
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+
+            </div>
+
+            <div id="selectionbar">
+
+                <ul>
+
+                    <li><a href="faq.html">Ofte stillede spørgsmål</a></li>
+
+                    <li class="activelink"><a href="#">Protokol</a></li>
+
+                    <li><a href="index.html">Start</a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="mainContent">
+
+            <h1>
+
+                <a name="sitemaps_protocol" id="sitemaps_protocol"></a>Sitemaps-XML-format
+
+            </h1>
+
+            <blockquote>
+
+                <b>Gå til:</b><br>
+
+                <a href="#xmlTagDefinitions">XML-kodedefinitioner</a><br>
+
+                <a href="#escaping">Angivelse af tegnkoder</a><br>
+
+                <a href="#index">Brug af Sitemap-indeksfiler</a><br>
+
+				<a href="#otherformats">Andre Sitemap-formater</a><br />
+
+                <a href="#location">Placering af Sitemap-filer</a><br>
+
+                <a href="#validating">Gennemgang af dit Sitemap</a><br>
+
+                <a href="#extending">Udvidelse af Sitemaps-protokollen</a><br>
+
+                <a href="#informing">Informering af søgemaskinecrawlere</a>
+
+            </blockquote>
+
+            <p>
+
+                Dette dokument beskriver XML-skemaet for Sitemaps-protokollen.</p>
+
+            <p>
+
+                Sitemap-protokolformatet består af XML-koder. Alle dataværdier i et Sitemap skal
+
+                <a href="#escaping">angives med tegnkoder</a>. Filen selv skal være UTF-8-kodet.</p>
+
+            <p>
+
+                Sitemap'et skal:</p>
+
+            <ul>
+
+                <li>begynde med en start-<code>&lt;<a href="#urlsetdef">urlset</a>&gt;</code>-kode og
+
+                    slutte med en afsluttende <code>&lt;/urlset&gt;</code>-kode.</li>
+
+                <li>angive navneområdet (protokolstandard) i <code>&lt;urlset&gt;</code>-koden.
+
+                </li>
+
+                <li>indeholde en <code>&lt;<a href="#urldef">url</a>&gt;</code>-kode for for hver webadresse
+
+                    som en overordnet XML-kode</li>
+
+                <li>indeholde en underordnet <code>&lt;<a href="#locdef">loc</a>&gt;</code>-kode for
+
+                    hver overordnet <code>&lt;url&gt;</code>-kode.</li>
+
+            </ul>
+
+            <p>
+
+                Alle øvrige koder er valgfrie. Understøttelse af disse valgfrie koder kan variere
+
+                fra søgemaskine til søgemaskine. Se dokumentationen for hver søgemaskine for at
+
+                få yderligere detaljer.</p>
+
+            <p>
+
+                Desuden skal alle webadresser komme fra en enkelt vært, f.eks. www.example.com eller
+
+                store.example.com. Hvis du vil have flere oplysninger, skal du se under <a href="#location">
+
+                    Placering af Sitemap-filer</a></p>
+
+            <h3>
+
+                Eksempel på XML Sitemap</h3>
+
+            <p>
+
+                Følgende eksempel viser et Sitemap, der blot indeholder én webadresse og bruger
+
+                alle de valgfri koder. De valgfri koder vises med kursiv.
+
+            </p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;</em>
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt; 
+
+</pre>
+
+            <p>
+
+                Se også vores eksempel med <a href="#sitemapXMLExample">flere webadresser</a>.</p>
+
+            <h2>
+
+                <a name="xmlTagDefinitions" id="xmlTagDefinitions"></a>XML-kodedefinitioner</h2>
+
+            <p>
+
+                De tilgængelige XML-koder beskrives nedenfor.</p>
+
+            <table width="80%">
+
+                <th>
+
+                    Attribut
+
+                </th>
+
+                <th>
+
+                </th>
+
+                <th>
+
+                    Beskrivelse
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        <a name="urlsetdef" id="urlsetdef"></a><code>&lt;urlset&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        påkrævet
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Indkapsler filen og henviser til den aktuelle protokolstandard.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="urldef" id="urldef"></a><code>&lt;url&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        påkrævet
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Overordnet kode for hver enkelt webadresse. De resterende koder er underordnede
+
+                            for denne kode.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="locdef" id="locdef"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        påkrævet
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Sidens webadresse. Denne webadresse skal begynde med protokollen (f.eks. http) og
+
+                            slutte med en skråstreg, hvis webserveren kræver det. Denne værdi skal være mindre
+
+                            end 2,048 tegn.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="lastmoddef" id="lastmoddef"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        valgfri
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Datoen for den seneste ændring af filen. Denne dato skal være i formatet <a href="http://www.w3.org/TR/NOTE-datetime">
+
+                                W3C-datotid</a>. Dette format giver dig mulighed for at udelade tidsdelen, hvis
+
+                            du ønsker dette, og bruge ÅÅÅÅ-MM-DD.</p>
+
+                        <p>
+
+                            Læg mærke til, at denne kode er adskilt fra HTTP-overskriften If-Modified-Since
+
+                            (304), som serveren kan returnere, og søgemaskiner kan muligvis bruge oplysningerne
+
+                            fra begge kilder forskelligt.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="changefreqdef" id="changefreqdef"></a><code>&lt;changefreq&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        valgfri
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Hvor ofte siden ændres. Denne værdi giver søgemaskiner generelle oplysninger og
+
+                            svarer muligvis ikke nøjagtigt til, hvor ofte siden gennemgås. Gyldige værdier er
+
+                            følgende:</p>
+
+                        <ul>
+
+                            <li>always</li>
+
+                            <li>hourly</li>
+
+                            <li>daily</li>
+
+                            <li>weekly</li>
+
+                            <li>monthly</li>
+
+                            <li>yearly</li>
+
+                            <li>never</li>
+
+                        </ul>
+
+                        <p>
+
+                            Værdien "always" skal bruges til at beskrive dokumenter, der ændres, hver gang de
+
+                            åbnes. Værdien "never" skal bruges til at beskrive arkiverede webadresser.</p>
+
+                        <p>
+
+                            Bemærk, at værdien af denne kode betragtes som et <i>tip</i>, ikke som en kommando.
+
+                            Selvom søgemaskinecrawlere kan tage disse oplysninger i betragtning, når de træffer
+
+                            beslutninger, gennemgår de muligvis sider, der er markeret som "hourly", mindre
+
+                            hyppigt end dette, og de gennemgår muligvis sider, der er markeret som "yearly",
+
+                            hyppigere end dette. Webcrawlere kan jævnligt gennemgå sider, der er markeret som
+
+                            "never", så de kan varetage uventede ændringer på de pågældende sider.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="prioritydef" id="prioritydef"></a><code>&lt;priority&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        valgfri
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Denne webadresses prioritet i forhold til andre webadresser på dit websted. Gyldige
+
+                            værdier varierer fra 0.0 til 1.0. Denne værdi har ingen indflydelse på, hvordan
+
+                            dine sider sammenlignes med sider på andre websteder. Den giver blot søgemaskinerne
+
+                            oplysninger om, hvilke af dine sider der er vigtigst for webcrawlerne efter din
+
+                            mening.</p>
+
+                        <p>
+
+                            Standardprioriteten for en side er 0,5.</p>
+
+                        <p>
+
+                            Bemærk, at den prioritet, du tildeler en side, sandsynligvis ikke påvirker placeringen
+
+                            af webadresserne på søgemaskinens resultatsider. Søgemaskiner kan bruge disse oplysninger,
+
+                            når der vælges mellem webadresser på det samme websted, så du kan bruge denne kode
+
+                            for at øge sandsynligheden for, at de vigtigste sider vises i et søgeindeks.</p>
+
+                        <p>
+
+                            Bemærk også, at det højst sandsynligt ikke hjælper at give høj prioritet til alle
+
+                            webadresserne på webstedet. Eftersom prioriteten er relativ, bruges den kun til
+
+                            at vælge mellem webadresser på dit websted.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbage til toppen</a></p>
+
+            <h2>
+
+                <a name="escaping" id="escaping"></a>Angivelse af tegnkoder</h2>
+
+            <p>
+
+                Din Sitemap-fil skal være UTF-8-kodet (du kan sædvanligvis gøre dette, når du gemmer
+
+                filen). Ligesom med alle XML-filer skal alle dataværdier (herunder webadresser)
+
+                bruge tegnkoder for de tegn, der vises i tabellen nedenfor.</p>
+
+            <table>
+
+                <th colspan="2">
+
+                    Tegn
+
+                </th>
+
+                <th>
+
+                    Tegnkode
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        &amp;-tegn
+
+                    </td>
+
+                    <td>
+
+                        &amp;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;amp;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Enkelte anførselstegn
+
+                    </td>
+
+                    <td>
+
+                        '
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;apos;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Anførselstegn
+
+                    </td>
+
+                    <td>
+
+                        "
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;quot;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Større end
+
+                    </td>
+
+                    <td>
+
+                        &gt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;gt;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Mindre end
+
+                    </td>
+
+                    <td>
+
+                        &lt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;lt;</code>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p>
+
+                Derudover skal alle webadresser (herunder webadressen til dit Sitemap) URL-tegnkodes
+
+                til at kunne læses af den webserver, som de er placeret på. Hvis du imidlertid bruger
+
+                en form for script, værktøj eller logfil til at generere dine webadresser (alt med
+
+                undtagelse af at indtaste dem manuelt), er dette sædvanligvis allerede gjort for
+
+                dig. Du skal også sikre, at alle dine webadresser følger <a href="http://www.ietf.org/rfc/rfc3986.txt">
+
+                    RFC-3986</a>-standarden for URI'er, <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standarden
+
+                for IRI'er og <a href="http://www.w3.org/TR/REC-xml/">XML-standarden</a>.</p>
+
+            <p>
+
+                Nedenfor findes et eksempel på en webadresse, der bruger et ikke-ASCII-tegn (<code>&uuml;</code>),
+
+                samt et tegn, der kræver angivelse med tegnkoder (<code>&amp;</code>):</p>
+
+            <pre>http://www.example.com/&uuml;mlat.html&amp;q=name</pre>
+
+            <p>
+
+                Nedenfor findes den samme webadresse, ISO-8859-1-kodet (til hosting på en server,
+
+                der bruger den pågældende kodning) og webadressetegnkodet:</p>
+
+            <pre>http://www.example.com/%FCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Nedenfor findes den samme webadresse, UTF-8-kodet (til hosting på en server, der
+
+                bruger den pågældende kodning) og webadressetegnkodet:</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Nedenfor findes den samme webadresse, men her også angivet med tegnkoder:</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;amp;q=name</pre>
+
+            <h3>
+
+                <a name="sitemapXMLExample" id="sitemapXMLExample"></a>Eksempel på et Sitemap i
+
+                XML-format</h3>
+
+            <p>
+
+                I følgende eksempel vises et Sitemap i XML-format. Sitemap'et i eksemplet indeholder
+
+                et lille antal webadresser, som hver især bruger et forskelligt sæt valgfrie parametre.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=12&amp;amp;desc=vacation_hawaii&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=73&amp;amp;desc=vacation_new_zealand&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=74&amp;amp;desc=vacation_newfoundland&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23T18:00:15+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.3&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=83&amp;amp;desc=vacation_usa&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-11-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbage til toppen</a></p>
+
+            <h2>
+
+                <a name="index" id="index"></a>Brug af Sitemap-indeksfiler (til at gruppere flere
+
+                Sitemap-filer)</h2>
+
+            <p>
+
+                Du kan angive flere Sitemap-filer, men hver Sitemap-fil, du angiver, må ikke indeholde
+
+                mere end 50.000 webadresser og må ikke fylde mere end 50 MB (52,428,800 bytes).
+
+                Hvis du vil, kan du komprimere dine Sitemap-filer med gzip for at reducere kravet
+
+                til din båndbredde. Men når en Sitemap-fil pakkes ud igen, må den ikke fylde mere
+
+                en 50 MB. Hvis du vil angive mere end 50.000 webadresser, skal du oprette flere
+
+                Sitemap-filer.</p>
+
+            <p>
+
+                Hvis du vælger at oprette flere Sitemaps, skal du angive hver Sitemap-fil i en Sitemap-indeksfil.
+
+                Sitemap-indeksfiler må ikke indeholde mere end 50.000 Sitemaps og må ikke fylde mere
+
+                end 50 MB (52,428,800 bytes), og de kan komprimeres. Det er muligt at have mere
+
+                end én Sitemap-indeksfil. XML-formatet for en Sitemap-indeksfil ligner i høj grad
+
+                XML-formatet for en Sitemap-fil.</p>
+
+            <p>
+
+                Sitemap-indeksfilen skal:</p>
+
+            <ul>
+
+                <li>begynde med en start-<code>&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a>&gt;</code>-kode
+
+                    og slutte med en afsluttende <code>&lt;/sitemapindex&gt;</code>-kode.</li>
+
+                <li>indeholde en <code>&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;</code>-kode
+
+                    for hvert Sitemap som en overordnet XML-kode.</li>
+
+                <li>indeholde en underordnet <code>&lt;<a href="#sitemapIndex_loc">loc</a>&gt;</code>-kode
+
+                    for hver overordnet <code>&lt;sitemap&gt;</code>-kode.</li>
+
+            </ul>
+
+            <p>
+
+                Den valgfrie <code>&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;</code>-kode
+
+                findes også for Sitemap-indeksfiler.</p>
+
+            <p>
+
+                <strong>Bemærk!</strong> En Sitemap-indeksfil kan kun angive Sitemaps, der findes
+
+                på det samme websted som Sitemap-indeksfilen. F.eks. kan http://www.ditwebsted.com/sitemap_index.xml
+
+                indeholde Sitemaps fra http://www.ditwebsted.com, men ikke fra http://www.example.com
+
+                eller http://dinvært.ditwebsted.com. Ligesom med Sitemaps skal din Sitemap-indeksfil
+
+                være UTF-8-kodet.</p>
+
+            <h3>
+
+                <a name="sitemapIndexXMLExample" id="sitemapIndexXMLExample"></a>Eksempel på et
+
+                XML-Sitemap-indeks</h3>
+
+            <p>
+
+                I følgende eksempel vises et Sitemap-indeks i, som indeholder to Sitemaps:</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap1.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2004-10-01T18:23:17+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap2.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Bemærk!</strong> Ligesom alle værdierne i dine XML-filer skal Sitemap-webadresser
+
+                være <a href="#escaping">angivet med tegnkoder</a>.</p>
+
+            <h3>
+
+                <a name="sitemapIndexTagDefinitions" id="sitemapIndexTagDefinitions"></a>Definitioner
+
+                på XML-koder i Sitemap-indekset</h3>
+
+            <table width="80%">
+
+                <tr>
+
+                    <th>
+
+                        Attribut
+
+                    </th>
+
+                    <th>
+
+                    </th>
+
+                    <th>
+
+                        Beskrivelse
+
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemapindex" id="sitemapIndex_sitemapindex"></a><code>&lt;sitemapindex&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        påkrævet
+
+                    </td>
+
+                    <td>
+
+                        Indkapsler oplysninger om alle Sitemaps i filen.
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemap" id="sitemapIndex_sitemap"></a><code>&lt;sitemap&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        påkrævet
+
+                    </td>
+
+                    <td>
+
+                        Indkapsler oplysninger om et enkelt Sitemap.
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_loc" id="sitemapIndex_loc"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        påkrævet
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Identificerer placeringen af Sitemap'et.</p>
+
+                        <p>
+
+                            Dette sted kan være et Sitemap, en Atom-fil, en RSS-fil eller en simpel tekstfil.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_lastmod" id="sitemapIndex_lastmod"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        valgfri
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Identificerer det tidspunkt, den tilsvarende Sitemap-fil blev ændret på. Det svarer
+
+                            ikke til det tidspunkt, nogen af de sider, der er angivet i Sitemap'et, blev ændret
+
+                            på. Værdien for koden lastmod skal være i <a href="http://www.w3.org/TR/NOTE-datetime">
+
+                                W3C-datotid</a>-format.</p>
+
+                        <p>
+
+                            Ved at angive tidsstemplet for den seneste ændring gør du det kun muligt for webcrawlere
+
+                            at hente en delmængde af Sitemap'ene i indekset, dvs. at en webcrawler kun kan hente
+
+                            Sitemaps, der er blevet ændret efter en bestemt dato. Denne trinvise mekanisme for
+
+                            hentning af Sitemaps giver mulighed for hurtig registrering af nye webadresser på
+
+                            meget store websteder.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbage til toppen</a></p>
+
+            <h2>
+
+                <a name="otherformats" id="otherformats"></a>Andre Sitemap-formater</h2>
+
+            <p>
+
+                Sitemap-protokollen giver mulighed for at angive detaljer om dine sider til søgemaskiner,
+
+                og vi opfordrer dig til at bruge det, da du kan angive yderligere oplysninger om
+
+                webstedssider udover bare webadresserne. Udover XML-protokollen understøtter vi
+
+                dog også RSS-feeds og tekstfiler, der indeholder mere begrænsede oplysninger.</p>
+
+            <h3>
+
+                Annoncenetværksfeed</h3>
+
+            <p>
+
+                Du kan angive en RSS (Real Simple Syndication) 2.0- eller Atom 0.3- eller 1.0-feed.
+
+                Generelt skal du kun bruge dette format, hvis dit websted allerede har et annoncenetværksfeed.
+
+                Bemærk, at denne metode måske ikke fortæller søgemaskiner om alle webadresserne
+
+                på dit websted, da feedet måske kun indeholder oplysninger om seneste webadresser,
+
+                selvom søgemaskiner stadig kan bruge de pågældende oplysninger til at finde andre
+
+                sider på dit websted under de almindelige gennemgangsprocesser ved at følge links
+
+                på siderne i feedet. Kontroller, at feedet er placeret i mappen på det højeste niveau,
+
+                som du ønsker, søgemaskinerne skal gennemgå. Søgemaskiner trækker oplysningerne
+
+                ud af feedet som følger:</p>
+
+            <ul>
+
+                <li><strong>&lt;link&gt;-feltet</strong> - Angiver webadressen</li>
+
+                <li><strong>feltet ændret dato (feltet &lt;pubDate&gt; for RSS-feeds og &lt;updated&gt;-datoen
+
+                    for Atom-feeds)</strong> - angiver, hvornår hver enkelt webadresse senest blev ændret.
+
+                    Det er valgfrit, om du vil bruge feltet til dato for ændring. </li>
+
+            </ul>
+
+            <h3>
+
+                Tekstfil</h3>
+
+            <p>
+
+                Du kan angive en simpel tekstfil, der indeholder én webadresse pr. linje. Tekstfilen
+
+                skal følge retningslinjerne nedenfor:</p>
+
+            <ul>
+
+                <li>Tekstfilen skal have én webadresse pr. linje. Webadresserne kan ikke indeholde integrerede
+
+                    nye linjer.</li>
+
+                <li>Du skal fuldt ud specificere webadresser, herunder http.</li>
+
+                <li>Hver enkelt tekstfil må højst indeholde 50.000 webadresser og ikke fylde mere end
+
+                    50 MB (52,428,800 bytes). Hvis webstedet indeholder mere end 50.000 webadresser,
+
+                    skal du opdele listen i flere tekstfiler og tilføje hver enkelt separat.</li>
+
+                <li>Tekstfilen skal bruge UTF-8-kodning. Du kan angive dette, når du gemmer filen (i
+
+                    Notesblok angives dette i menuen Kodning i dialogboksen Gem som).</li>
+
+                <li>Tekstfilen må ikke indeholde andre oplysninger end listen med webadresser.</li>
+
+                <li>Tekstfilen må ikke indeholde sidehoved eller sidefod.</li>
+
+                <li>Hvis du vil, kan du komprimere din Sitemap-tekstfil med gzip for at reducere kravet
+
+                    til din båndbredde.</li>
+
+                <li>Du kan give tekstfilen et hvilket som helst navn. Sørg for, at dine webadresser
+
+                    følger <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>-standarden for
+
+                    URI'er og <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standarden
+
+                    for IRI'er</li>
+
+                <li>Overfør tekstfilen til mappen på det højeste niveau, søgemaskinerne skal gennemgå,
+
+                    og husk at undlade at angive webadresser i tekstfilen med placeringer på et højere
+
+                    mappeniveau. </li>
+
+            </ul>
+
+            <p>
+
+                Poster i prøvetekstfiler vises nedenfor.</p>
+
+            <pre>http://www.example.com/catalog?item=1
+
+<br />http://www.example.com/catalog?item=11
+
+<br /></pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbage til toppen</a></p>
+
+            <h2>
+
+                <a name="location" id="location"></a>Placering af Sitemap-filer</h2>
+
+            <p>
+
+                Placeringen af en Sitemap-fil bestemmer det sæt webadresser, der kan medtages i
+
+                det pågældende Sitemap. En Sitemap-fil på http://example.com/catalog/sitemap.xml
+
+                kan indeholde enhver webadresse, der starter med http://example.com/catalog/, men
+
+                kan ikke indeholde webadresser, der begynder med http://example.com/images/.</p>
+
+            <p>
+
+                Hvis du har tilladelse til at ændre http://example.org/sti/sitemap.xml, har du sandsynligvis
+
+                også tilladelse til angive oplysninger om webadresser med præfikset http://example.org/sti/.
+
+                Eksempler på webadresser, der betragtes som gyldige i http://example.com/katalog/sitemap.xml,
+
+                omfatter:</p>
+
+            <pre>
+
+http://example.com/catalog/show?item=23
+
+http://example.com/catalog/show?item=233&amp;user=3453
+
+</pre>
+
+            <p>
+
+                Webadresser, der ikke betragtes som gyldige på http://example.com/catalog/sitemap.xml,
+
+                inkluderer:</p>
+
+            <pre>
+
+http://example.com/image/show?item=23
+
+http://example.com/image/show?item=233&amp;user=3453
+
+https://example.com/catalog/page1.html
+
+</pre>
+
+            <p>
+
+                Bemærk, at dette betyder, at alle webadresser, som Sitemap'et indeholder, skal bruge
+
+                den samme protokol (http i dette eksempel) og befinde sig på den samme vært som
+
+                Sitemap'et. Hvis Sitemap'et f.eks. findes på http://www.example.com/sitemap.xml,
+
+                kan det ikke indeholde webadresser fra http://underdomæne.example.com.</p>
+
+            <p>
+
+                Webadresser, der ikke betragtes som gyldige, udelades fra yderligere overvejelse.
+
+                Det anbefales, at du placerer dit Sitemap i webserverens rodmappe. Hvis webserveren
+
+                f.eks. findes under example.com, skal din Sitemap-indeksfil være under http://example.com/sitemap.xml.
+
+                I visse tilfælde kan det være fordelagtigt at oprette forskellige Sitemaps til forskellige
+
+                stier, (f.eks. hvis sikkerhedstilladelser i din organisation inddeler skriveadgang
+
+                til forskellige mapper).</p>
+
+            <p>
+
+                Hvis du sender et Sitemap via en sti med et portnummer, skal du inkludere dette
+
+                portnummer som en del af stien i hver webadresse, som er anført i Sitemap-filen.
+
+                Hvis Sitemap'et f.eks. findes på http://www.example.com:100/sitemap.xml, skal hver
+
+                webadresse i Sitemap'et starte med: http://www.example.com:100.</p>
+
+            <h3>
+
+                Sitemaps og tværgående afsendelser</h3>
+
+            <p>
+
+                Hvis du vil sende Sitemaps til flere værter fra en enkelt vært, skal du "bevise"
+
+                ejerskabet af den eller de værter, som webadresser sendes for i et Sitemap. Her
+
+                er et eksempel. Lad os sige, at du vil sende Sitemaps til tre værter:
+
+                <pre>
+
+www.host1.com with Sitemap file sitemap-host1.xml
+
+www.host2.com with Sitemap file sitemap-host2.xml
+
+www.host3.com with Sitemap file sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                Derudover vil du placere alle tre Sitemaps på en enkelt vært: www.sitemaphost.com.
+
+                Det vil sige, at Sitemap-webadressen bliver:
+
+                <pre>
+
+http://www.sitemaphost.com/sitemap-host1.xml
+
+http://www.sitemaphost.com/sitemap-host2.xml
+
+http://www.sitemaphost.com/sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                Som standard resulterer det i en fejlmeddelelse om "tværgående afsendelse", fordi
+
+                du prøver at sende webadresser for www.host1.com via et Sitemap, som er placeret
+
+                på www.sitemaphost.com (og det samme gælder for de to andre værter). En måde, du
+
+                kan undgå fejlen på, er at bevise, at du ejer (dvs.har beføjelse til at ændre filer)
+
+                www.host1.com. Det kan du gøre ved at redigere filen robots.txt på www.host1.com,
+
+                så den peger på Sitemap'et på www.sitemaphost.com.</p>
+
+            <p>
+
+                I dette eksempel indeholder filen robots.txt på http://www.host1.com/robots.txt
+
+                linjen "Sitemap: http://www.sitemaphost.com/sitemap-host1.xml". Ved at ændre filen
+
+                robots.txt på www.host1.com, så den peger på Sitemap'et på www.sitemaphost.com,
+
+                har du automatisk bevist, at du ejer www.host1.com. Med andre ord – den, som kontrollerer
+
+                filen robots.txt på www.host1.com giver Sitemap'et på http://www.sitemaphost.com/sitemap-host1.xml
+
+                lov til at indeholde webadresser for www.host1.com. Den samme proces kan gentages
+
+                for de to andre værter.</p>
+
+            <p>
+
+                Nu kan du sende Sitemaps på www.sitemaphost.com.</p>
+
+            <p>
+
+                Når en bestemt værts robots.txt-fil, f.eks. http://www.host1.com/robots.txt, peger
+
+                på et Sitemap eller et Sitemap-indeks på en anden vært; forventes det for hver destinations-Sitemap,
+
+                f.eks. http://www.sitemaphost.com/sitemap-host1.xml, at alle webadresserne hører
+
+                til den vært, som peger på det. Som tidligere nævnt er det, fordi et Sitemap kun
+
+                forventes at have webadresser fra en enkelt vært.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbage til toppen</a></p>
+
+            <h2>
+
+                <a name="validating" id="validating"></a>Validering af dit Sitemap</h2>
+
+            <p>
+
+                Følgende XML-skemaer definerer de elementer og attributter, der kan vises i Sitemap-filen.
+
+                Du kan downloade dette skema ved hjælp af de links, der vises nedenfor:</p>
+
+            <p>
+
+                <b>For Sitemaps:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br>
+
+                <b>For Sitemap-indeksfiler:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
+
+            <p>
+
+                Der er en række tilgængelige værktøjer, du kan bruge til at bekræfte strukturen
+
+                i Sitemap'et på basis af dette skema. Du kan finde en liste med XML-relaterede værktøjer
+
+                på en af følgende placeringer:<br>
+
+                <br>
+
+                <a href="http://www.w3.org/XML/Schema#Tools">http://www.w3.org/XML/Schema#Tools</a><br>
+
+                <a href="http://www.xml.com/pub/a/2000/12/13/schematools.html">http://www.xml.com/pub/a/2000/12/13/schematools.html</a></p>
+
+            <p>
+
+                Hvis du vil bekræfte et Sitemap eller en Sitemap-indeksfil på basis af et skema,
+
+                skal XML-filen have yderligere overskrifter, som vist nedenfor.</p>
+
+            <p>
+
+				<strong>Sitemap:</strong></p>
+
+	           <pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Sitemap-indeksfil:</strong></p>
+
+            <pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbage til toppen</a></p>
+
+            <h2>
+
+                <a name="extending" id="extending"></a>Udvidelse af Sitemaps-protokollen</h2>
+
+            <p>
+
+                Du kan udvide Sitemaps-protokollen med dit eget navneområde. Du skal angive navneområdet
+
+                i rodelementet. Eksempel:</p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:example=&quot;http://www.example.com/schemas/example_schema&quot;&gt; &lt;!-- namespace extension --&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbage til toppen</a></p>
+
+            <h2>
+
+                <a name="informing" id="informing"></a>Informering af søgemaskinecrawlere</h2>
+
+            <p>
+
+                Når du har oprettet Sitemap-filen og placeret den på din webserver, skal du oplyse
+
+                de søgemaskiner, som understøtter Sitemaps-protokollen, om dens placering. Dette
+
+                kan du gøre ved at:</p>
+
+            <ul>
+
+                <li><a href="#submit_engine">sende den til dem via søgemaskinens sendegrænseflade</a></li>
+
+                <li><a href="#submit_robots">angive placeringen af dit websteds robots.txt-fil</a></li>
+
+                <li><a href="#submit_ping">sende en HTTP-anmodning</a><br />
+
+                </li>
+
+            </ul>
+
+            <p>
+
+                Søgemaskinerne kan nu hente dit Sitemap og gøre webadresserne tilgængelige for deres
+
+                webcrawlere.</p>
+
+            <h3>
+
+                <a name="submit_engine" id="submit_engine"></a>Afsendelse af dit Sitemap via søgemaskinens
+
+                sendegrænseflade<br />
+
+            </h3>
+
+            <p>
+
+                Hvis du vil sende dit Sitemap direkte til en søgemaskine, som vil gøre det muligt
+
+                at modtage statusoplysninger og eventuelle behandlingsfejl, skal du se i hver søgemaskines
+
+                dokumentation.</p>
+
+            <h3>
+
+                <a name="submit_robots" id="submit_robots"></a>Angivelse af placeringen af Sitemap
+
+                i din robots.txt-fil<br />
+
+            </h3>
+
+            <p>
+
+                Du kan angive placeringen af dit Sitemap ved hjælp af en robots.txt-fil. Du gør
+
+                det ved blot at tilføje følgende linje:</p>
+
+            <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
+
+            
+
+            <p>
+
+                Dette direktiv er uafhængigt af User-Agent-linjen, så det gør ikke noget, hvor du
+
+                placerer det i din fil. Hvis du har en Sitemap-indeksfil, kan du inkludere placeringen
+
+                af bare den fil. Du skal ikke opstille hver enkelt Sitemap i indeksfilen.</p>
+
+            <p>
+
+                Du kan angive mere end én Sitemap-fil pr. robots.txt-fil.</p>
+
+           	<pre>Sitemap: http://www.example.com/sitemap-host1.xml
+
+Sitemap: http://www.example.com/sitemap-host2.xml</pre>
+
+            <h3>
+
+                <a name="submit_ping" id="submit_ping"></a>Afsendelse af dit Sitemap via en HTTP-anmodning<br />
+
+            </h3>
+
+            <p>
+
+                Hvis du vil sende dit Sitemap via en HTTP-anmodning (erstat &lt;searchengine_URL&gt;
+
+                med den webadresse, du får fra søgemaskinen) skal du udstede din anmodning til følgende
+
+                webadresse:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=sitemap_url</pre>
+
+            <p>
+
+                Hvis dit Sitemap f.eks. findes på http://www.example.com/sitemap.gz, bliver webadressen:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http://www.example.com/sitemap.gz</pre>
+
+            <p>
+
+                Webadressekodning af alt efter URL/ping?sitemap=:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http%3A%2F%2Fwww.ditwebsted.dk%2Fsitemap.gz</pre>
+
+            <p>
+
+                Du kan sende en HTTP-anmodning vha. wget, curl eller en anden mekanisme efter eget
+
+                valg. En fuldført anmodning returnerer en HTTP 200-svarkode. Hvis du modtager et
+
+                andet svar, skal du sende anmodningen igen. Svarkoden HTTP 200 angiver kun, at søgemaskinen
+
+                har modtaget dit Sitemap, ikke at selve Sitemap'et eller webadresserne i det er
+
+                gyldige. En nem måde at gøre dette på er at oprette et automatisk job, der skal
+
+                generere og sende Sitemaps regelmæssigt.<br>
+
+                <strong>Bemærk!</strong> Hvis du angiver en Sitemap-indeksfil, skal du kun sende
+
+                en HTTP-anmodning, der omfatter placeringen af Sitemap-indeksfilen. Du behøver ikke
+
+                at sende særskilte anmodninger for hvert enkelt Sitemap, der er angivet i indekset.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbage til toppen</a></p>
+
+            <h2>
+
+                Udelukkelse af indhold</h2>
+
+            <p>
+
+                Sitemaps-protokollen giver dig mulighed for at lade søgemaskiner vide det indhold,
+
+                du vil indeksere. Brug robots.txt-filen eller robots-metatag til at fortælle søgemaskiner
+
+                om det indhold, du ikke vil indeksere. Se <a href="http://www.robotstxt.org">robotstxt.org</a>
+
+                for at få flere oplysninger om, hvordan du ekskluderer indhold fra søgemaskiner.</p>
+
+            <p>
+
+                &nbsp;</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbage til toppen</a></p>
+
+            <p class="date">
+
+                Senest opdateret: 21. november 2016
+
+            </p>
+
+        </div>
+
+        <!-- closes #maincontent -->
+
+    </div>
+
+    <!-- closes #container -->
+
+    <div id="footer">
+
+        <p>
+
+            <a href="terms.html">Vilkår og betingelser</a></p>
+
+    </div>
+
+</body>
+
+</html>
+

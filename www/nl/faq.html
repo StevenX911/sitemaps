@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="nl" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - Veelgestelde vragen</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">Veelgestelde vragen</a></li>
+                    <li><a href="protocol.html">Protocol</a></li>
+                    <li><a href="index.html">Startpagina</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Veelgestelde vragen</h1>
+            <p>
+                <a href="#faq_xml_encoding">Hoe geef ik URL's in de Sitemap weer?</a></p>
+            <p>
+                <a href="#faq_output_encoding">Maakt het uit welke tekencodering ik gebruik voor het
+                    genereren van mijn sitemapbestanden?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Hoe geef ik de tijd op?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Hoe bereken ik de lastmod-datum?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Waar plaats ik mijn sitemap?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Hoe groot mag mijn sitemap zijn?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">Mijn site heeft miljoenen URL's. Hoe kan ik alleen
+                    de onlangs gewijzigde URL's verzenden?</a></p>
+            <p>
+                <a href="#faq_after_submission">Wat moet ik doen nadat ik mijn sitemap heb gemaakt?</a></p>
+            <p>
+                <a href="#faq_url_format">Moeten de volledige URL's worden opgegeven in de sitemap?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">Mijn site bevat zowel URL's met 'http' als met 'https'.
+                    Moet ik beide vormen vermelden?</a></p>
+            <p>
+                <a href="#faq_url_encoding">URL's op mijn site bevatten sessie-id's. Moet ik deze verwijderen?</a></p>
+            <p>
+                <a href="#faq_url_position">Heeft de positie van een URL in een sitemap invloed op het
+                    gebruik?</a></p>
+            <p>
+                <a href="#faq_frames">Sommige pagina's op mijn site bestaan uit frames. Moet ik URL's
+                    voor framesets of URL's voor inhoud van frames opnemen?</a></p>
+            <p>
+                <a href="#faq_compression">Kan ik mijn sitemaps comprimeren tot een zip-bestand of moet
+                    het een gzip-bestand zijn?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">Wordt de rangschikking van mijn pagina's in de
+                    zoekresultaten gewijzigd op basis van de waarde voor 'priority' in de XML-sitemap?</a></p>
+            <p>
+                <a href="#faq_xml_schema">Is er een XML-schema waartegen ik mijn XML-sitemap kan valideren?</a></p>
+            <p>
+                <a href="#more">Wat moet ik doen als ik een andere vraag heb over het gebruik van het
+                    protocol of het verzenden van een sitemap?</a></p>
+            <hr />
+            <p class="question">
+                V: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Hoe geef ik URL's in de
+                sitemap weer?</p>
+            <p>
+                In alle XML-bestanden moeten voor gegevenswaarden (inclusief URL's) <a href="#escaped">
+                    entity escape-codes</a> worden gebruikt voor de volgende tekens: ampersand (&amp;),
+                enkel aanhalingsteken ('), dubbel aanhalingsteken (") en het teken kleiner dan (&lt;)
+                of groter dan (&gt;). Zorg er ook voor dat alle URL's voldoen aan de <a href="http://www.ietf.org/rfc/rfc3986.txt">
+                    RFC-3986</a>-norm voor URI's, de <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-norm
+                voor IRI's en de <a href="http://www.w3.org/TR/REC-xml/">XML-norm</a>. Als u een
+                script gebruikt om URL's te genereren, kunt u deze tekens gewoonlijk voorzien van
+                URL-escapecodes als onderdeel van het script. Ze moeten echter nog wel worden voorzien
+                van entity escape. Met het volgende python-script wordt entity escaping uitgevoerd
+                voor http://www.voorbeeld.nl/view?widget=3&amp;count&gt;2</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                De volgende URL is het resultaat van het bovenstaande voorbeeld:</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                V: <a name="faq_output_encoding" id="faq_output_encoding"></a>Maakt het uit welke
+                tekencodering ik gebruik voor het genereren van mijn sitemapbestanden?</p>
+            <p>
+                Ja. Uw sitemap moet UTF-8-codering gebruiken.</p>
+            <p class="question">
+                V: <a name="faq_specifying_time" id="faq_specifying_time"></a>Hoe geef ik de tijd
+                op?</p>
+            <p>
+                Gebruik <a href="http://www.w3.org/TR/NOTE-datetime">W3C-codering voor datum en tijd</a>
+                voor de lastmod-tijdstempels en alle andere datums en tijden in dit protocol. Bijvoorbeeld:
+                2004-09-22T14:12:14+00:00.</p>
+            <p>
+                Met deze codering kunt u het tijdgedeelte van de ISO8601-notatie weglaten. 2004-09-22
+                is bijvoorbeeld ook geldig. Als uw websites echter vaak worden gewijzigd, kunt u
+                beter wel het tijdgedeelte opnemen zodat crawlers vollediger informatie over uw
+                site hebben.</p>
+            <p class="question">
+                V: <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Hoe bereken ik
+                de lastmod-datum?</p>
+            <p>
+                Voor statische bestanden wordt hiermee de wijzigingsdatum weergegeven. U kunt de
+                opdracht voor de UNIX-datum gebruiken om deze datum weer te geven:</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                Voor veel dynamische URL's kunt u eenvoudig de datum voor lastmod berekenen op basis
+                van de wijzigingsdatum van de onderliggende gegevens of door de datum ongeveer vast
+                te stellen aan de hand van de periodieke updates (indien van toepassing). Wanneer
+                u een datum bij benadering of een tijdstempel gebruikt, worden er geen URL's doorzocht
+                die niet zijn gewijzigd. Hierdoor worden de gebruikte bandbreedte en de CPU-belasting
+                voor uw webservers beperkt.</p>
+            <p class="question">
+                V: <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Waar plaats ik mijn
+                sitemap?</p>
+            <p>
+                U wordt aangeraden de sitemap niet in de hoofdmap van uw HTML-server te plaatsen.
+                Plaats de sitemap in plaats daarvan op http://voorbeeld.nl/sitemap.xml.</p>
+            <p>
+                In sommige situaties kunt u verschillende sitemaps maken voor verschillende pagina's
+                op uw site &mdash; bijvoorbeeld als in uw organisatie bepaalde afdelingen bepaalde
+                mappen kunnen wijzigen.</p>
+            <p>
+                We veronderstellen dat als u bevoegd bent http://voorbeeld.nl/path/sitemap.xml te
+                uploaden, u tevens bevoegd bent metagegevens te rapporteren voor http://voorbeeld.nl/path/.</p>
+            <p>
+                Alle URL's in de sitemap moeten zich op dezelfde host bevinden als de sitemap. Als
+                de sitemap bijvoorbeeld op http://www.voorbeeld.nl/sitemap.xml staat, kan deze geen
+                URL's bevatten van http://subdomein.voorbeeld.nl. Als de sitemap bijvoorbeeld op
+                http://www.voorbeeld.nl/mijnmap/sitemap.xml staat, kan deze geen URL's bevatten
+                van http://www.voorbeeld.nl.</p>
+            <p class="backtotop">
+                <a href="#top">Terug naar boven</a></p>
+            <p class="question">
+                V: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Hoe groot mag mijn sitemap
+                zijn?</p>
+            <p>
+                Sitemaps mogen maximaal 50 MB (52,428,800 bytes) groot zijn of maximaal 50.000 URL'
+                s bevatten. Door deze beperkingen wordt uw webserver niet vertraagd doordat er grote
+                bestanden moeten worden verwerkt. Dit betekent dat u meerdere sitemapbestanden moet
+                maken en een <a href="protocol.html#index">sitemap-indexbestand</a> moet gebruiken
+                wanneer uw site meer dan 50.000 URL's bevat of als uw sitemap groter is dan 50 MB.
+                Gebruik ook een sitemap-indexbestand als u een kleine site heeft die in de toekomst
+                meer dan 50.000 URL' s zal bevatten of als de bestandsgrootte meer dan 50 MB zal
+                bedragen. Een sitemap-indexbestand kan maximaal 50,000 sitemaps bevatten en mag niet
+                groter zijn dan 50 MB (52,428,800 bytes). U kunt ook gzip gebruiken om uw sitemaps
+                te comprimeren.</p>
+            <p class="question">
+                V: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>Mijn site heeft
+                miljoenen URL's. Hoe kan ik alleen de onlangs gewijzigde URL's verzenden?</p>
+            <p>
+                U kunt URL's die vaak worden bijgewerkt, vermelden in een klein aantal sitemaps
+                en vervolgens de code <a href="protocol.html#lastmoddef">lastmod</a> gebruiken in
+                uw <a href="protocol.html#index">sitemap-indexbestand</a> om de sitemapbestanden
+                te herkennen. Zoekmachines doorzoeken vervolgens alleen de gewijzigde sitemaps.</p>
+            <p class="question">
+                V: <a name="faq_after_submission" id="faq_after_submission"></a>Wat moet ik doen
+                nadat ik mijn sitemap heb gemaakt?</p>
+            <p>
+                Zodra u een sitemap heeft gemaakt, kunt u <a href="http://www.sitemaps.org/protocol.html#informing">
+                    zoekmachines daarover inlichten</a> door de sitemap rechtstreeks naar ze te
+                verzenden, ze te pingen of de locatie van de sitemap toe te voegen aan uw robots.txt-bestand.</p>
+            <p class="question">
+                V: <a name="faq_url_format" id="faq_url_format"></a>Moeten de volledige URL's worden
+                opgegeven in de sitemap?</p>
+            <p>
+                Ja. U moet het protocol toevoegen (bijvoorbeeld http) aan uw URL. U moet tevens
+                een slash aan de URL toevoegen als dit nodig is voor de webserver. http://www.voorbeeld.nl/
+                is bijvoorbeeld een geldige URL voor een sitemap, maar www.voorbeeld.nl is dat niet.</p>
+            <p class="question">
+                V: <a name="faq_http_vs_https" id="faq_http_vs_https"></a>Mijn site bevat zowel
+                URL's met 'http' als met 'https'. Moet ik beide vormen vermelden?</p>
+            <p class="answers">
+                Nee. Geef slechts één versie van een URL op in uw sitemaps. Wanneer u meerdere versies
+                van URL's opneemt, kan dit ertoe leiden dat niet uw gehele site wordt doorzocht.</p>
+            <p class="question">
+                V: <a name="faq_url_encoding" id="faq_url_encoding"></a>URL's op mijn site bevatten
+                sessie-id's. Moet ik deze verwijderen?</p>
+            <p>
+                Ja. Wanneer u sessie-id's in uw URL's opneemt, kan dit ertoe leiden dat niet uw
+                gehele site wordt doorzocht of dat gedeelten ongewenst worden doorzocht.</p>
+            <p class="question">
+                V: <a name="faq_url_position" id="faq_url_position"></a>Heeft de positie van een
+                URL in een sitemap invloed op het gebruik?</p>
+            <p>
+                Nee. De positie van een URL in de sitemap is waarschijnlijk niet van invloed op
+                de manier waarop deze wordt gebruikt door zoekmachines.</p>
+            <p class="question">
+                V: <a name="faq_frames" id="faq_frames"></a>Sommige pagina's in mijn site bestaan
+                uit frames. Moet ik URL's voor framesets of URL's voor inhoud van frames opnemen?</p>
+            <p>
+                Vermeld beide URL's</p>
+            <p class="question">
+                V: <a name="faq_compression" id="faq_compression"></a>Kan ik mijn sitemaps comprimeren
+                tot een zip-bestand of moet het een gzip-bestand zijn?</p>
+            <p>
+                Gebruik gzip om uw sitemaps te comprimeren. Uw sitemap mag niet groter zijn dan
+                50 MB (52,428,800 bytes), ongeacht of deze gecomprimeerd is.</p>
+            <p class="question">
+                V: <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>Wordt
+                de rangschikking van mijn pagina's in de zoekresultaten gewijzigd op basis van de
+                waarde voor 'priority' in de XML-sitemap?</p>
+            <p>
+                De aanwijzing 'priority' in uw sitemap geeft alleen het belang aan van een bepaalde
+                URL in relatie tot andere URL's <i>op uw eigen site</i> en heeft geen effect op
+                de positie van uw pagina's in de zoekresultaten.</p>
+            <p class="question">
+                V: <a name="faq_xml_schema" id="faq_xml_schema"></a>Is er een XML-schema waartegen
+                ik mijn XML-sitemap kan valideren?</p>
+            <p>
+                Ja. Een XML-schema is beschikbaar voor sitemapbestanden op <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a> en een schema voor
+                sitemap-indexbestanden is beschikbaar op <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a>. U kunt ook meer
+                informatie bekijken over het <a href="protocol.html#validating">valideren van uw sitemap</a>.</p>
+            <p class="question">
+                V: <a name="more" id="more"></a>Wat moet ik doen als ik een andere vraag heb over
+                het gebruik van het protocol of het verzenden van een sitemap?</p>
+            <p>
+                Raadpleeg de documentatie van de zoekmachine voor meer informatie over het verzenden
+                en gebruiken van sitemaps.</p>
+            <p class="backtotop">
+                <a href="#top">Terug naar boven</a></p>
+            <p class="date">
+                Laatste update: 21 november 2016
+            </p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Algemene Voorwaarden</a></p>
+    </div>
+</body>
+</html>

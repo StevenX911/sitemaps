@@ -1,0 +1,1586 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+
+    <title>sitemaps.org - Protokoll</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection" />
+
+</head>
+
+<body>
+
+    <a name="top" id="top"></a>
+
+    <div id="container">
+
+        <div id="intro">
+
+            <div id="pageHeader">
+
+                <h1>
+
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+
+            </div>
+
+            <div id="selectionbar">
+
+                <ul>
+
+                    <li><a href="faq.html">FAQ</a></li>
+
+                    <li class="activelink"><a href="#">Protokoll</a></li>
+
+                    <li><a href="index.html">Startseite</a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="mainContent">
+
+            <h1>
+
+                <a name="sitemaps_protocol" id="sitemaps_protocol"></a>Sitemaps-XML-Format
+
+            </h1>
+
+            <blockquote>
+
+                <b>Springen zu:</b><br>
+
+                <a href="#xmlTagDefinitions">XML-Tag-Definitionen</a><br>
+
+                <a href="#escaping">Entity-Escaping</a><br>
+
+                <a href="#index">Verwenden von Sitemap-Indexdateien</a><br>
+
+				<a href="#otherformats">Andere Sitemap-Formate</a><br />
+
+                <a href="#location">Position der Sitemap-Datei</a><br>
+
+                <a href="#validating">Validieren Ihrer Sitemap</a><br>
+
+                <a href="#extending">Erweitern des Sitemapprotokolls</a><br>
+
+                <a href="#informing">Informieren von Suchmaschinen-Crawlern</a>
+
+            </blockquote>
+
+            <p>
+
+                Dieses Dokument beschreibt das XML-Schema für das Sitemapprotokoll.</p>
+
+            <p>
+
+                Das Format des Sitemapprotokolls besteht aus XML-Tags. Sämtliche Datenwerte in einer
+
+                Sitemap müssen <a href="#escaping">Entity-escaped</a> sein. Die Datei selbst muss
+
+                in UTF-8 codiert sein.</p>
+
+            <p>
+
+                Die Sitemap muss Folgendes erfüllen:</p>
+
+            <ul>
+
+                <li>Mit einem öffnenden <code>&lt;<a href="#urlsetdef">urlset</a>&gt;</code>-Tag beginnen
+
+                    und mit einem schließenden <code>&lt;/urlset&gt;</code>-Tag enden.</li>
+
+                <li>Legen Sie den Namespace (Protokollstandard) innerhalb des <code>&lt;urlset&gt;</code>-Tags
+
+                    an. </li>
+
+                <li>Fügen Sie für jede URL einen <code>&lt;<a href="#urldef">url</a>&gt;</code>-Eintrag
+
+                    als übergeordnetes XML-Tag ein.</li>
+
+                <li>Fügen Sie für jedes übergeordnete <code>&lt;url&gt;</code>-Tag einen untergeordneten
+
+                    <code>&lt;<a href="#locdef">loc</a>&gt;</code>-Eintrag ein.</li>
+
+            </ul>
+
+            <p>
+
+                Alle anderen Tags sind optional. Die Unterstützung dieser optionalen Tags hängt
+
+                von der jeweiligen Suchmaschine ab. Weitere Informationen erhalten Sie in der Dokumentation
+
+                der entsprechenden Suchmaschine.</p>
+
+            <p>
+
+                Alle URLs in einer Sitemap müssen von einem Einzelhost stammen, zum Beispiel www.example.com
+
+                oder store.example.com. Weitere Informationen erhalten Sie im <a href="#location">Speicherort
+
+                    der Sitemap-Datei</a></p>
+
+            <h3>
+
+                Beispiel für eine XML-Sitemap</h3>
+
+            <p>
+
+                Das folgende Beispiel zeigt eine Sitemap, die nur eine URL enthält und in der alle
+
+                optionalen Tags verwendet werden. Die optionalen Tags sind kursiv angezeigt.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;</em>
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt; 
+
+</pre>
+
+            <p>
+
+                Vergleichen Sie dazu auch unser Beispiel für <a href="#sitemapXMLExample">mehrere URLs</a>.</p>
+
+            <h2>
+
+                <a name="xmlTagDefinitions" id="xmlTagDefinitions"></a>XML-Tag-Definitionen</h2>
+
+            <p>
+
+                Die verfügbaren XML-Tags werden unten beschrieben.</p>
+
+            <table width="80%">
+
+                <th>
+
+                    Attribut
+
+                </th>
+
+                <th>
+
+                </th>
+
+                <th>
+
+                    Beschreibung
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        <a name="urlsetdef" id="urlsetdef"></a><code>&lt;urlset&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        erforderlich
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Fasst die Datei zusammen und verweist auf den aktuellen Protokollstandard.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="urldef" id="urldef"></a><code>&lt;url&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        erforderlich
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Übergeordnetes Tag für die einzelnen URL-Einträge. Die übrigen Tags sind diesem
+
+                            untergeordnet.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="locdef" id="locdef"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        erforderlich
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            URL der Seite. Diese URL muss mit dem Protokoll beginnen (z.B. &quot;http&quot;)
+
+                            und mit einem abschließenden Schrägstrich enden, sofern vom Webserver benötigt.
+
+                            Dieser Wert darf höchstens 2.048 Zeichen lang sein.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="lastmoddef" id="lastmoddef"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        Optional
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Datum der letzten Änderung der Datei. Dieses Datum sollte das <a href="http://www.w3.org/TR/NOTE-datetime">
+
+                                W3C Datetime</a>-Format aufweisen. Mit diesem Format können Sie die Uhrzeit
+
+                            weglassen und JJJJ-MM-TT verwenden.</p>
+
+                        <p>
+
+                            Dieses Tag ist vom &quot;If-Modified-Since&quot;-Header (304), den der Server zurückgeben
+
+                            kann, unabhängig. Suchmaschinen können die Informationen von beiden Quellen unterschiedlich
+
+                            verwenden.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="changefreqdef" id="changefreqdef"></a><code>&lt;changefreq&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        Optional
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Die Häufigkeit, mit der sich die Seite voraussichtlich ändern wird. Dieser Wert
+
+                            gibt Suchmaschinen allgemeine Informationen. Er steht nicht unbedingt mit der Häufigkeit
+
+                            in Zusammenhang, mit der Sie die Seite durchsuchen. Gültige Werte sind:</p>
+
+                        <ul>
+
+                            <li>always</li>
+
+                            <li>hourly</li>
+
+                            <li>daily</li>
+
+                            <li>weekly</li>
+
+                            <li>monthly</li>
+
+                            <li>yearly</li>
+
+                            <li>never</li>
+
+                        </ul>
+
+                        <p>
+
+                            Der Wert "always" wird zur Beschreibung von Dokumenten verwendet, die sich bei jedem
+
+                            Zugriff verändern. Der Wert "never" dient zur Beschreibung archivierter URLs.</p>
+
+                        <p>
+
+                            Der Wert dieses Tags wird als <i>Tipp</i> aufgefasst, nicht als Befehl. Die Suchmaschinen-Crawler
+
+                            können diese Information zwar bei ihren Entscheidungen berücksichtigen, sie durchsuchen
+
+                            jedoch Seiten, die mit "hourly" gekennzeichnet sind, eventuell seltener als stündlich,
+
+                            oder Seiten, die mit "yearly" gekennzeichnet sind, häufiger als jährlich. Selbst
+
+                            mit "never" gekennzeichnete Seiten können von den Crawlern in regelmäßigen Zeitabständen
+
+                            durchsucht werden, um unerwartete Änderungen an solchen Seiten zu erkennen.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="prioritydef" id="prioritydef"></a><code>&lt;priority&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        Optional
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Die Priorität dieser URL gegenüber anderen URLs auf Ihrer Website. Gültige Werte
+
+                            liegen zwischen 0,0 und 1,0. Dieser Wert hat keinen Einfluss auf einen Vergleich
+
+                            Ihrer Seiten mit Seiten auf anderen Websites. Er informiert die Suchmaschinen lediglich
+
+                            darüber, welche Seiten für die Crawler die höchste Priorität haben.
+
+                        </p>
+
+                        <p>
+
+                            Die Standardpriorität einer Seite ist 0.5.</p>
+
+                        <p>
+
+                            Beachten Sie, dass die Priorität, die Sie einer Seite zuordnen, wahrscheinlich keinen
+
+                            Einfluss auf die Position Ihrer URLs in den Ergebnisseiten einer Suchmaschine hat.
+
+                            Diese Information wird unter Umständen von den Suchmaschinen lediglich zur Auswahl
+
+                            zwischen URLs derselben Website genutzt. Die Verwendung dieses Tags erhöht somit
+
+                            die Wahrscheinlichkeit, dass Ihre wichtigsten Seiten im Suchindex aufgeführt werden.</p>
+
+                        <p>
+
+                            Beachten Sie auch, dass es unsinnig ist, sämtlichen URLs Ihrer Website hohe Priorität
+
+                            zuzuordnen. Da die Priorität relativ ist, dient sie nur zur Auswahl zwischen URLs
+
+                            auf Ihrer Website.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Zurück nach oben</a></p>
+
+            <h2>
+
+                <a name="escaping" id="escaping"></a>Entity-Escaping</h2>
+
+            <p>
+
+                Ihre Sitemap-Datei muss in UTF-8 codiert sein (das können Sie im Allgemeinen beim
+
+                Speichern der Datei angeben). Wie bei XML-Dateien üblich, müssen alle Datenwerte
+
+                (einschließlich URLs) Entity-Escape-Codes für die in der nachfolgenden Tabelle aufgeführten
+
+                Zeichen verwenden.</p>
+
+            <table>
+
+                <th colspan="2">
+
+                    Zeichen
+
+                </th>
+
+                <th>
+
+                    Escape-Code
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        Kaufmännisches Und-Zeichen
+
+                    </td>
+
+                    <td>
+
+                        &amp;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;amp;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Einfaches Anführungszeichen
+
+                    </td>
+
+                    <td>
+
+                        '
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;apos;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Doppeltes Anführungszeichen
+
+                    </td>
+
+                    <td>
+
+                        "
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;quot;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Größer als
+
+                    </td>
+
+                    <td>
+
+                        &gt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;gt;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Kleiner als
+
+                    </td>
+
+                    <td>
+
+                        &lt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;lt;</code>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p>
+
+                Darüber hinaus müssen alle URLs (einschließlich der URL Ihrer Sitemap) URL-escaped
+
+                und codiert werden, damit der Webserver, auf dem sie gespeichert sind, sie lesen
+
+                kann. Falls Sie jedoch ein Skript, Tool oder eine Protokolldatei zum Erzeugen Ihrer
+
+                URLs verwenden, also alles außer einer manuellen Eingabe von URLs, erfolgt dies
+
+                in der Regel automatisch. Stellen Sie sicher, dass Ihre URLs dem Standard <a href="http://www.ietf.org/rfc/rfc3986.txt">
+
+                    RFC-3986</a> für URIs, dem Standard <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+
+                für IRIs und dem <a href="http://www.w3.org/TR/REC-xml/">XML-Standard</a> entsprechen.</p>
+
+            <p>
+
+                Es folgt ein Beispiel für eine URL, die ein Zeichen verwendet, das kein ASCII-Zeichen
+
+                ist (<code>&uuml;</code>), sowie ein Zeichen, das Entity-Escaping (<code>&amp;</code>)
+
+                erfordert:</p>
+
+            <pre>http://www.example.com/&uuml;mlat.html&amp;q=name</pre>
+
+            <p>
+
+                Weiter unten folgt dieselbe URL, in ISO-8859-1 codiert (für das Hosting auf einem
+
+                Server, der diese Codierung verwendet) und URL-escaped:</p>
+
+            <pre>http://www.example.com/%FCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Weiter unten folgt dieselbe URL, in UTF-8 codiert (für das Hosting auf einem Server,
+
+                der diese Codierung verwendet) und URL-escaped:</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Es folgt dieselbe URL, jedoch mit Entity-Escaping:</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;amp;q=name</pre>
+
+            <h3>
+
+                <a name="sitemapXMLExample" id="sitemapXMLExample"></a>Beispiel für eine XML-Sitemap</h3>
+
+            <p>
+
+                Das folgende Beispiel zeigt eine Sitemap im XML-Format. Die Sitemap in dem Beispiel
+
+                enthält einige URLs, die jeweils andere optionale Parameter verwenden.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=12&amp;amp;desc=vacation_hawaii&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=73&amp;amp;desc=vacation_new_zealand&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=74&amp;amp;desc=vacation_newfoundland&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23T18:00:15+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.3&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=83&amp;amp;desc=vacation_usa&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-11-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Zurück nach oben</a></p>
+
+            <h2>
+
+                <a name="index" id="index"></a>Verwenden von Sitemap-Indexdateien (zum Gruppieren
+
+                mehrerer Sitemap-Dateien)</h2>
+
+            <p>
+
+                Sie können mehrere Sitemap-Dateien bereitstellen, jedoch darf eine Sitemap-Datei
+
+                nicht mehr als 50.000 URLs enthalten und nicht größer als 50 MB (52,428,800 Byte)
+
+                sein. Falls Sie möchten, können Sie Ihre Sitemap-Dateien mit gzip komprimieren,
+
+                um Ihren Bandbreitenbedarf zu verringern, die nicht komprimierte Sitemap-Datei darf
+
+                jedoch nicht größer als 50 MB sein. Bei Angabe von mehr als 50.000 URLs müssen Sie
+
+                mehrere Sitemap-Dateien erstellen.</p>
+
+            <p>
+
+                Falls Sie mehrere Sitemaps bereitstellen, sollten Sie jede einzelne Sitemap-Datei
+
+                in einer Sitemap-Indexdatei aufführen. Sitemap-Indexdateien dürfen nicht mehr als
+
+                50.000 Sitemaps beinhalten, nicht größer als 50 MB (52,428,800 Byte) sein und können
+
+                komprimiert werden. Sie können mehrere Sitemap-Indexdateien haben. Das XML-Format
+
+                einer Sitemap-Indexdatei ist dem XML-Format einer Sitemap-Datei sehr ähnlich.</p>
+
+            <p>
+
+                Die Sitemap-Indexdatei muss folgende Bedingung erfüllen:</p>
+
+            <ul>
+
+                <li>Mit einem öffnenden <code>&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a>&gt;</code>-Tag
+
+                    beginnen und mit einem schließenden <code>&lt;/sitemapindex&gt;</code>-Tag enden.</li>
+
+                <li>Fügen Sie für jede Sitemap einen <code>&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;</code>-Eintrag
+
+                    als übergeordnetes XML-Tag ein.</li>
+
+                <li>Fügen Sie für jedes übergeordnete <code>&lt;sitemap&gt;</code>-Tag einen untergeordneten
+
+                    <code>&lt;<a href="#sitemapIndex_loc">loc</a>&gt;</code>-Eintrag ein.</li>
+
+            </ul>
+
+            <p>
+
+                Das optionale <code>&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;</code>-Tag
+
+                ist für Sitemap-Indexdateien ebenfalls verfügbar.</p>
+
+            <p>
+
+                <strong>Hinweis:</strong> In einer Sitemap-Indexdatei können nur Sitemaps aufgeführt
+
+                werden, die sich auf derselben Website befinden wie die Sitemap-Indexdatei. Beispielsweise
+
+                darf http://www.yoursite.com/sitemap_index.xml Sitemaps auf http://www.yoursite.com
+
+                enthalten, nicht jedoch Sitemaps auf http://www.example.com oder http://yourhost.yoursite.com.
+
+                Wie Sitemaps muss auch die Sitemap-Indexdatei UTF-8-codiert sein.</p>
+
+            <h3>
+
+                <a name="sitemapIndexXMLExample" id="sitemapIndexXMLExample"></a>Beispielindex für
+
+                eine XML-Sitemap</h3>
+
+            <p>
+
+                Das folgende Beispiel zeigt einen Sitemap-Index, der zwei Sitemaps aufführt:</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap1.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2004-10-01T18:23:17+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap2.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Hinweis:</strong> Sitemap-URLs müssen, wie alle Werte in Ihren XML-Dateien,
+
+                <a href="#escaping">Entity-escaped</a> sein.</p>
+
+            <h3>
+
+                <a name="sitemapIndexTagDefinitions" id="sitemapIndexTagDefinitions"></a>Sitemap-Index
+
+                XML Tag-Definitionen</h3>
+
+            <table width="80%">
+
+                <tr>
+
+                    <th>
+
+                        Attribut
+
+                    </th>
+
+                    <th>
+
+                    </th>
+
+                    <th>
+
+                        Beschreibung
+
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemapindex" id="sitemapIndex_sitemapindex"></a><code>&lt;sitemapindex&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        erforderlich
+
+                    </td>
+
+                    <td>
+
+                        Fasst Informationen zu allen Sitemaps in der Datei zusammen.
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemap" id="sitemapIndex_sitemap"></a><code>&lt;sitemap&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        erforderlich
+
+                    </td>
+
+                    <td>
+
+                        Fasst Informationen zu einer einzelnen Sitemap zusammen.
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_loc" id="sitemapIndex_loc"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        erforderlich
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Gibt den Speicherort der Sitemap an.</p>
+
+                        <p>
+
+                            Dieser Ort kann eine Sitemap, eine Atom-Datei, eine RSS-Datei oder eine einfache
+
+                            Textdatei sein.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_lastmod" id="sitemapIndex_lastmod"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        Optional
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Gibt den Zeitpunkt an, an dem die zugehörige Sitemap-Datei geändert wurde. Dieser
+
+                            entspricht jedoch nicht dem Zeitpunkt von Änderungen an Seiten, die in der Sitemap
+
+                            aufgelistet sind. Der Wert für das lastmod-Tag hat das Format <a href="http://www.w3.org/TR/NOTE-datetime">
+
+                                W3C Datetime</a>.</p>
+
+                        <p>
+
+                            Durch Angabe des Zeitstempels der letzten Änderung ermöglichen Sie es Suchmaschinen-Crawlern,
+
+                            nur eine Untermenge der Sitemaps im Index abzurufen, d.h., ein Crawler ist in der
+
+                            Lage, nur solche Sitemaps abzurufen, die nach einem bestimmten Datum geändert wurden.
+
+                            Dank dieses inkrementellen Sitemap-Abrufverfahrens können neue URLs auf sehr umfangreichen
+
+                            Websites schnell entdeckt werden.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Zurück nach oben</a></p>
+
+            <h2>
+
+                <a name="otherformats" id="otherformats"></a>Andere Sitemap-Formate</h2>
+
+            <p>
+
+                Im Sitemap-Protokoll können Sie Details zu Ihren Seiten angeben, die von Suchmaschinen
+
+                gelesen werden sollen. Dies ist sehr empfehlenswert, da es Ihnen ermöglicht, außer
+
+                den URLs weitere Informationen zu den Seiten Ihrer Website anzugeben. Es werden
+
+                jedoch außer dem XML-Protokoll auch RSS-Feeds und Textdateien unterstützt, in denen
+
+                Sie Informationen in begrenzterem Maße bereitstellen können.</p>
+
+            <h3>
+
+                Syndication-Feed</h3>
+
+            <p>
+
+                Sie können RSS (Real Simple Syndication)&nbsp;2.0- oder Atom&nbsp;0.3- oder Atom
+
+                1.0-Feeds senden. Im Allgemeinen verwenden Sie dieses Format nur dann, wenn Ihre
+
+                Website bereits über einen Syndication-Feed verfügt. Unter Umständen werden den
+
+                Suchmaschinen mit dieser Methode nicht alle URLs Ihrer Website übermittelt, da der
+
+                Feed möglicherweise nur Informationen zu den neu hinzugekommenen URLs liefert. Die
+
+                Suchmaschinen können jedoch anhand dieser Informationen trotzdem während des Crawling-Prozesses
+
+                durch Nachverfolgen der Links auf den im Feed enthaltenen Seiten die anderen Seiten
+
+                Ihrer Website ermitteln. Stellen Sie sicher, dass sich der Feed auf der höchsten
+
+                Verzeichnisebene befindet, die die Suchmaschinen durchsuchen sollen. Die im Feed
+
+                enthaltenen Informationen werden von Suchmaschinen folgendermaßen extrahiert:</p>
+
+            <ul>
+
+                <li>Der Eintrag <strong>&lt;link&gt;</strong> gibt die URL an.</li>
+
+                <li>Der Eintrag <strong>modified date</strong> (&lt;pubDate&gt; für RSS-Feeds und das
+
+                    <strong>updated</strong> für Atom-Feeds) zeigt an, wann die einzelnen URLs zuletzt geändert
+
+                    wurden. Die Verwendung des Änderungsdatums ist optional. </li>
+
+            </ul>
+
+            <h3>
+
+                Textdatei</h3>
+
+            <p>
+
+                Sie können uns eine einfache Textdatei senden, die eine URL pro Zeile enthält. Bei
+
+                der Textdatei müssen diese Richtlinien beachtet werden:</p>
+
+            <ul>
+
+                <li>Die Textdatei darf nur eine URL pro Zeile enthalten. Die URLs dürfen keine eingebetteten
+
+                    Zeilenumbrüche beinhalten.</li>
+
+                <li>Geben Sie die URLs vollständig an, einschließlich des vorangestellten &quot;http&quot;</li>
+
+                <li>Jede Textdatei kann maximal 50.000 URLs enthalten und darf nicht größer als 50 MB
+
+                    (52,428,800 Bytes) sein. Wenn Ihre Website mehr als 50.000 URLs umfasst, können
+
+                    Sie die Liste in mehrere Textdateien aufteilen und diese einzeln hinzufügen.</li>
+
+                <li>Die Textdatei muss in UTF-8 codiert sein. Die Codierung geben Sie beim Speichern
+
+                    der Datei an (beispielsweise im Texteditor im Menü &quot;Codierung&quot; des Dialogfelds
+
+                    &quot;Speichern unter&quot;).</li>
+
+                <li>Die Textdatei sollte lediglich die Liste der URLs enthalten.</li>
+
+                <li>Die Textdatei sollte keine Kopf- oder Fußzeileninformationen enthalten.</li>
+
+                <li>Falls Sie möchten, können Sie Ihre Sitemap-Dateien mit gzip komprimieren, um Ihren
+
+                    Bandbreitenbedarf zu verringern.</li>
+
+                <li>Sie können die Textdatei beliebig benennen. Stellen Sie sicher, dass Ihre URLs dem
+
+                    Standard <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a> für URIs und
+
+                    dem Standard <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a> für IRIs
+
+                    entsprechen.</li>
+
+                <li>Laden Sie die Textdatei auf die höchste Verzeichnisebene hoch, die die Suchmaschinen
+
+                    durchsuchen sollen. Stellen Sie außerdem sicher, dass Sie in der Textdatei keine
+
+                    URLs auflisten, die auf einer höheren Ebene gespeichert sind. </li>
+
+            </ul>
+
+            <p>
+
+                Beispieleinträge für die Textdatei werden weiter unten angezeigt.</p>
+
+            <pre>http://www.example.com/catalog?item=1
+
+<br />
+
+http://www.example.com/catalog?item=11
+
+<br /></pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Zurück nach oben</a></p>
+
+            <h2>
+
+                <a name="location" id="location"></a>Position der Sitemap-Datei</h2>
+
+            <p>
+
+                Vom Speicherort der Sitemap-Datei hängt ab, welche URLs in diese Sitemap aufgenommen
+
+                werden können. Eine Sitemap-Datei am Speicherort http://example.com/catalog/sitemap.xml
+
+                kann URLs beginnend mit http://example.com/catalog/ enthalten, jedoch keine URLs
+
+                beginnend mit http://example.com/images/.</p>
+
+            <p>
+
+                Falls Sie die Berechtigung zum Ändern von http://example.org/path/sitemap.xml besitzen,
+
+                wird davon ausgegangen, dass Sie auch über die Berechtigung zur Informationsbereitstellung
+
+                für URLs mit dem Präfix http://example.org/path/ verfügen. Gültige URLs in http://example.com/catalog/sitemap.xml
+
+                umfassen:</p>
+
+            <pre>
+
+http://example.com/catalog/show?item=23
+
+http://example.com/catalog/show?item=233&amp;user=3453
+
+</pre>
+
+            <p>
+
+                Zu URLs, die in http://example.com/catalog/sitemap.xml nicht als gültig angesehen
+
+                werden, gehören:</p>
+
+            <pre>
+
+http://example.com/image/show?item=23
+
+http://example.com/image/show?item=233&amp;user=3453
+
+https://example.com/catalog/page1.html
+
+</pre>
+
+            <p>
+
+                Dies bedeutet, dass alle in der Sitemap aufgeführten URLs dasselbe Protokoll verwenden
+
+                müssen (in diesem Beispiel &quot;http&quot;) und sich auf demselben Host befinden
+
+                müssen wie die Sitemap. Falls sich die Sitemap auf http://www.example.com/sitemap.xml
+
+                befindet, kann sie keine URLs von http://subdomain.example.com enthalten.</p>
+
+            <p>
+
+                URLs, die nicht als gültig angesehen werden, werden nicht weiter berücksichtigt.
+
+                Es wird dringend empfohlen, Ihre Sitemap im Stammverzeichnis Ihres Webservers abzulegen.
+
+                Wenn Ihr Webserver sich beispielsweise bei example.com befindet, sollte Ihre Sitemap-Indexdatei
+
+                bei http://example.com/sitemap.xml sein. In bestimmten Fällen kann es erforderlich
+
+                sein, verschiedene Sitemaps für verschiedene Pfade zu erstellen, z.B. wenn aufgrund
+
+                von Sicherheitsregeln in Ihrem Unternehmen der Schreibzugriff auf verschiedene Verzeichnisse
+
+                aufgeteilt wird.</p>
+
+            <p>
+
+                Falls Sie beim Einreichen einer Sitemap einen Pfad mit einer Portnummer verwenden,
+
+                muss diese Portnummer Teil des Pfads jeder in der Sitemap-Datei aufgelisteten URL
+
+                sein. Beispiel: Falls Ihre Sitemap unter http://www.example.com:100/sitemap.xml
+
+                aufgeführt ist, muss jede in der Sitemap aufgelistete URL mit &quot;http://www.example.com:100&quot;
+
+                beginnen.</p>
+
+            <h3>
+
+                Sitemaps & Einreichen über Kreuz</h3>
+
+            <p>
+
+                Zum Einreichen von Sitemaps für mehrere Hosts von einem einzigen Host müssen Sie
+
+                Ihren Besitz des/der Hosts, für den/die URLs in einer Sitemap eingereicht werden,
+
+                "beweisen". Hier finden Sie ein Beispiel. Sie möchten beispielsweise Sitemaps für
+
+                3 Hosts einreichen:
+
+                <pre>
+
+www.host1.com mit Sitemap-Datei sitemap-host1.xml
+
+www.host2.com mit Sitemap-Datei sitemap-host2.xml
+
+www.host3.com mit Sitemap-Datei sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                Außerdem möchten Sie alle drei Sitemaps auf einem einzigen Host: www.sitemaphost.com
+
+                ablegen. Die Sitemap-URLs lauten somit wie folgt:
+
+                <pre>
+
+http://www.sitemaphost.com/sitemap-host1.xml
+
+http://www.sitemaphost.com/sitemap-host2.xml
+
+http://www.sitemaphost.com/sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                Standardmäßig wird das den Fehler "Einreichen über Kreuz" zur Folge haben, da Sie
+
+                versuchen, URLs für www.host1.com über die Sitemap, die auf www.sitemaphost.com
+
+                gehostet wird, einzureichen (und einige für die anderen beiden Hosts). Eine Möglichkeit,
+
+                den Fehler zu vermeiden, besteht darin, zu beweisen, dass Sie www.host1.com besitzen
+
+                (d. h. zum Ändern der Dateien autorisiert sind). Dazu können Sie die Datei "robots.txt"
+
+                auf www.host1.com ändern, sodass sie auf die Sitemap auf www.sitemaphost.com verweist.</p>
+
+            <p>
+
+                In diesem Beispiel würde die Datei "robots.txt" unter http://www.host1.com/robots.txt
+
+                die Zeile "Sitemap: http://www.sitemaphost.com/sitemap-host1.xml" enthalten. Durch
+
+                die Änderung der Datei "robots.txt" auf www.host1.com und den Verweis auf die Sitemap
+
+                auf www.sitemaphost.com haben Sie ausdrücklich bewiesen, dass Sie www.host1.com
+
+                besitzen. Mit anderen Worten vertraut jeder, der die Datei "robots.txt" auf www.host1.com
+
+                steuert, darauf, dass die Sitemap unter http://www.sitemaphost.com/sitemap-host1.xml
+
+                URLs für www.host1.com enthält. Der gleiche Vorgang kann auch für die anderen beiden
+
+                Hosts wiederholt werden.</p>
+
+            <p>
+
+                Sie können jetzt die Sitemaps auf www.sitemaphost.com einreichen.</p>
+
+            <p>
+
+                Wenn die Datei "robots.txt" eines bestimmten Hosts, zum Beispiel http://www.host1.com/robots.txt
+
+                auf eine Sitemap oder einen Sitemap-Index auf einen anderen Host verweist, ist zu
+
+                erwarten, dass für jede Ziel-Sitemap, wie zum Beispiel http://www.sitemaphost.com/sitemap-host1.xml,
+
+                alle URLs zu dem Host gehören, auf den sie verweisen. Der Grund dafür besteht darin,
+
+                dass eine Sitemap, wie bereits erläutert, URLs nur von einem einzigen Host haben
+
+                sollte.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Zurück nach oben</a></p>
+
+            <h2>
+
+                <a name="validating" id="validating"></a>Validieren Ihrer Sitemap</h2>
+
+            <p>
+
+                Die folgenden XML-Schemata definieren die Elemente und Attribute, die in Ihrer Sitemap-Datei
+
+                auftreten können. Dieses Schema können Sie über die folgenden Links herunterladen:</p>
+
+            <p>
+
+                <b>Für Sitemaps:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br>
+
+                <b>Für Sitemap-Indexdateien:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
+
+            <p>
+
+                Es sind zahlreiche Tools verfügbar, mit denen Sie die Struktur Ihrer Sitemap auf
+
+                Basis dieses Schemas validieren können. Eine Liste mit XML-Tools finden Sie an folgenden
+
+                Orten:<br>
+
+                <br>
+
+                <a href="http://www.w3.org/XML/Schema#Tools">http://www.w3.org/XML/Schema#Tools</a><br>
+
+                <a href="http://www.xml.com/pub/a/2000/12/13/schematools.html">http://www.xml.com/pub/a/2000/12/13/schematools.html</a></p>
+
+            <p>
+
+                Um Ihre Sitemap oder Ihre Sitemap-Indexdatei hinsichtlich eines Schemas zu überprüfen,
+
+                benötigt die XML-Datei zusätzliche Header, wie unten dargestellt.</p>
+
+            <p>
+
+                <strong>Sitemap:</strong></p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Sitemap-Indexdatei:</strong></p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Zurück nach oben</a></p>
+
+            <h2>
+
+                <a name="extending" id="extending"></a>Erweitern des Sitemap-Protokolls</h2>
+
+            <p>
+
+                Sie können das Sitemap-Protokoll mithilfe Ihres eigenen Namensraums erweitern. Geben
+
+                Sie diesen Namensraum einfach im Root-Element an. Zum Beispiel:</p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:example=&quot;http://www.example.com/schemas/example_schema&quot;&gt; &lt;!-- namespace extension --&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Zurück nach oben</a></p>
+
+            <h2>
+
+                <a name="informing" id="informing"></a>Informieren von Suchmaschinen-Crawlern</h2>
+
+            <p>
+
+                Nachdem Sie die Sitemap-Datei erstellt und auf Ihrem Webserver abgelegt haben, müssen
+
+                Sie den Suchmaschinen, die dieses Protokoll unterstützen, den Speicherort mitteilen.
+
+                Dazu haben Sie folgende Möglichkeiten:</p>
+
+            <ul>
+
+                <li><a href="#submit_engine">Einreichen über die Schnittstelle der Suchmaschine</a></li>
+
+                <li><a href="#submit_robots">Angeben des Speicherorts in der robots.txt-Datei Ihrer
+
+                    Website</a></li>
+
+                <li><a href="#submit_ping">Senden einer HTTP-Anforderung</a>t<br />
+
+                </li>
+
+            </ul>
+
+            <p>
+
+                Daraufhin können die Suchmaschinen Ihre Sitemap abrufen und stellen die URLs ihren
+
+                Crawlern zu Verfügung.</p>
+
+            <h3>
+
+                <a name="submit_engine" id="submit_engine"></a>Einreichen einer Sitemap über die
+
+                Schnittstelle der Suchmaschine<br />
+
+            </h3>
+
+            <p>
+
+                Wie Sie Ihre Sitemap direkt bei den einzelnen Suchmaschinen einreichen (wodurch
+
+                Sie Statusinformationen und eventuelle Fehlerinformationen erhalten) erfahren Sie
+
+                in der Dokumentation der betroffenen Suchmaschinen.</p>
+
+            <h3>
+
+                <a name="submit_robots" id="submit_robots"></a>Angeben des Speicherorts der Sitemap
+
+                in der robots.txt-Datei<br />
+
+            </h3>
+
+            <p>
+
+                Sie können den Speicherort der Sitemap mithilfe einer robots.txt-Datei angeben.
+
+                Fügen Sie dazu einfach die folgende Zeile ein:</p>
+
+            <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
+
+            <p>
+
+                Diese Regel steht in keinem Bezug zur Zeile &quot;user-agent&quot;, daher können
+
+                Sie sie an einer beliebigen Stelle in die Datei einfügen. Falls Sie eine Sitemap-Indexdatei
+
+                haben, können Sie auch nur den Speicherort dieser Datei angeben. Sie brauchen nicht
+
+                jede einzelne in der Indexdatei aufgelistete Sitemap anzugeben.</p>
+
+            <p>
+
+                Sie können mehrere Sitemap-Dateien pro Datei "robots.txt" angeben.</p>
+
+            	<pre>Sitemap: http://www.example.com/sitemap-host1.xml
+
+Sitemap: http://www.example.com/sitemap-host2.xml</pre>
+
+            <h3>
+
+                <a name="submit_ping" id="submit_ping"></a>Einreichen der Sitemap über eine HTTP-Anforderung<br />
+
+            </h3>
+
+            <p>
+
+                Senden Sie die Anforderung an die folgende URL, um Ihre Sitemap mithilfe einer HTTP-Anforderung
+
+                einzureichen (ersetzen Sie &lt;searchengine_URL&gt; mit der von der Suchmaschine
+
+                bereitgestellten URL):</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=sitemap_url</pre>
+
+            <p>
+
+                Beispiel: Befindet sich die Sitemap an der Adresse http://example.com/sitemap.gz,
+
+                so lautet die URL:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http://www.example.com/sitemap.gz</pre>
+
+            <p>
+
+                URL-codieren Sie den gesamten Teil ab /ping?sitemap=:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http%3A%2F%2Fwww.ihrewebsite.de%2Fsitemap.gz</pre>
+
+            <p>
+
+                Die HTTP-Anforderung können Sie mit wget, curl oder einer anderen Methode Ihrer
+
+                Wahl absenden. Bei erfolgreicher Ausführung der Anforderung wird der HTTP-Antwortcode
+
+                200 zurückgegeben. Falls Sie eine andere Antwort erhalten, reichen Sie die Anforderung
+
+                nochmals ein. Der HTTP-Antwortcode 200 gibt lediglich an, dass die Suchmaschine
+
+                die Sitemap erhalten hat. Er besagt nicht, dass die Sitemap oder die in ihr enthaltenen
+
+                URLs gültig sind. Besonders einfach geht dies, indem Sie einen automatisierten Auftrag
+
+                einrichten, der regelmäßig Sitemaps erstellt und einreicht.<br>
+
+                <strong>Hinweis:</strong> Wenn Sie eine Sitemap-Indexdatei einreichen, müssen Sie
+
+                lediglich eine HTTP-Anforderung mit Angabe des Speicherorts der Sitemap-Indexdatei
+
+                absenden, d.&nbsp;h. es ist nicht notwendig, für jede im Index aufgeführte Sitemap
+
+                eine eigene Anforderung zu senden.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Zurück nach oben</a></p>
+
+            <h2>
+
+                Ausschließen von Content</h2>
+
+            <p>
+
+                Anhand des Sitemap-Protokolls teilen Sie den Suchmaschinen mit, welcher Content
+
+                indiziert werden soll. Falls bestimmter Content nicht indiziert werden soll, geben
+
+                Sie dies in einer robots.txt-Datei oder einem Robots-Meta-Tag an. Weitere Informationen
+
+                zum Ausschließen von Content aus Suchmaschinen finden Sie unter <a href="http://www.robotstxt.org">
+
+                    robotstxt.org</a>.</p>
+
+            <p>
+
+                &nbsp;</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Zurück nach oben</a></p>
+
+            <p class="date">
+
+                Letzte Aktualisierung: 21. November 2016</p>
+
+            </p>
+
+        </div>
+
+        <!-- closes #maincontent -->
+
+    </div>
+
+    <!-- closes #container -->
+
+    <div id="footer">
+
+        <p>
+
+            <a href="terms.html">Allgemeine Geschäftsbedingungen</a></p>
+
+    </div>
+
+</body>
+
+</html>
+

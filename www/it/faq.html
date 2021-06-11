@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - Domande frequenti</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">Domande frequenti</a></li>
+                    <li><a href="protocol.html">Protocollo</a></li>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Domande frequenti</h1>
+            <p>
+                <a href="#faq_xml_encoding">Come faccio a indicare gli URL in una Sitemap?</a></p>
+            <p>
+                <a href="#faq_output_encoding">È rilevante il metodo di codifica dei caratteri che utilizzo
+                    per generare i miei file Sitemap?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Come faccio a specificare una data?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Come faccio a calcolare la data lastmod?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Dove posso posizionare la mia Sitemap?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Qual è la dimensione massima della Sitemap consentita?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">Sul mio sito sono presenti decine di milioni di URL.
+                    Posso inviare solo quelli modificati di recente?</a></p>
+            <p>
+                <a href="#faq_after_submission">Che cosa devo fare una volta creata la mia Sitemap?</a></p>
+            <p>
+                <a href="#faq_url_format">Devo specificare per esteso gli URL in una Sitemap?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">Nel mio sito sono presenti sia la versione "http" sia "https"
+                    degli URL. Devo elencarle entrambe?</a></p>
+            <p>
+                <a href="#faq_url_encoding">Gli URL del mio sito dispongono di ID di sessione. Devo
+                    rimuoverli?</a></p>
+            <p>
+                <a href="#faq_url_position">La posizione di un URL in una Sitemap influisce sul suo
+                    uso?</a></p>
+            <p>
+                <a href="#faq_frames">Alcune pagine del mio sito utilizzano frame. Devo inserire gli
+                    URL del frameset o gli URL dei contenuti del frame?</a></p>
+            <p>
+                <a href="#faq_compression">Per la compressione delle Sitemap posso utilizzare il formato
+                    zip o devo usare il formato gzip?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">Il posizionamento delle mie pagine nei risultati
+                    della ricerca sarà influenzato dalla priorità indicata nella Sitemap XML?</a></p>
+            <p>
+                <a href="#faq_xml_schema">Esiste uno schema XML che posso utilizzare per la convalida
+                    della mia Sitemap XML?</a></p>
+            <p>
+                <a href="#more">Che cosa devo fare se ho un'altra domanda sull'uso del protocollo o
+                    sull'invio di una Sitemap?</a></p>
+            <hr />
+            <p class="question">
+                D: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Come faccio a indicare gli
+                URL in una Sitemap?</p>
+            <p>
+                In modo analogo a tutti i file XML, i valori dei dati (inclusi gli URL) devono utilizzare
+                <a href="#escaped">codici di escape</a> per i seguenti caratteri: e commerciale
+                (&amp;), virgolette singole ('), doppie virgolette ("), minore di (&lt;) e maggiore
+                di (&gt;). Assicurati inoltre che tutti gli URL siano conformi allo standard URI
+                <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>, allo standard IRI <a
+                    href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a> e allo <a href="http://www.w3.org/TR/REC-xml/">
+                        standard XML</a>. Se utilizzi uno script per generare gli URL, puoi utilizzare
+                un escape URL come parte dello script. Dovrai comunque sempre utilizzare i codici
+                di escape. Ad esempio, la seguente entità dello script python utilizza i codici
+                di escape http://www.esempio.it/view?widget=3&amp;count&gt;2</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                L'URL risultante dall'esempio precedente è il seguente :</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                D: <a name="faq_output_encoding" id="faq_output_encoding"></a>È rilevante il metodo
+                di codifica dei caratteri che utilizzo per generare i miei file Sitemap?</p>
+            <p>
+                Sì. I file Sitemap devono utilizzare la codifica UTF-8.</p>
+            <p class="question">
+                D: <a name="faq_specifying_time" id="faq_specifying_time"></a>Come faccio a specificare
+                una data?</p>
+            <p>
+                Utilizza la <a href="http://www.w3.org/TR/NOTE-datetime">codifica W3C Datetime</a>
+                per l'ora "lastmod" e per tutte le date e gli orari di questo protocollo. Ad esempio,
+                2004-09-22T14:12:14+00:00.</p>
+            <p>
+                Questa codifica consente di omettere la porzione dell'orario del formato ISO8601;
+                ad esempio, 2004-09-22 è valido. Tuttavia, se il tuo sito viene modificato di frequente,
+                ti consigliamo di includere l'ora in modo che i crawler dispongano di maggiori informazioni
+                sul tuo sito.</p>
+            <p class="question">
+                D: <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Come faccio a
+                calcolare la data lastmod?</p>
+            <p>
+                Per i file statici, si tratta della data di aggiornamento del file effettiva. Puoi
+                utilizzare il comando UNIX "date" per ottenere questa data:</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                Per molti URL dinamici, puoi calcolare facilmente la data lastmod in base alla data
+                di modifica dei dati sottostanti o agli aggiornamenti periodici approssimativi (se
+                pertinente). Anche l'uso di una data o un orario approssimativo può evitare la scansione
+                di URL che non hanno subito modifiche. In questo modo, vengono ridotti i requisiti
+                della larghezza di banda e della CPU per i server web.</p>
+            <p class="question">
+                D: <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Dove devo posizionare
+                la mia Sitemap?</p>
+            <p>
+                Ti consigliamo di salvare la Sitemap nella directory principale del server HTML,
+                ossia in http://esempio.it/sitemap.xml.</p>
+            <p>
+                In alcuni casi, ti suggeriamo di creare Sitemap diverse per i vari percorsi del
+                tuo sito, ad esempio se le autorizzazioni di protezione della tua azienda separano
+                i diritti di accesso in scrittura a directory diverse.</p>
+            <p>
+                Se hai l'autorizzazione a caricare http://esempio.it/path/sitemap.xml, hai anche
+                l'autorizzazione a indicare i metadati in http://esempio.it/path/.</p>
+            <p>
+                Tutti gli URL elencati nella Sitemap devono risiedere nello stesso host della Sitemap.
+                Ad esempio, una Sitemap che si trova in http://www.esempio.it/sitemap.xml non può
+                includere gli URL di http://sottodominio.esempio.it. Se la Sitemap si trova in http://www.esempio.it/miacartella/sitemap.xml,
+                non può includere gli URL di http://www.esempio.it.</p>
+            <p class="backtotop">
+                <a href="#top">Torna all'inizio</a></p>
+            <p class="question">
+                D: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Qual è la dimensione massima
+                della Sitemap consentita?</p>
+            <p>
+                Le Sitemap non possono avere una dimensione superiore a 50 MB (52,428,800 byte)
+                e possono contenere un massimo di 50.000 URL. Questi limiti garantiscono che il
+                server web non venga bloccato da file di grosse dimensioni. Ciò significa che, se
+                il tuo sito contiene più di 50.000 URL o la tua Sitemap è più grande di 50 MB, dovrai
+                creare più file Sitemap e utilizzare un <a href="protocol.html#index">file dell'indice
+                    Sitemap</a>. Dovrai utilizzare un file dell'indice Sitemap anche nel caso in
+                cui possiedi un sito di dimensioni ridotte, ma prevedi di ampliarlo superando 50.000
+                URL o la dimensione file di 50 MB. I file dell'indice Sitemap possono contenere
+                fino a 50.000 Sitemap e non devono avere una dimensione superiore a 50 MB (52,428,800
+                byte). Puoi anche utilizzare gzip per comprimere le Sitemap.</p>
+            <p class="question">
+                D: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>Sul mio sito
+                sono presenti decine di milioni di URL. Posso inviare solo quelli modificati di
+                recente?</p>
+            <p>
+                Puoi elencare gli URL che vengono modificati di frequente in un numero ridotto di
+                Sitemap, quindi utilizzare il tag <a href="protocol.html#lastmoddef">lastmod</a>
+                nel <a href="protocol.html#index">file dell'indice Sitemap</a> per identificare tali
+                file Sitemap. I motori di ricerca possono quindi eseguire la scansione incrementale
+                solo delle Sitemap modificate.</p>
+            <p class="question">
+                D: <a name="faq_after_submission" id="faq_after_submission"></a>Che cosa devo fare
+                una volta creata la mia Sitemap?</p>
+            <p>
+                Dopo aver creato la sitemap, <a href="http://www.sitemaps.org/protocol.html#informing">
+                    indicala ai motori di ricerca</a> inviandola direttamente, eseguendo un ping
+                o aggiungendo la sua ubicazione nel file robots.txt.</p>
+            <p class="question">
+                D: <a name="faq_url_format" id="faq_url_format"></a>Devo specificare per esteso
+                gli URL in una Sitemap?</p>
+            <p>
+                Sì. Devi includere il protocollo (ad esempio, http) nell'URL. Se richiesto dal server
+                web, devi anche includere la barra finale nell'URL. Ad esempio, l'indirizzo http://www.esempio.it/
+                è un URL valido per una Sitemap, mentre www.esempio.it non lo è.</p>
+            <p class="question">
+                D: <a name="faq_http_vs_https" id="faq_http_vs_https"></a>Nel mio sito sono presenti
+                sia la versione "http" sia "https" degli URL. Devo elencarle entrambe?</p>
+            <p class="answers">
+                No. Includi solo una versione di un URL nelle tue Sitemap. L'inclusione di più versioni
+                degli URL può comportare una scansione incompleta del tuo sito.</p>
+            <p class="question">
+                D: <a name="faq_url_encoding" id="faq_url_encoding"></a>Gli URL del mio sito dispongono
+                di ID di sessione. Devo rimuoverli?</p>
+            <p>
+                Sì. L'inserimento di ID di sessione negli URL può comportare una scansione incompleta
+                e ridondante del sito.</p>
+            <p class="question">
+                D: <a name="faq_url_position" id="faq_url_position"></a>La posizione di un URL in
+                una Sitemap influisce sul suo uso?</p>
+            <p>
+                No. La posizione di un URL nella Sitemap non ha alcuna probabilità di influire sul
+                modo in cui l'URL viene utilizzato o considerato dai motori di ricerca.</p>
+            <p class="question">
+                D: <a name="faq_frames" id="faq_frames"></a>Alcune pagine del mio sito utilizzano
+                frame. Devo inserire gli URL del frameset o gli URL dei contenuti del frame?</p>
+            <p>
+                Includi entrambi gli URL.</p>
+            <p class="question">
+                D: <a name="faq_compression" id="faq_compression"></a>Per la compressione delle
+                Sitemap posso utilizzare il formato zip o devo usare il formato gzip?</p>
+            <p>
+                Utilizza gzip per comprimere le Sitemap. Ricorda che il file della Sitemap non può
+                avere una dimensione superiore a 50 MB (52,428,800 byte), a prescindere dal fatto
+                che sia compresso o meno.</p>
+            <p class="question">
+                D: <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>Il posizionamento
+                delle mie pagine nei risultati della ricerca sarà influenzato dalla priorità della
+                Sitemap XML?</p>
+            <p>
+                La priorità della Sitemap indica solo l'importanza di un determinato URL rispetto
+                agli altri URL del <i>tuo sito</i> e non influisce in alcun modo sul posizionamento
+                delle tue pagine nei risultati di ricerca.</p>
+            <p class="question">
+                D: <a name="faq_xml_schema" id="faq_xml_schema"></a>Esiste uno schema XML che posso
+                utilizzare per la convalida della mia Sitemap XML?</p>
+            <p>
+                Sì. Uno schema XML è disponibile per i file Sitemap all'indirizzo <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a>, mentre uno schema
+                per i file dell'indice Sitemap è disponibile all'indirizzo <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a>. Sono inoltre
+                disponibili ulteriori informazioni sulla <a href="protocol.html#validating">convalida
+                    della Sitemap</a>.</p>
+            <p class="question">
+                D: <a name="more" id="more"></a>Che cosa devo fare se ho un'altra domanda sull'uso
+                del protocollo o sull'invio di una Sitemap?</p>
+            <p>
+                Consulta la documentazione di ciascun motore di ricerca per maggiori informazioni
+                sull'invio e sull'utilizzo delle Sitemap.</p>
+            <p class="backtotop">
+                <a href="#top">Torna all'inizio</a></p>
+            <p class="date">
+                Ultimo aggiornamento: 21 novembre 2016
+            </p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Termini e condizioni</a></p>
+    </div>
+</body>
+</html>

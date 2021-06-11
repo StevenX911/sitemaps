@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="sv" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - Vanliga frågor</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">Vanliga frågor</a></li>
+                    <li><a href="protocol.html">Protokoll</a></li>
+                    <li><a href="index.html">Startsida</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Vanliga frågor</h1>
+            <p>
+                <a href="#faq_xml_encoding">Hur återger jag webbadresser i webbplatskartan?</a></p>
+            <p>
+                <a href="#faq_output_encoding">Spelar det någon roll vilken teckenkodningsmetod jag
+                    använder för att skapa mina webbplatskartfiler?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Hur anger jag tiden?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Hur beräknar jag datum för senaste ändring?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Var ska jag placera webbplatskartan?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Hur stor kan webbplatskartan vara?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">Min webbplats har miljontals webbadresser. Kan jag
+                    skicka enbart dem som nyligen har ändrats?</a></p>
+            <p>
+                <a href="#faq_after_submission">Vad ska jag göra när jag har skapat min webbplatskarta?</a></p>
+            <p>
+                <a href="#faq_url_format">Måste webbadresser i webbplatskartan specificeras fullständigt?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">Min webbplats har både "http-" och "https-"versioner av
+                    webbadresser. Måste jag ange båda?</a></p>
+            <p>
+                <a href="#faq_url_encoding">Webbadresserna på min webbplats innehåller sessions-id:n.
+                    Måste jag ta bort dem?</a></p>
+            <p>
+                <a href="#faq_url_position">Påverkar en webbadress position i webbplatskartan dess användning?</a></p>
+            <p>
+                <a href="#faq_frames">Vissa sidor på min webbplats använder ramar. Ska jag inkludera
+                    ramuppsättningarnas eller raminnehållens webbadresser?</a></p>
+            <p>
+                <a href="#faq_compression">Kan jag zippa mina webbplatskartor eller måste de gzippas?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">Kommer "prioritetstipset" i XML-webbplatskartan
+                    att ändra rankningen av mina sidor i sökresultaten?</a></p>
+            <p>
+                <a href="#faq_xml_schema">Finns det ett XML-schema som jag kan utvärdera min XML-webbplatskarta
+                    mot?</a></p>
+            <p>
+                <a href="#more">Vad ska jag göra om jag har fler frågor om hur man använder protokollet
+                    eller lägger upp en webbplatskarta?</a></p>
+            <hr />
+            <p class="question">
+                F: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Hur återger jag webbadresser
+                i webbplatskartan?</p>
+            <p>
+                Som med alla XML-filer måste alla datavärden (inklusive webbadresser) använda <a
+                    href="#escaped">ersättningskoder</a> för följande tecken: et-tecken (&amp;),
+                enkla citattecken ('), dubbla citattecken ("), mindre än (&lt;) och större än (&gt;).
+                Du bör även se till att alla webbadresser följer <a href="http://www.ietf.org/rfc/rfc3986.txt">
+                    RFC-3986</a>-standarden för URI, <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standarden
+                för IRI och <a href="http://www.w3.org/TR/REC-xml/">XML-standarden</a>. Om du använder
+                ett skript för att generera webbadresser kan du vanligtvis ersätta dessa adresser
+                som en del av detta skript. Du måste fortfarande ersätta kodningen för dem. Följande
+                pythonskript ersätter exempelvis kodningen http://www.exempel.com/view?widget=3&amp;count&gt;2</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                Webbadressen från exemplet ovan är:</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                F: <a name="faq_output_encoding" id="faq_output_encoding"></a>Spelar det någon roll
+                vilken teckenkodningsmetod jag använder för att skapa mina webbplatskartfiler?</p>
+            <p>
+                Ja. Webbplatskartfilerna måste använda kodning för UTF-8.</p>
+            <p class="question">
+                F: <a name="faq_specifying_time" id="faq_specifying_time"></a>Hur anger jag tiden?</p>
+            <p>
+                Använd <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime-kodningen</a> för
+                lastmod-tidstämplar och alla andra datum och tider i detta protokoll. Till exempel
+                2004-09-22T14:12:14+00:00.</p>
+            <p>
+                Med denna kodning kan du utelämna tidsdelen i ISO8601-formatet, exempelvis är även
+                2004-09-22 giltigt. Om webbplatsen ändras regelbundet uppmanas du dock att inkludera
+                tidsdelen så att sökrobotarna har mer fullständig information om din webbplats.</p>
+            <p class="question">
+                F: <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Hur beräknar jag
+                datum för senaste ändring?</p>
+            <p>
+                För statiska filer är det här det faktiska datumet för filuppdatering. Du kan använda
+                datumkommandot i UNIX för att få fram detta datum:</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                För många dynamiska webbadresser kan du enkelt beräkna datumet för den senaste ändringen
+                baserat på när den underliggande informationen ändrades, eller genom att använda
+                en uppskattning som baseras på regelbundna uppdateringar (om möjligt). Ett ungefärligt
+                datum eller en ungefärlig tidsstämpel kan hjälpa sökrobotar att undvika genomsökning
+                av webbadresser som inte har ändrats. Detta minskar kraven på bandbredd och processorkapacitet
+                på webbservrarna.</p>
+            <p class="question">
+                F: <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Var ska jag placera
+                webbplatskartan?</p>
+            <p>
+                Vi rekommenderar att du placerar din webbplatskarta i rotkatalogen på HTML-servern,
+                d.v.s placerar den på http://exempel.com/sitemap.xml.</p>
+            <p>
+                I vissa situationer kanske du vill skapa olika webbplatskartor för olika vägar på
+                webbplatsen, exempelvis om säkerhetsbehörigheter i din organisation kategoriserar
+                skrivåtkomst till olika kataloger.</p>
+            <p>
+                Vi förutsätter att om du har behörighet att lägga upp http://exempel.com/path/sitemap.xml
+                har du även behörighet att rapportera metadata under http://exempel.com/path/.</p>
+            <p>
+                Alla webbadresser i webbplatskartan måste finnas hos samma värd som webbplatskartan.
+                Om webbplatskartan exempelvis finns på http://www.exempel.com/sitemap.xml kan den
+                inte innehålla webbadresser från http://underdomän.exempel.com. Om webbplatskartan
+                finns på http://www.exempel.com/minmapp/sitemap.xml kan den inte innehålla webbadresser
+                från http://www.exempel.com.</p>
+            <p class="backtotop">
+                <a href="#top">Överst</a></p>
+            <p class="question">
+                F: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Hur stor kan webbplatskartan
+                vara?</p>
+            <p>
+                Webbplatskartor får inte vara större än 50 MB (52 428 800 byte) och får innehålla
+                högst 50 000 webbadresser. Gränsvärdena bidrar till att säkerställa att webbservern
+                inte överbelastas på grund av att den skickar mycket stora filer. Om webbplatsen
+                innehåller fler än 50 000 webbadresser eller om webbplatskartan är större än 50
+                MB, måste du därför skapa flera webbplatskartfiler och använda en <a href="protocol.html#index">
+                    indexfil för webbplatskartor</a>. Du bör använda en indexfil för webbplatskartor
+                även om du har en liten webbplats men planerar att skaffa dig fler än 50 000 webbadresser
+                eller tror att filen blir större än 50 MB. Indexfiler för webbplatskartor kan innehålla
+                högst 50 000 webbplatskartor och får inte vara större än 50 MB (52 428 800 byte).
+                Du kan även komprimera webbplatskartorna med gzip.</p>
+            <p class="question">
+                F: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>Min webbplats
+                har miljontals webbadresser Kan jag skicka bara de som nyligen har ändrats?</p>
+            <p>
+                Du kan ange webbadresser som ofta ändras i ett mindre antal webbplatskartor och
+                sedan använda taggen <a href="protocol.html#lastmoddef">lastmod</a> i din <a href="protocol.html#index">
+                    indexfil för webbplatskarta</a> för att identifiera dessa webbplatskartfiler.
+                Sökmotorerna kan sedan inkrementellt genomsöka endast de webbplatskartor som ändrats.</p>
+            <p class="question">
+                F: <a name="faq_after_submission" id="faq_after_submission"></a>Vad ska jag göra
+                när jag har skapat min webbplatskarta?</p>
+            <p>
+                När du har skapat en webbplatskarta kan du <a href="http://www.sitemaps.org/protocol.html#informing">
+                    göra sökmotorerna medvetna</a> om den genom att skicka den direkt till dem,
+                genom att pinga dem eller genom att lägga till adressen till webbplatskartan i robots.txt-filen.</p>
+            <p class="question">
+                F: <a name="faq_url_format" id="faq_url_format"></a>Måste webbadresser i webbplatskartan
+                specificeras fullständigt?</p>
+            <p>
+                Ja. Du måste inkludera protokollet (till exempel http) i din webbadress. Du måste
+                även inkludera ett snedstreck i webbadressen om webbservern kräver det. http://www.exempel.com/
+                är till exempel en giltig webbadress för en webbplatskarta, men det är inte www.exempel.com.</p>
+            <p class="question">
+                F: <a name="faq_http_vs_https" id="faq_http_vs_https"></a>Min webbplats har både
+                "http-" och "https-"versioner av webbadresser. Måste jag ange båda?</p>
+            <p class="answers">
+                Nej. Ange endast en version av webbadresserna i dina webbplatskartor. Om du anger
+                flera adressversioner kan det leda till en ofullständig genomsökning av din webbplats.</p>
+            <p class="question">
+                F: <a name="faq_url_encoding" id="faq_url_encoding"></a>Webbadresserna på min webbplats
+                innehåller sessions-id:n. Måste jag ta bort dem?</p>
+            <p>
+                Ja. Om du anger sessions-id:n i webbadresserna kan det leda till ofullständig och
+                överflödig genomsökning av din webbplats.</p>
+            <p class="question">
+                F: <a name="faq_url_position" id="faq_url_position"></a>Påverkar en webbadress position
+                i webbplatskartan dess användning?</p>
+            <p>
+                Nej. Placeringen av en webbadress i webbplatskartan har förmodligen ingen inverkan
+                på hur den används eller uppfattas av sökmotorer.</p>
+            <p class="question">
+                F: <a name="faq_frames" id="faq_frames"></a>Vissa sidor på min webbplats använder
+                ramar. Ska jag inkludera ramuppsättningarnas eller raminnehållens webbadresser?</p>
+            <p>
+                Ange båda webbadresserna.</p>
+            <p class="question">
+                F: <a name="faq_compression" id="faq_compression"></a>Kan jag zippa mina webbplatskartor
+                eller måste de gzippas?</p>
+            <p>
+                Komprimera webbplatskartorna med gzip. Tänk på att webbplatskartan får vara högst
+                50 MB (52 428 800 byte) stor, vare sig den är komprimerad eller inte.</p>
+            <p class="question">
+                F: <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>Kommer
+                "prioritetstipset" i XML-webbplatskartan att ändra rankningen av mina sidor i sökresultat?</p>
+            <p>
+                Tipset ”priority” i webbplatskartan anger endast betydelsen av en speciell webbadress
+                i förhållande till andra webbadresser <i>på din egen webbplats</i> och påverkar
+                inte dina sidors rangordning i sökresultaten.</p>
+            <p class="question">
+                F: <a name="faq_xml_schema" id="faq_xml_schema"></a>Finns det ett XML-schema som
+                jag kan utvärdera min XML-webbplatskarta mot?</p>
+            <p>
+                Ja. Det finns ett XML-schema för webbplatskartfiler på adressen <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a> och ett schema för
+                indexfiler för webbplatskartor på adressen <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a>. Du kan även läsa
+                mer om att <a href="protocol.html#validating">verifiera din webbplatskarta</a>.</p>
+            <p class="question">
+                F: <a name="more" id="more"></a>Vad ska jag göra om jag har fler frågor om hur man
+                använder protokollet eller lägger upp en webbplatskarta?</p>
+            <p>
+                Mer information om hur du lägger upp och använder webbplatskartor finns i dokumentationen
+                till den aktuella sökmotorn.</p>
+            <p class="backtotop">
+                <a href="#top">Överst</a></p>
+            <p class="date">
+                Senast uppdaterad: 21 november 2016
+            </p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Allmänna villkor</a></p>
+    </div>
+</body>
+</html>

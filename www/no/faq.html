@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="no" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - vanlige spørsmål</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">Vanlige spørsmål</a></li>
+                    <li><a href="protocol.html">Protokoll</a></li>
+                    <li><a href="index.html">Hjem</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Vanlige spørsmål</h1>
+            <p>
+                <a href="#faq_xml_encoding">Hvordan skriver jeg webadresser i Sitemap-områdekartet?</a></p>
+            <p>
+                <a href="#faq_output_encoding">Har det noe å si hvilken tegnkodingsmetode jeg bruker
+                    til å generere Sitemap-filer?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Hvordan angir jeg tid?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Hvordan beregner jeg lastmod-dato?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Hvor plasserer jeg områdekartet mitt?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Hvor stort kan områdekartet mitt være?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">Webområdet mitt har millioner av webadresser. Kan
+                    jeg sende inn bare de som er endret nylig?</a></p>
+            <p>
+                <a href="#faq_after_submission">Hva gjør jeg etter at jeg har opprettet områdekartet
+                    mitt?</a></p>
+            <p>
+                <a href="#faq_url_format">Må webadresser i områdekartet angis i fullstendig form?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">Webområdet mitt har både "http"- og "https"-versjoner av
+                    webadresser. Må jeg føre opp begge to?</a></p>
+            <p>
+                <a href="#faq_url_encoding">Webadressene på webområdet mitt har økt-IDer i seg. Må jeg
+                    fjerne disse?</a></p>
+            <p>
+                <a href="#faq_url_position">Påvirker plasseringen til en webadresse i et områdekart
+                    bruken av adressen?</a></p>
+            <p>
+                <a href="#faq_frames">Noen av sidene på webområdet mitt bruker rammer. Skal jeg inkludere
+                    webadressene i rammesettene eller webadressene i rammeinnholdet?</a></p>
+            <p>
+                <a href="#faq_compression">Kan jeg komprimere områdekartene mine i zip-format, eller
+                    må formatet være gzip?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">Vil "priority"-tipset i områdekartet i XML-format
+                    endre på rangeringen av sidene i søkeresultatene?</a></p>
+            <p>
+                <a href="#faq_xml_schema">Finnes det et XML-skjema som jeg kan validere mitt områdekart
+                    i XML-format mot?</a></p>
+            <p>
+                <a href="#more">Hva om jeg har et annet spørsmål om bruk av protokollen eller innsending
+                    av områdekart?</a></p>
+            <hr />
+            <p class="question">
+                Q: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Hvordan skriver jeg webadresser
+                i områdekartet?</p>
+            <p>
+                Som med alle XML-filer må alle dataverdier (inkludert webadresser) inneholde <a href="#escaped">
+                    omgåelseskoder</a> for følgende tegn: og-tegn (&amp;), enkelt anførselstegn
+                ('), dobbelt anførselstegn ("), mindre enn (&lt;) og større enn (&gt;). Du må også
+                påse at alle webadresser følger <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>-standarden
+                for URIer, <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standarden
+                for IRIer og <a href="http://www.w3.org/TR/REC-xml/">XML-standarden</a>. Hvis du
+                bruker et skript til å generere webadressene dine, kan du vanligvis bruke webadresseomgåelse
+                som del av dette skriptet. Du må fremdeles bruke enhetsomgåelse på dem. Eksempelvis
+                vil følgende Python-skript enhetsomgå http://www.eksempel.no/view?widget=3&amp;count&gt;2</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                Webadressen som eksempelet ovenfor resulterer i, er:</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                Spørsmål: <a name="faq_output_encoding" id="faq_output_encoding"></a>Har det noe
+                å si hvilken tegnkodingsmetode jeg bruker til å generere Sitemap-filer?</p>
+            <p>
+                Ja. Sitemap-filene dine må bruke UTF-8-koding.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_specifying_time" id="faq_specifying_time"></a>Hvordan angir
+                jeg tid?</p>
+            <p>
+                Bruk <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime-koding</a> for lastmod-tidsstempler
+                og alle andre datoer og klokkeslett i denne protokollen. For eksempel 2004-09-22T14:12:14+00:00.</p>
+            <p>
+                Med denne kodingen kan du utelate klokkeslettdelen av ISO8601-formatet. Det er for
+                eksempel gyldig å bruke 2004-09-22. Hvis det imidlertid stadig skjer endringer på
+                webområdet, anbefales det at du tar med klokkeslettet, slik at robotsøkeprogrammene
+                får mer fullstendig informasjon om webområdet.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Hvordan
+                beregner jeg lastmod-dato?</p>
+            <p>
+                For statiske filer er dette den faktiske datoen for filoppdateringen. Du kan bruke
+                date-kommandoen i UNIX til å finne denne datoen:</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                For mange dynamiske webadresser kan du på enkel måte beregne lastmod-dato basert
+                på når de underliggende dataene ble endret, eller ved å bruke et anslag basert på
+                periodiske oppdateringer (hvis det er aktuelt). Selv bruk av omtrentlig dato eller
+                tidsstempel kan hjelpe robotsøkeprogrammene til å unngå å gjennomsøke webadresser
+                som ikke er endret. Dette vil redusere kravene til båndbredde og prosessorytelse
+                for webservere.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Hvor plasserer
+                jeg områdekartet mitt?</p>
+            <p>
+                Du anbefales på det sterkeste å plassere områdekartet i rotkatalogen på HTML-serveren,
+                det vil si at du plasserer det på http://eksempel.no/sitemap.xml.</p>
+            <p>
+                I enkelte situasjoner kan det hende du vil opprette ulike områdekart for ulike baner
+                på webområdet ditt &mdash; for eksempel hvis sikkerhetstillatelser i organisasjonen
+                fordeler skrivetilgangen til ulike kataloger uten forbindelse.</p>
+            <p>
+                Vi antar at hvis du har tillatelse til å laste opp http://eksempel.no/path/sitemap.xml,
+                har du også tillatelse til å rapportere metadata under http://eksempel.no/path/.</p>
+            <p>
+                Alle webadressene som er oppført i områdekartet, må være plassert på samme vert
+                som områdekartet. Hvis områdekartet for eksempel er plassert på http://www.eksempel.no/sitemap.xml,
+                kan det ikke inkludere webadresser fra http://underdomene.eksempel.no. Hvis områdekartet
+                for eksempel er plassert på http://www.eksempel.no/myfolder/sitemap.xml, kan det
+                ikke inkludere webadresser fra http://www.eksempel.no.</p>
+            <p class="backtotop">
+                <a href="#top">Tilbake til toppen</a></p>
+            <p class="question">
+                Spørsmål: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Hvor stort kan områdekartet
+                mitt være?</p>
+            <p>
+                Webområdekart kan ikke være større enn 50 MB (52 428 800 byte) og kan inneholde
+                maksimalt 50 000 webadresser. Disse begrensningene er med på å sikre at webserveren
+                ikke overbelastes av å formidle svært store filer. Det betyr at hvis webområdet
+                ditt inneholder mer enn 50 000 webadresser, eller hvis områdekartet er større enn
+                50 MB, må du opprette flere Sitemap-filer og bruke en <a href="protocol.html#index">Sitemap-indeksfil</a>.
+                Du bør bruke en Sitemap-indeksfil selv om du har et lite webområde, men planlegger
+                å øke til mer enn 50 000 webadresser eller en filstørrelse på 50 MB. En Sitemap-indeksfil
+                kan inneholde opptil 50 000 områdekart, og må ikke være større enn 50 MB (52 428 800
+                byte). Du kan også bruke gzip til å komprimere områdekartene dine.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>Webområdet
+                mitt har flere titalls millioner webadresser. Kan jeg sende inn bare de som er endret
+                nylig?</p>
+            <p>
+                Du kan føre opp webadresser som endres ofte, i et mindre antall områdekart og deretter
+                bruke <a href="protocol.html#lastmoddef">lastmod</a>-koden i <a href="protocol.html#index">
+                    Sitemap-indeksfilen</a> for å identifisere disse Sitemap-filene. Deretter kan
+                søkemotorer gjennomgå bare de endrede områdekartene trinnvist.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_after_submission" id="faq_after_submission"></a>Hva gjør
+                jeg etter at jeg har opprettet områdekartet mitt?</p>
+            <p>
+                Når du har opprettet områdekartet ditt, <a href="http://www.sitemaps.org/protocol.html#informing">
+                    kan du informere søkemotorer om det</a> ved å sende det direkte til dem, pinge
+                dem eller legge til plasseringen av områdekartet til robots.txt-filen.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_url_format" id="faq_url_format"></a>Må webadresser i områdekartet
+                angis i fullstendig form?</p>
+            <p>
+                Ja. Du må ta med protokollen (for eksempel http) i webadressen. Du må også ta med
+                en etterfølgende skråstrek i webadressen hvis webserveren krever det. For eksempel
+                er http://www.eksempel.no/ en gyldig webadresse for et områdekart, mens www.eksempel.no
+                ikke er det.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_http_vs_https" id="faq_http_vs_https"></a>Webområdet mitt
+                har både "http"- og "https"-versjoner av webadresser. Må jeg føre opp begge to?</p>
+            <p class="answers">
+                Nei. Bare før opp én versjon av en webadresse i dine områdekart. Hvis du tar med
+                flere versjoner av webadressene, kan det føre til ufullstendig gjennomgang av webområdet
+                ditt.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_url_encoding" id="faq_url_encoding"></a>Webadressene på webområdet
+                mitt har økt-IDer i seg. Må jeg fjerne disse?</p>
+            <p>
+                Ja. Hvis du tar med økt-IDer i webadressene, kan det føre til ufullstendig og overflødig
+                gjennomgang av webområdet ditt.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_url_position" id="faq_url_position"></a>Påvirker plasseringen
+                til en webadresse i et områdekart bruken av adressen?</p>
+            <p>
+                Nei. Plasseringen til en webadresse i Sitemap-områdekartet har sannsynligvis ingen
+                innvirkning på hvordan den brukes eller vurderes av søkemotorer.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_frames" id="faq_frames"></a>Noen av sidene på webområdet
+                mitt bruker rammer. Skal jeg inkludere webadressene i rammesettene eller webadressene
+                i rammeinnholdet?</p>
+            <p>
+                Ta med begge webadressene.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_compression" id="faq_compression"></a>Kan jeg komprimere
+                områdekartene mine i zip-format, eller må formatet være gzip?</p>
+            <p>
+                Bruk gzip til å komprimere webområdekartene dine. Husk at webområdekartet ditt ikke
+                kan være større enn 50 MB (52 428 800 byte), enten det er komprimert eller ikke.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>
+                Vil "priority"-tipset i områdekartet i XML-format endre på rangeringen av sidene
+                i søkeresultatene?</p>
+            <p>
+                "Prioriteten" i webområdekartet viser bare hvor viktig én enkelt webadresse er i
+                forhold til andre webadresser <i>på webområdet ditt</i>, og har ingen påvirkning
+                på rangeringen av sidene dine i søkeresultatene.</p>
+            <p class="question">
+                Spørsmål: <a name="faq_xml_schema" id="faq_xml_schema"></a>Finnes det et XML-skjema
+                som jeg kan validere mitt områdekart i XML-format mot?</p>
+            <p>
+                Ja. Et XML-skjema for Sitemap-filer er tilgjengelig på <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a>, og et skjema for
+                Sitemap-indeksfiler er tilgjengelig på <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a>. Du kan også lese
+                mer om hvordan du <a href="protocol.html#validating">validerer områdekartet</a>.</p>
+            <p class="question">
+                Spørsmål: <a name="more" id="more"></a>Hva om jeg har et annet spørsmål om bruk
+                av protokollen eller innsending av områdekart?</p>
+            <p>
+                Du finner mer informasjon om innsending og bruk av områdekart i dokumentasjonen
+                til hver enkelt søkemotor.</p>
+            <p class="backtotop">
+                <a href="#top">Tilbake til toppen</a></p>
+            <p class="date">
+                Sist oppdatert: 21. november 2016
+            </p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Vilkår</a></p>
+    </div>
+</body>
+</html>

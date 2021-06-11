@@ -1,0 +1,1572 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+
+    <title>sitemaps.org - Protocol</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection" />
+
+</head>
+
+<body>
+
+    <a name="top" id="top"></a>
+
+    <div id="container">
+
+        <div id="intro">
+
+            <div id="pageHeader">
+
+                <h1>
+
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+
+            </div>
+
+            <div id="selectionbar">
+
+                <ul>
+
+                    <li><a href="faq.html">Veelgestelde vragen</a></li>
+
+                    <li class="activelink"><a href="#">Protocol</a></li>
+
+                    <li><a href="index.html">Startpagina</a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="mainContent">
+
+            <h1>
+
+                <a name="sitemaps_protocol" id="sitemaps_protocol"></a>Sitemaps in XML-indeling
+
+            </h1>
+
+            <blockquote>
+
+                <b>Naar:</b><br />
+
+                <a href="#xmlTagDefinitions">XML-codedefinities</a>
+
+                <br />
+
+                <a href="#escaping">Entity escaping</a><br />
+
+                <a href="#index">Sitemap-indexbestanden gebruiken</a>
+
+                <br />
+
+				<a href="#otherformats">Overige indelingen voor sitemaps</a><br />
+
+                <a href="#location">Locatie van sitemapbestand</a><br />
+
+                <a href="#validating">Uw sitemap valideren</a><br />
+
+                <a href="#extending">Het sitemapprotocol uitbreiden</a><br />
+
+                <a href="#informing">Informatie bieden aan crawlers van zoekmachines</a>
+
+            </blockquote>
+
+            <p>
+
+                In dit document wordt het XML-schema voor het sitemapprotocol beschreven.</p>
+
+            <p>
+
+                De indeling van het sitemapprotocol bestaat uit XML-codes. Alle gegevenswaarden
+
+                in een sitemap moeten <a href="#escaping">escaped</a> zijn. Het bestand zelf moet
+
+                gecodeerd zijn volgens UTF-8.</p>
+
+            <p>
+
+                De sitemap moet aan de volgende voorwaarden voldoen:</p>
+
+            <ul>
+
+                <li>Begin met de code <code>&lt;<a href="#urlsetdef">urlset</a>&gt;</code> en sluit
+
+                    af met de code <code>&lt;/urlset&gt;</code>.</li>
+
+                <li>Geef de naamruimte op (protocolstandaard) in de code <code>&lt;urlset&gt;</code>.
+
+                </li>
+
+                <li>Een <code>&lt;<a href="#urldef">url</a>&gt;</code>-vermelding opnemen voor elke
+
+                    URL als bovenliggende XML-code.</li>
+
+                <li>Voeg voor elke bovenliggende code <code>&lt;url&gt;</code> een onderliggende code
+
+                    <code>&lt;<a href="#locdef">loc</a>&gt;</code> toe.</li>
+
+            </ul>
+
+            <p>
+
+                Alle andere codes zijn optioneel. Ondersteuning voor deze optionele codes kan per
+
+                zoekmachine verschillen. Raadpleeg de documentatie van de zoekmachine voor meer
+
+                informatie.</p>
+
+            <p>
+
+                Alle URL's in een sitemap moeten van één host zijn, zoals www.voorbeeld.nl of store.voorbeeld.nl.
+
+                Raadpleeg voor meer informatie <a href="#location">de locatie van het sitemapbestand</a></p>
+
+            <h3>
+
+                Voorbeeld van een XML-sitemap</h3>
+
+            <p>
+
+                Het volgende voorbeeld is een sitemap met slechts één URL en alle optionele codes.
+
+                De optionele codes worden cursief weergegeven.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.voorbeeld.nl/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;</em>
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt; 
+
+</pre>
+
+            <p>
+
+                Zie ook het voorbeeld met <a href="#sitemapXMLExample">meerdere URL's</a>.</p>
+
+            <h2>
+
+                <a name="xmlTagDefinitions" id="xmlTagDefinitions"></a>XML-codedefinities</h2>
+
+            <p>
+
+                Onderstaand vindt u een overzicht van de beschikbare XML-codes.</p>
+
+            <table width="80%">
+
+                <th>
+
+                    Attribuut
+
+                </th>
+
+                <th>
+
+                </th>
+
+                <th>
+
+                    Beschrijving
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        <a name="urlsetdef" id="urlsetdef"></a><code>&lt;/urlset&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        vereist
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Het bestand inkapselen en de huidige protocolstandaard gebruiken.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="urldef" id="urldef"></a><code>&lt;url&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        vereist
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            De bovenliggende code voor elke URL-vermelding. De resterende codes zijn onderliggende
+
+                            elementen van deze code.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="locdef" id="locdef"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        vereist
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            URL van de pagina. De URL moet beginnen met het protocol (bijvoorbeeld http) en
+
+                            een schuine streep aan het eind, indien dit nodig is voor uw webserver. De URL mag
+
+                            maximaal 2048 tekens bevatten.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="lastmoddef" id="lastmoddef"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        optioneel
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            De datum waarop het bestand het laatst is bijgewerkt. Deze datum moet voldoen aan
+
+                            de <a href="http://www.w3.org/TR/NOTE-datetime">W3C-indeling voor datum en tijd</a>.
+
+                            Met deze indeling kunt u het tijdgedeelte zonodig weglaten en de notatie JJJJ-MM-DD
+
+                            gebruiken.</p>
+
+                        <p>
+
+                            Deze code staat los van de header If-Modified-Since (304) die de server kan weergeven,
+
+                            en zoekmachines kunnen de informatie van beide bronnen op verschillende manieren
+
+                            gebruiken.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="changefreqdef" id="changefreqdef"></a><code>&lt;changefreq&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        optioneel
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            De regelmaat waarmee de pagina waarschijnlijk wordt gewijzigd. Deze waarde bevat
+
+                            algemene informatie voor zoekmachines en komt mogelijk niet precies overeen met
+
+                            het aantal keer dat de pagina wordt bezocht. Geldige waarden zijn:</p>
+
+                        <ul>
+
+                            <li>always</li>
+
+                            <li>hourly</li>
+
+                            <li>daily</li>
+
+                            <li>weekly</li>
+
+                            <li>monthly</li>
+
+                            <li>yearly</li>
+
+                            <li>never</li>
+
+                        </ul>
+
+                        <p>
+
+                            De waarde 'always' moet worden gebruikt voor documenten die telkens worden gewijzigd
+
+                            wanneer ze worden geopend. De waarde 'never' moet worden gebruikt om gearchiveerde
+
+                            URL's aan te geven.</p>
+
+                        <p>
+
+                            Houd er rekening mee dat de waarde van deze code als <i>tip</i> wordt beschouwd
+
+                            en niet als opdracht. Hoewel crawlers van zoekmachines hier rekening mee kunnen
+
+                            houden, is het mogelijk dat pagina's waarvoor 'hourly' is opgegeven, minder vaak
+
+                            worden bezocht en dat pagina's waarvoor de waarde 'yearly' is opgegeven, vaker worden
+
+                            doorzocht. Pagina's waarvoor 'never' wordt opgegeven, kunnen toch regelmatig worden
+
+                            doorzocht zodat onverwachte wijzigingen aan deze pagina's kunnen worden verwerkt.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="prioritydef" id="prioritydef"></a><code>&lt;priority&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        optioneel
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            De prioriteit van deze URL in relatie tot andere URL's op uw site. Geldige waarden
+
+                            lopen van 0,0 tot 1,0. Deze waarde heeft geen invloed op de manier waarop uw pagina's
+
+                            met andere pagina's op andere sites worden vergeleken. De waarde wordt alleen gebruikt
+
+                            om aan zoekmachines duidelijk te maken welke pagina's u het belangrijkst vindt voor
+
+                            de crawlers.</p>
+
+                        <p>
+
+                            De standaard prioriteit van een pagina is 0,5.</p>
+
+                        <p>
+
+                            De prioriteit die u aan een pagina toewijst, heeft waarschijnlijk geen invloed op
+
+                            de positie van uw URL's in de resultaatpagina's van een zoekmachine. Deze informatie
+
+                            kan door zoekmachines worden gebruikt om een selectie te maken uit URL's van dezelfde
+
+                            site. U kunt deze code dus gebruiken om de kans te vergroten dat de belangrijkste
+
+                            pagina's in elke zoekindex worden opgenomen.</p>
+
+                        <p>
+
+                            Het toewijzen van een hoge prioriteit aan alle URL's op uw site zal waarschijnlijk
+
+                            geen effect hebben. Aangezien prioriteit relatief is, kunt u deze alleen gebruiken
+
+                            om onderscheid te maken tussen URL's op uw site.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Terug naar boven</a></p>
+
+            <h2>
+
+                <a name="escaping" id="escaping"></a>Entity escaping</h2>
+
+            <p>
+
+                Uw sitemapbestand moet UTF-8 zijn gecodeerd (dit kunt u doorgaans opgeven als u
+
+                het bestand opslaat). Zoals voor alle XML-bestanden, moeten voor gegevenswaarden
+
+                (inclusief URL's) entity escape-codes worden gebruikt voor de tekens in de onderstaande
+
+                tabel.</p>
+
+            <table>
+
+                <th colspan="2">
+
+                    Teken
+
+                </th>
+
+                <th>
+
+                    Escape-code
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        Ampersand
+
+                    </td>
+
+                    <td>
+
+                        &amp;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;amp;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Enkel aanhalingsteken
+
+                    </td>
+
+                    <td>
+
+                        '
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;apos;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Dubbele aanhalingstekens
+
+                    </td>
+
+                    <td>
+
+                        "
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;quot;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Groter dan
+
+                    </td>
+
+                    <td>
+
+                        &gt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;gt;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Kleiner dan
+
+                    </td>
+
+                    <td>
+
+                        &lt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;lt;</code>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p>
+
+                Daarnaast moeten alle URL's (inclusief de URL van uw sitemap) URL-escaped en gecodeerd
+
+                zijn, zodat ze kunnen worden gelezen door de webserver waarop de URL's zich bevinden.
+
+                Als u echter een script, hulpprogramma of logbestand gebruikt om uw URL's te genereren
+
+                (en u ze dus niet handmatig opgeeft), is dit reeds voor u gedaan. Zorg er ook voor
+
+                dat alle URL's voldoen aan de <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>-norm
+
+                voor URI's, de <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-norm voor
+
+                IRI's en de <a href="http://www.w3.org/TR/REC-xml/">XML-norm</a>.</p>
+
+            <p>
+
+                Hieronder wordt een voorbeeld weergegeven van een URL waarin een niet-ASCII-teken
+
+                wordt gebruikt (<code>&uuml;</code>) en een teken waarvoor entity escaping nodig
+
+                is (<code>&amp;</code>):</p>
+
+            <pre>http://www.voorbeeld.nl/&uuml;mlat.html&amp;q=name</pre>
+
+            <p>
+
+                Hieronder ziet u dezelfde URL, gecodeerd volgens ISO-8859-1 (om te worden gehost
+
+                op een server die van die codering gebruik maakt) en URL-escaped:</p>
+
+            <pre>http://www.voorbeeld.nl/%FCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Hieronder ziet u dezelfde URL, met UTF-8-codering (om te worden gehost op een server
+
+                die van die codering gebruikmaakt) en URL-escaped:</p>
+
+            <pre>http://www.voorbeeld.nl/%C3%BCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Hieronder ziet u dezelfde URL, maar nu entity escaped:</p>
+
+            <pre>http://www.voorbeeld.nl/%C3%BCmlat.html&amp;amp;q=name</pre>
+
+            <h3>
+
+                <a name="sitemapXMLExample" id="sitemapXMLExample"></a>Voorbeeld van een XML-sitemap</h3>
+
+            <p>
+
+                Hier volgt een voorbeeld van een sitemap in de indeling XML. De sitemap in het voorbeeld
+
+                bevat een klein aantal URL's, die elk een eigen reeks optionele parameters bevatten.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.voorbeeld.nl/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.voorbeeld.nl/catalog?item=12&amp;amp;desc=vakantie_hawaii&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.voorbeeld.nl/catalog?item=73&amp;amp;desc=vakantie_new_zealand&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.voorbeeld.nl/catalog?item=74&amp;amp;desc=vakantie_newfoundland&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23T18:00:15+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.3&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.voorbeeld.nl/catalog?item=83&amp;amp;desc=vakantie_usa&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-11-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Terug naar boven</a></p>
+
+            <h2>
+
+                <a name="index" id="index"></a>U kunt sitemap-indexbestanden gebruiken (om meerdere
+
+                sitemapbestanden te groeperen)</h2>
+
+            <p>
+
+                U kunt meerdere sitemapbestanden opgeven, maar elk sitemapbestand dat u opgeeft
+
+                mag niet meer dan 50.000 URL's bevatten en mag niet groter zijn dan 50 MB (52,428,800
+
+                bytes). Als u wilt, kunt u uw sitemapbestanden comprimeren met gzip om uw bandbreedte
+
+                minder te belasten. Niet gecomprimeerd mogen de sitemapbestanden echter niet groter
+
+                zijn dan 50 MB. Als u meer dan 50.000 URL's in de lijst wilt opnemen, moet u meerdere
+
+                sitemapbestanden maken.</p>
+
+            <p>
+
+                Als u meerdere sitemaps maakt, moet u alle sitemapbestanden opnemen in een sitemap-indexbestand.
+
+                Sitemap-indexbestanden kunnen niet meer dan 50.000 sitemaps bevatten en mogen niet
+
+                groter zijn dan 50 MB (52,428,800 bytes). De bestanden kunnen worden gecomprimeerd.
+
+                U kunt meerdere sitemap-indexbestanden gebruiken. De XML-indeling van een sitemap-indexbestand
+
+                is vergelijkbaar met de XML-indeling van een sitemapbestand.</p>
+
+            <p>
+
+                Het sitemap-indexbestand moet:</p>
+
+            <ul>
+
+                <li>Begin met de code <code>&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a>&gt;</code>
+
+                    en sluit af met de code <code>&lt;/sitemapindex&gt;</code>.</li>
+
+                <li>Een <code>&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;</code>-vermelding
+
+                    opnemen voor elke sitemap als bovenliggende XML-code.</li>
+
+                <li>Voeg voor elke bovenliggende code <code>&lt;sitemap&gt;</code> een onderliggende
+
+                    code <code>&lt;<a href="#sitemapIndex_loc">loc</a>&gt;</code> toe.</li>
+
+            </ul>
+
+            <p>
+
+                De optionele code <code>&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;</code>
+
+                is ook beschikbaar voor sitemap-indexbestanden.</p>
+
+            <p>
+
+                <strong>Opmerking:</strong> een sitemap-indexbestand kan alleen sitemaps bevatten
+
+                die op dezelfde site worden vermeld als het sitemap-indexbestand. Voorbeeld: http://www.yoursite.com/sitemap_index.xml
+
+                kan sitemaps op http://www.yoursite.com bevatten maar niet op http://www.voorbeeld.nl
+
+                of http://yourhost.yoursite.com. De URL http://www.uwsite.nl/sitemap_index.xml kan
+
+                bijvoorbeeld sitemaps bevatten op http://www.uwsite.nl maar niet op http://www.voorbeeld.nl
+
+                of http://uwhost.uwsite.nl.Voor het sitemap-indexbestand moet u net als voor de
+
+                sitemap zelf UTF-8-codering gebruiken.</p>
+
+            <h3>
+
+                <a name="sitemapIndexXMLExample" id="sitemapIndexXMLExample"></a>Voorbeeld sitemapindex
+
+                in XML</h3>
+
+            <p>
+
+                Hier volgt een voorbeeld van een sitemapindex met twee sitemaps:</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.voorbeeld.nl/sitemap1.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2004-10-01T18:23:17+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.voorbeeld.nl/sitemap2.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Opmerking:</strong> zoals alle waarden in uw XML-bestanden moeten de URL's
+
+                van sitemaps worden <a href="#escaping">escaped</a>.</p>
+
+            <h3>
+
+                <a name="sitemapIndexTagDefinitions" id="sitemapIndexTagDefinitions"></a>XML-codedefinities
+
+                sitemapindex</h3>
+
+            <table width="80%">
+
+                <tr>
+
+                    <th>
+
+                        Attribuut
+
+                    </th>
+
+                    <th>
+
+                    </th>
+
+                    <th>
+
+                        Beschrijving
+
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemapindex" id="sitemapIndex_sitemapindex"></a><code>&lt;sitemapindex&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        vereist
+
+                    </td>
+
+                    <td>
+
+                        Bevat informatie over alle sitemaps in het bestand.
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemap" id="sitemapIndex_sitemap"></a><code>&lt;sitemap&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        vereist
+
+                    </td>
+
+                    <td>
+
+                        Bevat informatie over een afzonderlijke sitemap.
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_loc" id="sitemapIndex_loc"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        vereist
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Duidt de locatie van de sitemap aan.</p>
+
+                        <p>
+
+                            Deze locatie kan een sitemap zijn, een Atom-bestand, een RSS-bestand of een eenvoudig
+
+                            tekstbestand.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_lastmod" id="sitemapIndex_lastmod"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        optioneel
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Duidt de tijd aan waarop het bijbehorende sitemapbestand is aangepast. De tijd geldt
+
+                            echter niet voor de andere pagina's in de sitemap. De waarde voor de code lastmod
+
+                            moet in de <a href="http://www.w3.org/TR/NOTE-datetime">W3C-indeling voor datum en tijd</a>
+
+                            worden opgegeven.</p>
+
+                        <p>
+
+                            Wanneer u de tijdstempel voor de laatste wijziging opgeeft, kunnen de crawlers van
+
+                            de zoekmachines alleen een subset van de sitemaps in de index ophalen, dat wil zeggen
+
+                            de sitemaps die zijn gewijzigd na een bepaalde datum. Met deze stapsgewijze methode
+
+                            van het ophalen van sitemaps kunnen nieuwe URL's van grote sites snel worden herkend.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Terug naar boven</a></p>
+
+            <h2>
+
+                <a name="otherformats" id="otherformats"></a>Overige indelingen voor sitemaps</h2>
+
+            <p>
+
+                Met het sitemapprotocol kunt u zoekmachines behalve de URL’s ook andere informatie
+
+                over uw pagina’s verschaffen en daarom moedigen wij het gebruik ervan aan. Naast
+
+                het XML-protocol ondersteunen wij echter ook RSS-feeds en tekstbestanden, die minder
+
+                informatie verschaffen.</p>
+
+            <h3>
+
+                Syndication feed</h3>
+
+            <p>
+
+                U kunt de volgende feeds leveren: RSS (Real Simple Syndication) 2.0 en Atom 0.3
+
+                of 0.1. Doorgaans gebruikt u deze indeling alleen als uw site al een syndication
+
+                feed heeft. Houd er rekening mee dat zoekmachines via deze methode mogelijk niet
+
+                op de hoogte worden gebracht van alle URL’s in uw site, aangezien de feed alleen
+
+                informatie verschaft over recente URL’s. Zoekmachines kunnen die informatie echter
+
+                wel gebruiken om tijdens de normale crawlprocedure andere pagina's op uw site te
+
+                vinden, door de links op de pagina's in een feed te volgen. Plaats de feed in de
+
+                hoogste map die door de zoekmachines moet worden doorzocht. Zoekmachines halen op
+
+                de volgende manier informatie uit de feed:</p>
+
+            <ul>
+
+                <li><strong>het veld &lt;link&gt;</strong>: hier wordt de URL weergegeven</li>
+
+                <li><strong>het datumveld voor de laatste wijziging (het veld &lt;pubDate&gt; voor RSS-feeds
+
+                    en het veld &lt;updated&gt; voor Atom-feeds)</strong>: geeft aan wanneer
+
+                    de verschillende URL’s voor het laatst zijn gewijzigd. Het gebruik van het datumveld
+
+                    voor de laatste wijziging is optioneel. </li>
+
+            </ul>
+
+            <h3>
+
+                Tekstbestand</h3>
+
+            <p>
+
+                U kunt een eenvoudig tekstbestand leveren dat per regel één URL bevat. Het tekstbestand
+
+                moet voldoen aan de volgende richtlijnen:</p>
+
+            <ul>
+
+                <li>Het tekstbestand mag één URL per regel bevatten. De URL's mogen geen gecombineerde
+
+                    nieuwe regels bevatten.</li>
+
+                <li>U moet de volledige URL opgeven, inclusief ‘http://’.</li>
+
+                <li>Elk tekstbestand mag maximaal 50.000 URL's bevatten en mag niet groter zijn dan
+
+                    50MB (52,428,800 bytes). Als uw site meer dan 50.000 URL's bevat, kunt u meerdere
+
+                    tekstbestanden gebruiken en die afzonderlijk toevoegen.</li>
+
+                <li>Voor het tekstbestand moet de codering UTF-8 worden gebruikt. U kunt de codering
+
+                    opgeven wanneer u het bestand opslaat (in Kladblok vindt u deze bijvoorbeeld in
+
+                    de vervolgkeuzelijst Codering in het dialoogvenster Opslaan als).</li>
+
+                <li>Het tekstbestand mag geen andere informatie bevatten dan de lijst met URL's.</li>
+
+                <li>Het tekstbestand mag geen kop- of voettekst bevatten.</li>
+
+                <li>Als u wilt, kunt u uw sitemapbestanden comprimeren met gzip om uw bandbreedte minder
+
+                    te belasten.</li>
+
+                <li>U kunt het tekstbestand elke gewenste naam geven. Controleer of uw URL's voldoen
+
+                    aan de <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>-norm voor URI's
+
+                    en de <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-norm voor IRI's.</li>
+
+                <li>Upload het tekstbestand naar de hoogste map die door de zoekmachines moet worden
+
+                    doorzocht. Het tekstbestand mag geen URL’s bevatten die zich in een hogere map bevinden.
+
+                </li>
+
+            </ul>
+
+            <p>
+
+                Hieronder vindt u enkele voorbeelden van tekstbestanden.</p>
+
+            <pre>http://www.voorbeeld.nl/catalog?item=1
+
+<br />http://www.voorbeeld.nl/catalog?item=11
+
+<br /></pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Terug naar boven</a></p>
+
+            <h2>
+
+                <a name="location" id="location"></a>Locatie van sitemapbestand</h2>
+
+            <p>
+
+                De locatie van een sitemapbestand bepaalt de set URL's die kan worden opgenomen
+
+                in een sitemap. Een sitemapbestand op http://voorbeeld.nl/catalog/sitemap.xml kan
+
+                URL's bevatten die beginnen met http://voorbeeld.nl/catalog/ maar kan geen URL's
+
+                bevatten die beginnen met http://voorbeeld.nl/images/.</p>
+
+            <p>
+
+                Als u toestemming heeft om http://example.org/pad/sitemap.xml te wijzigen, wordt
+
+                ervan uitgegaan dat u ook toestemming heeft om informatie op te geven voor URL's
+
+                met het voorvoegsel http://example.org/pad/. Voorbeelden van URL's die geldig zijn
+
+                in http://voorbeeld.nl/catalog/sitemap.xml:</p>
+
+            <pre>
+
+http://voorbeeld.nl/catalog/show?item=23
+
+http://voorbeeld.nl/catalog/show?item=233&amp;user=3453
+
+</pre>
+
+            <p>
+
+                Voorbeelden van URL's die niet geldig zijn in http://voorbeeld.nl/catalog/sitemap.xml:</p>
+
+            <pre>
+
+http://voorbeeld.nl/image/show?item=23
+
+http://voorbeeld.nl/image/show?item=233&amp;user=3453
+
+https://voorbeeld.nl/catalog/page1.html
+
+</pre>
+
+            <p>
+
+                Dat betekent dat alle URL's in de sitemap hetzelfde protocol moeten gebruiken (in
+
+                dit voorbeeld http), en zich op dezelfde host moeten bevinden als de sitemap. Als
+
+                de sitemap bijvoorbeeld op http://www.voorbeeld.nl/sitemap.xml staat, kan deze geen
+
+                URL's bevatten van http://subdomein.voorbeeld.nl.</p>
+
+            <p>
+
+                URL's die niet geldig zijn, worden niet verder verwerkt. We raden u aan de sitemap
+
+                niet in de hoofdmap van uw webserver te plaatsen. Als uw webserver zich op voorbeeld.nl
+
+                bevindt, bevindt het sitemap-indexbestand zich op http://voorbeeld.nl/sitemap.xml.
+
+                In bepaalde gevallen moet u andere sitemaps maken voor andere paden (bijvoorbeeld
+
+                als de machtigingen in uw organisatie schrijftoegang bieden tot verschillende mappen).</p>
+
+            <p>
+
+                Als u een sitemap verzendt met een pad met daarin een poortnummer, moet u dat poortnummer
+
+                toevoegen aan het pad van elke URL in het sitemapbestand. Als uw sitemap zich bijvoorbeeld
+
+                bevindt op http://www.voorbeeld.nl:100/sitemap.xml, dan moet elke URL in de sitemap
+
+                beginnen met http://www.voorbeeld.nl:100.</p>
+
+            <h3>
+
+                Sitemaps en kruisverwijzing</h3>
+
+            <p>
+
+                Als u sitemaps voor meerdere hosts vanaf één host wilt verzenden, dient u te 'bewijzen'
+
+                dat u eigenaar bent van de host(s) waarvoor de host in een sitemap worden verzonden.
+
+                Hieronder volgt een voorbeeld. We nemen aan dat u sitemaps voor 3 hosts wilt verzenden:
+
+                <pre>
+
+www.host1.com met sitemapbestand sitemap-host1.xml
+
+www.host2.com met sitemapbestand sitemap-host2.xml
+
+www.host3.com met sitemapbestand sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                Bovendien wilt u alle drie de sitemaps op één host plaatsen: www.sitemaphost.com.
+
+                De sitemap-URL's worden dan:
+
+                <pre>
+
+http://www.sitemaphost.com/sitemap-host1.xml
+
+http://www.sitemaphost.com/sitemap-host2.xml
+
+http://www.sitemaphost.com/sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                Het resultaat is standaard een foutmelding, omdat u de URL's voor www.host1.com
+
+                probeert te verzenden via een sitemap die op www.sitemaphost.com wordt gehost (en
+
+                hetzelfde geldt voor de andere twee hosts). U kunt deze fout voorkomen door te bewijzen
+
+                dat u eigenaar bent van www.host1.com (dat wil zeggen, dat u gemachtigd bent om
+
+                bestanden te wijzigen. U kunt dit doen door een wijziging aan te brengen in het
+
+                bestand robots.txt, zodat het naar de sitemap op www.sitemaphost.com verwijst.</p>
+
+            <p>
+
+                In dit voorbeeld zou het bestand the robots.txt op http://www.host1.com/robots.txt
+
+                de volgende regel bevatten: 'Sitemap: http://www.sitemaphost.com/sitemap-host1.xml'.
+
+                Door het bestand robots.txt op www.host1.com te wijzigen en het naar de sitemap
+
+                op www.sitemaphost.com te laten verwijzen, heeft uw impliciet bewezen dat u eigenaar
+
+                bent van www.host1.com. Met andere woorden, de persoon die het bestand robots.txt
+
+                op www.host1.com kan wijzigen, vindt het goed dat de sitemap op http://www.sitemaphost.com/sitemap-host1.xml
+
+                URL's voor www.host1.com bevat. Hetzelfde proces kan worden herhaald voor de andere
+
+                twee hosts.</p>
+
+            <p>
+
+                Nu kunt u de sitemaps naar www.sitemaphost.com verzenden.</p>
+
+            <p>
+
+                Wanneer het bestand robots.txt op een bepaalde host, bijvoorbeeld http://www.host1.com/robots.txt,
+
+                verwijst naar een sitemap of een sitemapindex op een andere host, is de verwachting
+
+                dat alle URL's van de doelsitemaps, bijvoorbeeld http://www.sitemaphost.com/sitemap-host1.xml,
+
+                toebehoren aan de host die er naar verwijst. De reden hiervoor is dat, zoals eerder
+
+                opgemerkt, een sitemap wordt geacht om URL's van slechts één host te hebben.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Terug naar boven</a></p>
+
+            <h2>
+
+                <a name="validating" id="validating"></a>Uw sitemap valideren</h2>
+
+            <p>
+
+                De volgende XML-schema's worden gebruikt voor het definiëren van de elementen en
+
+                attributen die in uw sitemapbestand kunnen worden weergegeven. U kunt dit schema
+
+                downloaden via de onderstaande links:</p>
+
+            <p>
+
+                <b>Voor sitemaps:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br />
+
+                <b>Voor sitemap-indexbestanden:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
+
+            <p>
+
+                Er zijn diverse hulpprogramma's beschikbaar waarmee u de structuur van uw sitemap
+
+                kunt valideren op basis van dit schema. U vindt een lijst met XML-hulpprogramma's
+
+                op de volgende locaties:<br>
+
+                <br>
+
+                <a href="http://www.w3.org/XML/Schema#Tools">http://www.w3.org/XML/Schema#Tools</a><br>
+
+                <a href="http://www.xml.com/pub/a/2000/12/13/schematools.html">http://www.xml.com/pub/a/2000/12/13/schematools.html</a></p>
+
+            <p>
+
+                Om uw sitemap of sitemap-indexbestand te valideren tegen een schema, zijn er extra
+
+                headersnodig voor het XML-bestand, zoals hieronder weergegeven.</p>
+
+            <p>
+
+                <strong>Sitemap:</strong></p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Sitemap-indexbestand:</strong></p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Terug naar boven</a></p>
+
+            <h2>
+
+                <a name="extending" id="extending"></a>Het sitemapprotocol uitbreiden</h2>
+
+            <p>
+
+                U kunt het sitemapsprotocol uitbreiden met uw eigen naamruimte. Geef deze naamruimte
+
+                op in het hoofdelement. Bijvoorbeeld:</p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:example=&quot;http://www.example.com/schemas/example_schema&quot;&gt; &lt;!-- namespace extension --&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Terug naar boven</a></p>
+
+            <h2>
+
+                <a name="informing" id="informing"></a>Informatie bieden aan crawlers van zoekmachines</h2>
+
+            <p>
+
+                Zodra u het sitemapbestand heeft gemaakt en op uw webserver heeft gezet, moet u
+
+                de zoekmachines die dit protocol ondersteunen op de hoogte brengen van de locatie
+
+                van het bestand. Dit kunt u op de volgende manieren doen:</p>
+
+            <ul>
+
+                <li><a href="#submit_engine">De sitemap verzenden via de interface van de zoekmachine
+
+                    voor het verzenden van gegevens</a></li>
+
+                <li><a href="#submit_robots">De locatie opgeven in het robots.txt-bestand van uw site</a></li>
+
+                <li><a href="#submit_ping">een HTTP-verzoek verzenden</a><br />
+
+                </li>
+
+            </ul>
+
+            <p>
+
+                De zoekmachines halen uw sitemap op en maken de URL's beschikbaar voor de crawlers.</p>
+
+            <h3>
+
+                <a name="submit_engine" id="submit_engine"></a>Uw sitemap verzenden via de interface
+
+                van de zoekmachine voor het verzenden van gegevens<br />
+
+            </h3>
+
+            <p>
+
+                Als u een sitemap rechtstreeks naar een zoekmachine wilt verzenden, zodat u informatie
+
+                kunt ontvangen over de status en eventuele fouten die tijdens de verwerking zijn
+
+                opgetreden, verwijzen we u naar de documentatie van de betreffende zoekmachine.</p>
+
+            <h3>
+
+                <a name="submit_robots" id="submit_robots"></a>De locatie van de sitemap opgeven
+
+                met behulp van een robots.txt-bestand<br />
+
+            </h3>
+
+            <p>
+
+                U kunt de locatie van de sitemap opgeven met behulp van een robots.txt-bestand.
+
+                U hoeft daarvoor alleen de volgende regel toe te voegen:</p>
+
+            <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
+
+            <p>
+
+                Deze opdracht staat los van de regel User-agent, dus het maakt niet uit waar u de
+
+                opdracht in het bestand plaatst. Als u een sitemap-indexbestand heeft, geeft u alleen
+
+                de locatie van dat bestand op. U hoeft niet elke afzonderlijke sitemap op te geven
+
+                die in het indexbestand voorkomt.</p>
+
+            <p>
+
+                U kunt meerdere sitemapbestanden opgeven voor elk robots.txt-bestand.</p>
+
+            	<pre>Sitemap: http://www.example.com/sitemap-host1.xml
+
+Sitemap: http://www.example.com/sitemap-host2.xml</pre>
+
+            <h3>
+
+                <a name="submit_ping" id="submit_ping"></a>Uw sitemap verzenden via een HTTP-verzoek<br />
+
+            </h3>
+
+            <p>
+
+                Als u een sitemap met een HTTP-verzoek wilt verzenden (vervang &lt;URL_zoekmachine&gt;
+
+                door de URL die u van de zoekmachine ontvangt), verstuurt u het verzoek naar de
+
+                volgende URL:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=sitemap_url</pre>
+
+            <p>
+
+                Als uw sitemap zich bijvoorbeeld bevindt op http://www.voorbeeld.nl/sitemap.gz,
+
+                wordt de URL:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http://www.voorbeeld.nl/sitemap.gz</pre>
+
+            <p>
+
+                Gebruik URL-codering voor alles na /ping?sitemap=:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http%3A%2F%2Fwww.uwsite.nl%2Fsitemap.gz</pre>
+
+            <p>
+
+                U kunt het HTTP-verzoek verzenden met wget, curl of een ander mechanisme naar keuze.
+
+                Een succesvol verzoek retourneert een HTTP 200-antwoordcode. Als u een ander antwoord
+
+                ontvangt, moet u uw verzoek opnieuw verzenden. De HTTP 200-antwoordcode geeft alleen
+
+                aan dat de zoekmachine uw sitemap heeft ontvangen en niet dat de sitemap of de URL's
+
+                in de sitemap geldig zijn. Een eenvoudige methode hiervoor is het instellen van
+
+                een geautomatiseerde opdracht die regelmatig sitemaps genereert en verzendt.<br>
+
+                <strong>Opmerking:</strong> als u een sitemap-indexbestand levert, hoeft u slechts
+
+                één HTTP-verzoek te verzenden met de locatie van het sitemap-indexbestand. U hoeft
+
+                geen afzonderlijk verzoek te verzenden voor elke sitemap die in de index is opgenomen.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Terug naar boven</a></p>
+
+            <h2>
+
+                Inhoud uitsluiten</h2>
+
+            <p>
+
+                Met het sitemapprotocol kunt u opgeven welke inhoud door zoekmachines moet worden
+
+                geïndexeerd. Gebruik een robots.txt-bestand of een robots-metatag om op te geven
+
+                welke inhoud niet door zoekmachines moet worden geïndexeerd. Raadpleeg <a href="http://www.robotstxt.org">
+
+                    robotstxt.org</a> voor meer manieren om inhoud uit te sluiten van indexering
+
+                door zoekmachines.</p>
+
+            <p>
+
+                &nbsp;</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Terug naar boven</a></p>
+
+            <p class="date">
+
+                Laatste update: 21 november 2016
+
+            </p>
+
+        </div>
+
+        <!-- closes #maincontent -->
+
+    </div>
+
+    <!-- closes #container -->
+
+    <div id="footer">
+
+        <p>
+
+            <a href="terms.html">Algemene Voorwaarden</a></p>
+
+    </div>
+
+</body>
+
+</html>
+

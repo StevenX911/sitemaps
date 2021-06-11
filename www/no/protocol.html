@@ -1,0 +1,1542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+
+    <title>sitemaps.org - protokoll</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection" />
+
+</head>
+
+<body>
+
+    <a name="top" id="top"></a>
+
+    <div id="container">
+
+        <div id="intro">
+
+            <div id="pageHeader">
+
+                <h1>
+
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+
+            </div>
+
+            <div id="selectionbar">
+
+                <ul>
+
+                    <li><a href="faq.html">Vanlige spørsmål</a></li>
+
+                    <li class="activelink"><a href="#">Protokoll</a></li>
+
+                    <li><a href="index.html">Hjem</a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="mainContent">
+
+            <h1>
+
+                <a name="sitemaps_protocol" id="sitemaps_protocol"></a>Områdekart i XML-format
+
+            </h1>
+
+            <blockquote>
+
+                <b>Gå til:</b><br>
+
+                <a href="#xmlTagDefinitions">Definisjoner av XML-koder</a><br>
+
+                <a href="#escaping">Enhetsomgåelse</a><br>
+
+                <a href="#index">Bruk av Sitemap-indeksfiler</a><br>
+
+				<a href="#otherformats">Andre Sitemap-formater</a><br />
+
+                <a href="#location">Plassering av Sitemap-filer</a><br>
+
+                <a href="#validating">Validere områdekartet</a><br>
+
+                <a href="#extending">Utvide Sitemap-protokollen</a><br>
+
+                <a href="#informing">Informere søkemotorenes robotsøkeprogrammer</a>
+
+            </blockquote>
+
+            <p>
+
+                Dette dokumentet beskriver XML-skjemaet for Sitemap-protokollen.</p>
+
+            <p>
+
+                Sitemap-protokollformatet består av XML-koder. Alle dataverdier i et områdekart
+
+                må ha <a href="#escaping">enhetsomgåelse</a>. Selve tekstfilen må bruke UTF-8-koding.</p>
+
+            <p>
+
+                Områdekartet må oppfylle følgende krav:</p>
+
+            <ul>
+
+                <li>Begynn med en innledende <code>&lt;<a href="#urlsetdef">urlset</a>&gt;</code>-kode,
+
+                    og avslutt med en <code>&lt;/urlset&gt;</code>-kode.</li>
+
+                <li>Angi navneområdet (protokollstandard) i <code>&lt;urlset&gt;</code>-koden. </li>
+
+                <li>Inkludere en <code>&lt;<a href="#urldef">url</a>&gt;</code>-oppføring for hver webadresse
+
+                    som en overordnet XML-kode.</li>
+
+                <li>Inkludere en underordnet <code>&lt;<a href="#locdef">loc</a>&gt;</code>-oppføring
+
+                    for hver overordnede <code>&lt;url&gt;</code>-kode.</li>
+
+            </ul>
+
+            <p>
+
+                Alle andre koder er valgfrie. Ulike søkemotorer kan ha ulik grad av støtte for disse
+
+                valgfrie kodene. Du finner mer informasjon i dokumentasjonen til hver enkelt søkemotor.</p>
+
+            <p>
+
+                Dessuten må alle URL-adresser i et områdekart være fra en enkel vert, for eksempel
+
+                www.example.com eller store.example.com. Du finner mer detaljer under <a href="#location">
+
+                    Plassering av Sitemap-fil</a></p>
+
+            <h3>
+
+                Eksempel på XML-områdekart</h3>
+
+            <p>
+
+                Nedenfor ser du et eksempel på et områdekart som bare inneholder én webadresse,
+
+                og som bruker alle valgfrie koder. De valgfrie kodene står i kursiv.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;</em>
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt; 
+
+</pre>
+
+            <p>
+
+                Se også eksempelet vårt med <a href="#sitemapXMLExample">flere webadresser</a>.</p>
+
+            <h2>
+
+                <a name="xmlTagDefinitions" id="xmlTagDefinitions"></a>Definisjoner av XML-koder</h2>
+
+            <p>
+
+                De tilgjengelige XML-kodene er beskrevet nedenfor.</p>
+
+            <table width="80%">
+
+                <th>
+
+                    Attributt
+
+                </th>
+
+                <th>
+
+                </th>
+
+                <th>
+
+                    Beskrivelse
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        <a name="urlsetdef" id="urlsetdef"></a><code>&lt;urlset&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        obligatorisk
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Begynner og avslutter filen, og viser til gjeldende protokollstandard.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="urldef" id="urldef"></a><code>&lt;url&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        obligatorisk
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Overordnet kode for hver webadresseoppføring. De resterende kodene er underordnet
+
+                            denne koden.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="locdef" id="locdef"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        obligatorisk
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Sidens webadresse. Denne webadressen må begynne med protokollen (for eksempel http)
+
+                            og eventuelt slutte med en skråstrek hvis dette kreves av webserveren. Denne verdien
+
+                            må være mindre enn 2&nbsp;048 tegn.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="lastmoddef" id="lastmoddef"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        valgfritt
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Datoen for siste endring av filen. Denne datoen må være i <a href="http://www.w3.org/TR/NOTE-datetime">
+
+                                W3C Datetime</a>-format. I dette formatet kan du utelate klokkeslettdelen hvis
+
+                            du vil det, og bruke YYYY-MM-DD.</p>
+
+                        <p>
+
+                            Vær oppmerksom på at denne koden er forskjellig fra &quot;If-Modified-Since (304)&quot;-hodet
+
+                            som serveren kan returnere, og at søkemotorer kan bruke informasjonen fra begge
+
+                            kilder på ulike måter.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="changefreqdef" id="changefreqdef"></a><code>&lt;changefreq&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        valgfritt
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Hvor hyppig det er sannsynlig at siden endres. Denne verdien er generell informasjon
+
+                            til søkemotorene, og samsvarer ikke nødvendigvis med hvor ofte de gjennomgår siden.
+
+                            Gyldige verdier:</p>
+
+                        <ul>
+
+                            <li>always</li>
+
+                            <li>hourly</li>
+
+                            <li>daily</li>
+
+                            <li>weekly</li>
+
+                            <li>monthly</li>
+
+                            <li>yearly</li>
+
+                            <li>never</li>
+
+                        </ul>
+
+                        <p>
+
+                            Verdien "always" bør brukes til å beskrive dokumenter som endres hver gang de åpnes.
+
+                            Verdien "never" bør brukes til å beskrive arkiverte webadresser.</p>
+
+                        <p>
+
+                            Vær oppmerksom på at verdien for denne koden anses som et <i>tips</i>, ikke en kommando.
+
+                            Selv om denne informasjonen kan ha innvirkning på atferden til søkemotorenes robotsøkeprogrammer,
+
+                            kan disse programmene gjennomgå sider som er merket "hourly" sjeldnere enn det,
+
+                            og de kan gjennomgå sider merket "yearly" oftere enn det. Robotsøkeprogrammene kan
+
+                            jevnlig gjennomgå sider merket "never", slik at de kan håndtere uventede endringer
+
+                            på disse sidene.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="prioritydef" id="prioritydef"></a><code>&lt;priority&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        valgfritt
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Denne webadressens prioritet i forhold andre webadresser på Webområdet. Gyldige
+
+                            verdier går fra 0.0 til 1.0. Denne verdien påvirker ikke hvordan sidene dine sammenlignes
+
+                            med sidene på andre webområder, den forteller bare søkemotorene hvilke sider du
+
+                            anser som de viktigste for robotsøkeprogrammene.</p>
+
+                        <p>
+
+                            Standardprioriteten for en side er 0.5.</p>
+
+                        <p>
+
+                            Vær oppmerksom på at prioriteten du gir en side, sannsynligvis ikke vil påvirke
+
+                            plasseringen til webadressene dine i søkeresultatene for en søkemotor. Søkemotorer
+
+                            kan bruke denne informasjonen når de skal velge mellom webadresser på samme webområde.
+
+                            Derfor kan du bruke denne koden til å øke sannsynligheten for at de viktigste sidene
+
+                            vises i en søkeindeks.</p>
+
+                        <p>
+
+                            Vær dessuten oppmerksom på at det sannsynligvis ikke hjelper deg å gi alle webadressene
+
+                            på webområdet ditt høy prioritet. Prioriteten er relativ, og derfor brukes den bare
+
+                            til å velge mellom webadressene på webområdet ditt.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbake til toppen</a></p>
+
+            <h2>
+
+                <a name="escaping" id="escaping"></a>Enhetsomgåelse</h2>
+
+            <p>
+
+                Sitemap-filen din må være kodet som UTF-8 (du kan vanligvis velge dette når du lagrer
+
+                filen). Som med alle XML-filer må alle dataverdier (inkludert webadresser) inneholde
+
+                omgåelseskoder for tegnene som er med i tabellen nedenfor.</p>
+
+            <table>
+
+                <th colspan="2">
+
+                    Tegn
+
+                </th>
+
+                <th>
+
+                    Omgåelseskode
+
+                </th>
+
+                <tr>
+
+                    <td>
+
+                        Ampersand
+
+                    </td>
+
+                    <td>
+
+                        &amp;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;amp;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Enkelt anførselstegn
+
+                    </td>
+
+                    <td>
+
+                        '
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;apos;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Dobbelt anførselstegn
+
+                    </td>
+
+                    <td>
+
+                        "
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;quot;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        Større enn
+
+                    </td>
+
+                    <td>
+
+                        &gt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;gt;</code>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Mindre enn
+
+                    </td>
+
+                    <td>
+
+                        &lt;
+
+                    </td>
+
+                    <td>
+
+                        <code>&amp;lt;</code>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p>
+
+                I tillegg må alle webadresser (inkludert webadressen for webområdekartet ditt) være
+
+                kodet som webadresse og for lesbarhet av webserveren der de befinner seg. Hvis du
+
+                imidlertid bruker et skript, et verktøy eller en loggfil til å generere webadressene
+
+                med (alt som ikke involverer å skrive dem inn manuelt), gjøres dette vanligvis for
+
+                deg. Kontroller at webadressene dine følger <a href="http://www.ietf.org/rfc/rfc3986.txt">
+
+                    RFC-3986</a>-standarden for URIer, <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standarden
+
+                for IRIer og <a href="http://www.w3.org/TR/REC-xml/">XML-standarden</a>.</p>
+
+            <p>
+
+                Nedenfor ser du et eksempel på en webadresse som bruker både et ikke-ASCII-tegn
+
+                (<code>ü</code>) og et tegn som krever enhetsomgåelse (<code>&amp;</code>):</p>
+
+            <pre>http://www.example.com/&uuml;mlat.html&amp;q=name</pre>
+
+            <p>
+
+                Nedenfor ser du samme webadresse med ISO-8859-1-koding (tilrettelagt for servere
+
+                som bruker slik koding) og webadresseomgåelse:</p>
+
+            <pre>http://www.example.com/%FCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Nedenfor ser du samme webadresse med UTF-8-koding (tilrettelagt for servere som
+
+                bruker slik koding) og webadresseomgåelse:</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;q=name</pre>
+
+            <p>
+
+                Nedenfor ser du samme webadresse, men også med enhetsomgåelse:</p>
+
+            <pre>http://www.example.com/%C3%BCmlat.html&amp;amp;q=name</pre>
+
+            <h3>
+
+                <a name="sitemapXMLExample" id="sitemapXMLExample"></a>Eksempel på XML-områdekart</h3>
+
+            <p>
+
+                Følgende eksempel viser et områdekart i XML-format. Områdekartet i eksempelet inneholder
+
+                noen få webadresser. Hver av disse bruker ulike sett med valgfrie parametere.</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;monthly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.8&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=12&amp;amp;desc=ferie_hawaii&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=73&amp;amp;desc=ferie_new_zealand&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#changefreqdef">changefreq</a>&gt;weekly&lt;/changefreq&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=74&amp;amp;desc=ferie_newfoundland&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-12-23T18:00:15+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#prioritydef">priority</a>&gt;0.3&lt;/priority&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#urldef">url</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#locdef">loc</a>&gt;http://www.example.com/catalog?item=83&amp;amp;desc=ferie_usa&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#lastmoddef">lastmod</a>&gt;2004-11-23&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbake til toppen</a></p>
+
+            <h2>
+
+                <a name="index" id="index"></a>Bruk av Sitemap-indeksfiler (til å gruppere flere
+
+                Sitemap-filer)</h2>
+
+            <p>
+
+                Du kan angi flere Sitemap-filer, men hver Sitemap-fil du angir, kan ha maksimalt
+
+                50&nbsp;000 webadresser og kan ikke være større enn 50&nbsp;MB (52&nbsp;428&nbsp;800
+
+                byte). Hvis du vil, kan du komprimere Sitemap-filer ved hjelp av gzip for å redusere
+
+                kravene til båndbredde. Den ukomprimerte Sitemap-filen må imidlertid ikke overstige
+
+                50 MB. Hvis du vil ha en liste på over 50&nbsp;000 webadresser, må du opprette flere
+
+                Sitemap-filer.</p>
+
+            <p>
+
+                Hvis du har flere Sitemap-filer, kan du føre opp hver Sitemap-fil i en Sitemap-indeksfil.
+
+                Sitemap-indeksfiler kan ikke inneholder mer enn 50&nbsp;000 områdekart, og de må
+
+                ikke være større enn 50 MB (52&nbsp;428&nbsp;800 byte) og kan være komprimert. Du
+
+                kan ha flere enn én Sitemap-indeksfil. XML-formatet i en Sitemap-indeksfil ligner
+
+                på XML-formatet i en Sitemap-fil.</p>
+
+            <p>
+
+                Sitemap-indeksfilen må oppfylle følgende krav:</p>
+
+            <ul>
+
+                <li>Begynne med en innledende <code>&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a>&gt;</code>-kode,
+
+                    og avslutt med en <code>&lt;/sitemapindex&gt;</code>-kode.</li>
+
+                <li>Inkludere en <code>&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;</code>-oppføring
+
+                    for hvert områdekart som en overordnet XML-kode.</li>
+
+                <li>Inkludere en underordnet <code>&lt;<a href="#sitemapIndex_loc">loc</a>&gt;</code>-oppføring
+
+                    for hver overordnede <code>&lt;sitemap&gt;</code>-kode.</li>
+
+            </ul>
+
+            <p>
+
+                Den valgfrie <code>&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;</code>-koden
+
+                er også tilgjengelig for Sitemap-indeksfiler.</p>
+
+            <p>
+
+                <strong>Merk:</strong> En Sitemap-indeksfil kan bare angi områdekart som er plassert
+
+                på samme webområde som Sitemap-indeksfilen. Eksempel: http://www.dittnettsted.no/sitemap_index.xml
+
+                kan inkludere områdekart på http://www.dittnettsted.no, men ikke på http://www.eksempel.no
+
+                eller http://dinvert.dittnettsted.no. På samme måte som med områdekartene må også
+
+                Sitemap-indeksfilen være kodet i UTF-8-format.</p>
+
+            <h3>
+
+                <a name="sitemapIndexXMLExample" id="sitemapIndexXMLExample"></a>Eksempel på Sitemap-indeks
+
+                i XML-format</h3>
+
+            <p>
+
+                Følgende eksempel viser en Sitemap-indeks med to områdekart:</p>
+
+            <pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap1.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2004-10-01T18:23:17+00:00&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_loc">loc</a>&gt;http://www.example.com/sitemap2.xml.gz&lt;/loc&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;2005-01-01&lt;/lastmod&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Obs!&#160;</strong> Sitemap-URL-adresser, som alle verdier i XML-filene
+
+                dine, må bruke <a href="#escaping">enhetsomgåelse</a>.</p>
+
+            <h3>
+
+                <a name="sitemapIndexTagDefinitions" id="sitemapIndexTagDefinitions"></a>Definisjoner
+
+                av XML-koder for Sitemap-indeksering</h3>
+
+            <table width="80%">
+
+                <tr>
+
+                    <th>
+
+                        Attributt
+
+                    </th>
+
+                    <th>
+
+                    </th>
+
+                    <th>
+
+                        Beskrivelse
+
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemapindex" id="sitemapIndex_sitemapindex"></a><code>&lt;sitemapindex&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        obligatorisk
+
+                    </td>
+
+                    <td>
+
+                        Omslutter informasjon om alle områdekartene i filen.
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_sitemap" id="sitemapIndex_sitemap"></a><code>&lt;sitemap&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        obligatorisk
+
+                    </td>
+
+                    <td>
+
+                        Omslutter informasjon om ett enkelt områdekart.
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        <a name="sitemapIndex_loc" id="sitemapIndex_loc"></a><code>&lt;loc&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        obligatorisk
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Identifiserer plasseringen av områdekartet.</p>
+
+                        <p>
+
+                            Denne plasseringen kan være et webområdekart, en Atom-fil, en RSS-fil eller en enkel
+
+                            tekst-fil.</p>
+
+                    </td>
+
+                </tr>
+
+                <tr class="alt">
+
+                    <td>
+
+                        <a name="sitemapIndex_lastmod" id="sitemapIndex_lastmod"></a><code>&lt;lastmod&gt;</code>
+
+                    </td>
+
+                    <td>
+
+                        valgfritt
+
+                    </td>
+
+                    <td>
+
+                        <p>
+
+                            Identifiserer tidspunktet da den tilhørende Sitemap-filen ble endret. Den angir
+
+                            ikke tidspunktet da sidene i områdekartet ble endret. Verdien for lastmod-koden
+
+                            må være i <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime</a>-format.</p>
+
+                        <p>
+
+                            Ved å angi et tidsstempel for siste endring, gjør du det mulig for robotsøkeprogrammene
+
+                            å bare hente et delsett av webområdekartene i indeksen. Med andre ord kan robotsøkeprogrammet
+
+                            bare hente webområdekart som ble endret etter en bestemt dato. Med denne typen henting
+
+                            av webområdekart kan robotsøkeprogrammet raskt finne nye webadresser på svært store
+
+                            webområder.</p>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbake til toppen</a></p>
+
+            <h2>
+
+                <a name="otherformats" id="otherformats"></a>Andre Sitemap-formater</h2>
+
+            <p>
+
+                Sitemap-protokollen lar deg angi detaljer om dine sider til søkemotorer og vi anbefaler
+
+                at du bruker den, siden du kan gi mer informasjon om websider i tillegg til webadressen.
+
+                I tillegg til XML-protokollen støtter vi imidlertid også RSS-innmatinger og tekstfiler
+
+                som gir mer begrenset informasjon.</p>
+
+            <h3>
+
+                Syndikeringsinnmating</h3>
+
+            <p>
+
+                Du kan gi en RSS (Real Simple Syndication) 2.0 eller Atom 0.3 eller 1.0-innmating.
+
+                Vanligvis brukes dette formatet bare hvis webområdet allerede har en syndikeringsinnmating.
+
+                Vær oppmerksom på at denne metoden kanskje ikke vil opplyse søkemotorer om alle
+
+                webadressene på webområdet ditt. Dette er fordi innmatingen bare kan gi informasjon
+
+                om de nyeste webadressene, selv om søkemotorer fortsatt kan bruke disse opplysningene
+
+                til å finne andre sider på webområdet under den vanlige gjennomgangen ved å følge
+
+                koblinger på sidene i innmatingen. Påse at innmatingen er plassert i katalogen på
+
+                det høyeste nivået du vil at søkemotorer skal søke gjennom. Slik henter søkemotorer
+
+                ut opplysningene fra innmatingen:</p>
+
+            <ul>
+
+                <li><strong>&lt;link&gt;-felt</strong> – angir webadressen</li>
+
+                <li><strong>Feltet for endringsdato (&lt;pubDate&gt;-feltet for RSS-innmatinger og &lt;updated&gt;-datoen
+
+                    for Atom-innmatinger)</strong> viser når hver enkelt webadresse ble endret sist.
+
+                    Bruk av feltet for endringsdato er valgfritt. </li>
+
+            </ul>
+
+            <h3>
+
+                Tekstfil</h3>
+
+            <p>
+
+                Du kan gi oss en enkel tekstfil som inneholder én webadresse per linje. Tekstfilene
+
+                må følge disse retningslinjene:</p>
+
+            <ul>
+
+                <li>Tekstfilen må ha én webadresse per linje. Webadressene kan ikke inneholde nye linjer.</li>
+
+                <li>Du må angi fullstendige webadresser, inkludert http.</li>
+
+                <li>Hver tekstfil kan inneholde maksimalt 50&nbsp;000&nbsp;webadresser og kan ikke være
+
+                    større enn 50 MB (52&nbsp;428&nbsp;800 byte). Hvis webområdet inkluderer mer enn
+
+                    50&nbsp;000&nbsp;webadresser, kan du dele opp listen i flere tekstfiler og legge
+
+                    til hver av disse for seg.</li>
+
+                <li>Tekstfilen må bruke UTF-8-koding. Du kan angi dette når du lagrer filen (i for eksempel
+
+                    Notisblokk er dette angitt på Koding-menyen i dialogboksen Lagre som).</li>
+
+                <li>Tekstfilen må ikke inneholde annen informasjon enn listen over webadresser.</li>
+
+                <li>Tekstfilen må ikke inneholde topptekst eller bunntekst.</li>
+
+                <li>Hvis du vil, kan du komprimere Sitemap-filer ved hjelp av gzip for å redusere båndbreddekravene.</li>
+
+                <li>Du kan kalle tekstfilen hva som helst. Kontroller at URL-adressene dine følger <a
+
+                    href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>-standarden for URIer, <a
+
+                        href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standarden for IRIer.</li>
+
+                <li>Du må laste opp tekstfilen til øverste katalognivå du vil at søkemotorene skal gjennomgå
+
+                    og kontrollere at du ikke fører opp webadresser på et høyere katalognivå i tekstfilen.
+
+                </li>
+
+            </ul>
+
+            <p>
+
+                Nedenfor ser du eksempler på oppføringer i en tekstfil.</p>
+
+            <pre>http://www.eksempel.no/catalog?item=1
+
+<br>
+
+http://www.eksempel.no/catalog?item=11
+
+<br></pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbake til toppen</a></p>
+
+            <h2>
+
+                <a name="location" id="location"></a>Plassering av Sitemap-fil</h2>
+
+            <p>
+
+                Plasseringen til en Sitemap-fil bestemmer webadressesettet som kan inkluderes i
+
+                områdekartet. En Sitemap-fil med plasseringen http://eksempel.no/catalog/sitemap.xml
+
+                kan inneholde webadresser som begynner med http://eksempel.no/catalog/, men kan
+
+                ikke inneholde webadresser som begynner med http://eksempel.no/images/.</p>
+
+            <p>
+
+                Hvis du har tilgang til å endre http://eksempel.no/bane/områdekart.xml, kan du gå
+
+                ut fra at du også har tilgang til å angi informasjon for webadresser med prefikset
+
+                http://eksempel.no/bane/. Eksempler på webadresser som anses som gyldige i http://eksempel.no/katalog/områdekart.xml:</p>
+
+            <pre>
+
+http://example.com/catalog/show?item=23
+
+http://example.com/catalog/show?item=233&amp;user=3453
+
+</pre>
+
+            <p>
+
+                Eksempler på webadresser som ikke anses som gyldige i http://eksempel.no/catalog/sitemap.xml:</p>
+
+            <pre>
+
+http://example.com/image/show?item=23
+
+http://example.com/image/show?item=233&amp;user=3453
+
+https://example.com/catalog/page1.html
+
+</pre>
+
+            <p>
+
+                Vær oppmerksom på at alle webområdene som er oppført i områdekartet, må bruke samme
+
+                protokoll (i dette eksempelet er det http) og være plassert på samme vert som områdekartet.
+
+                Hvis områdekartet for eksempel er plassert på http://www.eksempel.no/sitemap.xml,
+
+                kan det ikke inkludere webadresser fra http://underdomene.eksempel.no.</p>
+
+            <p>
+
+                Webområder som ikke anses som gyldige, utelates fra videre vurdering. Du anbefales
+
+                på det sterkeste å plassere områdekartet i rotkatalogen på webserveren. Hvis for
+
+                eksempel webserveren er på eksempel.no, vil Sitemap-indeksfilen være på http://eksempel.no/sitemap.xml.
+
+                I enkelte tilfeller kan det hende du må opprette ulike områdekart for ulike baner
+
+                (for eksempel hvis sikkerhetstillatelser i organisasjonen fordeler skrivetilgangen
+
+                til ulike kataloger uten forbindelse).</p>
+
+            <p>
+
+                Hvis du sender et webområdekart ved hjelp av en bane med et portnummer, må du ta
+
+                med dette portnummeret som del av banen i hver webadresse i webområdekartfilen.
+
+                Hvis webområdekartet for eksempel er på http://www.eksempel.no:100/områdekart.xml,
+
+                må hver webadresse i webområdekartet begynne med http://www.eksempel.no:100.</p>
+
+            <h3>
+
+                Områdekart og kryssinnsendinger</h3>
+
+            <p>
+
+                Hvis du vil sende inn områdekart for flere verter fra én vert, må du "bevise" at
+
+                du har eierskap til verten(e) du sender inn URL-adresser for i et områdekart. Her
+
+                er et eksempel. La oss si at du ønsker å sende inn områdekart for tre verter:
+
+                <pre>
+
+www.host1.com med Sitemap-fil sitemap-host1.xml
+
+www.host2.com med Sitemap-fil sitemap-host2.xml
+
+www.host3.com med Sitemap-fil sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                I tillegg ønsker du å plassere alle områdekartene på en enkel vert: www.sitemaphost.com.
+
+                URL-adressene til områdekartene blir dermed som følger:
+
+                <pre>
+
+http://www.sitemaphost.com/sitemap-host1.xml
+
+http://www.sitemaphost.com/sitemap-host2.xml
+
+http://www.sitemaphost.com/sitemap-host3.xml
+
+</pre>
+
+            </p>
+
+            <p>
+
+                Som standard vil dette resultere i en kryssinnsendingsfeil siden du prøver å sende
+
+                inn URL-adresser for www.host1.com via et områdekart som ligger på www.sitemaphost.com
+
+                (og likeledes for de to andre vertene). En måte å unngå denne feilen på er å bevise
+
+                at du eier (altså at du har tillatelse til å endre filer) www.host1.com. Du kan
+
+                gjøre dette ved å endre robots.txt-filen på www.host1.com slik at den peker til
+
+                områdekartet på www.sitemaphost.com.</p>
+
+            <p>
+
+                I dette eksempelet vil robots.txt-filen på http://www.host1.com/robots.txt inneholde
+
+                linjen "Sitemap: http://www.sitemaphost.com/sitemap-host1.xml". Ved å endre robots.txt-filen
+
+                på www.host1.com slik at den peker på områdekartet på www.sitemaphost.com, har du
+
+                underforstått bevist at du eier www.host1.com. Med andre ord, den som kontrollerer
+
+                robots.txt-filen på www.host1.com, har klarert at http://www.sitemaphost.com/sitemap-host1.xml
+
+                skal inneholde URL-adresser for www.host1.com. Den samme fremgangsmåten kan gjentas
+
+                for de to andre vertene.</p>
+
+            <p>
+
+                Nå kan du sende inn områdekartene på www.sitemaphost.com.</p>
+
+            <p>
+
+                Når en bestemt verts robots.txt-fil, for eksempel http://www.host1.com/robots.txt,
+
+                peker til et områdekart eller en områdekartindeks på en annen vert, forventes det
+
+                at for hvert av målområdekartene, for eksempel http://www.sitemaphost.com/sitemap-host1.xml,
+
+                tilhører alle URL-adressene verten som peker på det. Dette er fordi, som nevnt tidligere,
+
+                et områdekart forventes å bare inneholde URL-adresser fra en enkel vert.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbake til toppen</a></p>
+
+            <h2>
+
+                <a name="validating" id="validating"></a>Validere områdekartet</h2>
+
+            <p>
+
+                XML-skjemaene nedenfor angir hvilke elementer og attributter som kan vises i Sitemap-filen
+
+                din. Du kan laste ned dette skjemaet fra koblingene nedenfor:</p>
+
+            <p>
+
+                <b>For områdekart:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br>
+
+                <b>For Sitemap-indeksfiler:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
+
+            <p>
+
+                Det finnes en rekke verktøy som du kan bruke når du skal validere strukturen i områdekartet
+
+                basert på dette skjemaet. Du finner en liste over XML-relaterte verktøy på disse
+
+                stedene:<br>
+
+                <br>
+
+                <a href="http://www.w3.org/XML/Schema#Tools">http://www.w3.org/XML/Schema#Tools</a><br>
+
+                <a href="http://www.xml.com/pub/a/2000/12/13/schematools.html">http://www.xml.com/pub/a/2000/12/13/schematools.html</a></p>
+
+            <p>
+
+                Hvis du skal kunne validere områdekartet eller Sitemap-indeksfilen mot et skjema,
+
+                trenger XML-filen flere topptekster, som vist nedenfor.</p>
+
+            <p>
+
+                <strong>Områdekart:</strong></p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;
+
+</pre>
+
+            <p>
+
+                <strong>Sitemap-indeksfil:</strong></p>
+
+            	 <pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;sitemap&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/sitemap&gt;
+
+&lt;/sitemapindex&gt;
+
+</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbake til toppen</a></p>
+
+            <h2>
+
+                <a name="extending" id="extending"></a>Utvide Sitemap-protokollen</h2>
+
+            <p>
+
+                Du kan utvide Sitemaps-protokollen ved hjelp av ditt eget navneområde. Du angir
+
+                ganske enkelt dette navneområdet i rotelementet. Eksempel:</p>
+
+            	<pre>
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+
+&lt;urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:example=&quot;http://www.example.com/schemas/example_schema&quot;&gt; &lt;!-- namespace extension --&gt;
+
+&nbsp;&nbsp;&nbsp;&lt;url&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/example:example_tag&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+
+&nbsp;&nbsp;&nbsp;&lt;/url&gt;
+
+&lt;/urlset&gt;</pre>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbake til toppen</a></p>
+
+            <h2>
+
+                <a name="informing" id="informing"></a>Informere søkemotorenes robotsøkeprogrammer</h2>
+
+            <p>
+
+                Når du har opprettet Sitemap-filen og plassert den på webserveren din, må du informere
+
+                søkemotorer som støtter denne protokollen, om plasseringen. Du kan gjør det på følgende
+
+                måter:</p>
+
+            <ul>
+
+                <li><a href="#submit_engine">Slik sender du det ved hjelp av søkemotorens grensesnitt
+
+                    for innsending</a></li>
+
+                <li><a href="#submit_robots">Slik spesifiserer du plasseringen webområdets robots.txt-fil</a></li>
+
+                <li><a href="#submit_ping">Slik sender du en HTTP-forespørsel</a><br>
+
+                </li>
+
+            </ul>
+
+            <p>
+
+                Søkemotorene kan deretter hente områdekartet og gjøre webadressene tilgjengelige
+
+                for robotsøkeprogrammer.</p>
+
+            <h3>
+
+                <a name="submit_engine" id="submit_engine"></a>Slik sender du inn Sitemap ved hjelp
+
+                av søkemotorens grensesnitt for innsending<br>
+
+            </h3>
+
+            <p>
+
+                Hvis du vil sende områdekartet ditt direkte til en søkemotor, som lar deg motta
+
+                statusinformasjon og eventuelle behandlingsfeil, kan du lese hver søkemotors dokumentasjon.</p>
+
+            <h3>
+
+                <a name="submit_robots" id="submit_robots"></a>Slik spesifiserer du plasseringen
+
+                av Sitemap i robots.txt-filen<br>
+
+            </h3>
+
+            <p>
+
+                Du kan spesifisere plasseringen av Sitemap ved å bruke en robots.txt-fil. For å
+
+                gjøre dette, legger du til følgende linje:</p>
+
+            <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
+
+            <p>
+
+                Denne katalogen er uavhengig av User-Agent-linjen, så det har ingen betydning hvor
+
+                du plasserer den i filen. Hvis du har en Sitemap-indeksfil, kan du inkludere plasseringen
+
+                til bare den filen. Du trenger ikke angi hver enkelt Sitemap som finnes i indeksfilen.</p>
+
+            <p>
+
+                Du kan angi flere enn én områdekartfil per robots.txt-fil.</p>
+
+            	<pre>Sitemap: http://www.example.com/sitemap-host1.xml
+
+Sitemap: http://www.example.com/sitemap-host2.xml</pre>
+
+            <h3>
+
+                <a name="submit_ping" id="submit_ping"></a>Slik sender du inn et områdekart ved
+
+                hjelp av en HTTP-forespørsel<br>
+
+            </h3>
+
+            <p>
+
+                For å sende inn områdekartet ditt ved hjelp av en HTTP-forespørsel (erstatter du
+
+                &lt; searchengine_URL &gt; med webadressen som du får fra søkemotoren). Send forespørselen
+
+                til følgende webadresse:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=sitemap_url</pre>
+
+            <p>
+
+                Hvis for eksempel områdekartet er plassert på http://www.eksempel.no/sitemap.gz,
+
+                vil webadressen bli:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http://www.example.com/sitemap.gz</pre>
+
+            <p>
+
+                Alt etter /ping?sitemap= skal kodes som webadresse:</p>
+
+            <pre>&lt;searchengine_URL&gt;/ping?sitemap=http%3A%2F%2Fwww.dittnettsted.no%2Fsitemap.gz</pre>
+
+            <p>
+
+                Du kan opprette en HTTP-forespørsel ved hjelp av wget, curl eller andre alternativer
+
+                som du foretrekker. En vellykket forespørsel returnerer en HTTP 200-svarkode. Hvis
+
+                du mottar et annet svar, bør du sende forespørselen din på nytt. HTTP 200-svarkoden
+
+                angir bare at søkemotoren har mottatt webområdekartet ditt, ikke at selve webområdekartet
+
+                eller de aktuelle webadressene er gyldige. En enkel måte å gjøre dette på, er å
+
+                konfigurere automatisk og regelmessig generering og sending av webområdekart.<br>
+
+                <strong>Merk:</strong> Hvis du angir en Sitemap-indeksfil, trenger du bare sende
+
+                én HTTP-forespørsel som inkluderer plasseringen av Sitemap-indeksfilen. Du trenger
+
+                ikke sende enkeltforespørsler for hvert områdekart som er oppført i indeksen.</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbake til toppen</a></p>
+
+            <h2>
+
+                Ekskludere innhold</h2>
+
+            <p>
+
+                Sitemaps-protokollen gjør det mulig for deg å la søkemotorer få vite hva slags innhold
+
+                som skal indekseres. For å fortelle søkemotorer hvilket innhold du ikke vil skal
+
+                indekseres, bruker du en robots.txt-fil eller en metakode. Se <a href="http://www.robotstxt.org">
+
+                    robotstxt.org</a> hvis du vil ha mer informasjon om hvordan du utelater innhold
+
+                fra søkemotorer.</p>
+
+            <p>
+
+                &nbsp;</p>
+
+            <p class="backtotop">
+
+                <a href="#top">Tilbake til toppen</a></p>
+
+            <p class="date">
+
+                Sist oppdatert: 21. november 2016
+
+            </p>
+
+        </div>
+
+        <!-- closes #maincontent -->
+
+    </div>
+
+    <!-- closes #container -->
+
+    <div id="footer">
+
+        <p>
+
+            <a href="terms.html">Vilkår</a></p>
+
+    </div>
+
+</body>
+
+</html>
+

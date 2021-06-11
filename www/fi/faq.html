@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="fi" xmlns="http://www.w3.org/1999/xhtml" id="sitemaps_org" xml:lang="en">
+<head>
+    <title>sitemaps.org - Usein kysytyt kysymykset</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="robots" content="all">
+    <link rel="stylesheet" type="text/css" href="/sitemaps.css" media="screen, projection">
+<script type="text/javascript" src="/lang.js"></script>
+    <style type="text/css">
+.style2
+        {
+            font-family: "Courier New" , Courier, mono;
+        }
+        </style>
+</head>
+<body class="faq">
+    <a name="top" id="top"></a>
+    <div id="container">
+        <div id="intro">
+            <div id="pageHeader">
+                <h1>
+                    <a href="http://www.sitemaps.org/">sitemaps.org</a></h1>
+            </div>
+            <div id="selectionbar">
+                <ul>
+                    <li class="activelink"><a href="#">Usein kysytyt kysymykset</a></li>
+                    <li><a href="protocol.html">Protokolla</a></li>
+                    <li><a href="index.html">Etusivu</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mainContent">
+            <h1>
+                Usein kysytyt kysymykset</h1>
+            <p>
+                <a href="#faq_xml_encoding">Miten edustan URL-osoitteita sivustokartassa?</a></p>
+            <p>
+                <a href="#faq_output_encoding">Onko sivustokarttatiedostojeni luonnin yhteydessä käyttämälläni
+                    merkkikoodausmenetelmällä väliä?</a></p>
+            <p>
+                <a href="#faq_specifying_time">Miten määritän ajan?</a></p>
+            <p>
+                <a href="#faq_computing_lastmod">Miten lasken viimeisen muutospäivämäärän?</a></p>
+            <p>
+                <a href="#faq_sitemap_location">Minne sijoitan sivustokarttani?</a></p>
+            <p>
+                <a href="#faq_sitemap_size">Miten suuri sivustokarttani voi olla?</a></p>
+            <p>
+                <a href="#faq_submitting_changes">Sivustossani on kymmeniä miljoonia URL-osoitteita;
+                    voinko kuitenkin lähettää vain äskettäin muuttamani URL-osoitteet?</a></p>
+            <p>
+                <a href="#faq_after_submission">Mitä teen sivustokartan luomisen jälkeen?</a></p>
+            <p>
+                <a href="#faq_url_format">Onko sivustokartan URL-osoitteet määritettävä tarkasti?</a></p>
+            <p>
+                <a href="#faq_http_vs_https">Sivustoni URL-osoitteissa on http- ja https-versioita.
+                    Onko minun merkittävä molemmat?</a></p>
+            <p>
+                <a href="#faq_url_encoding">Sivustoni URL-osoitteissa on istuntotunnukset. Onko minun
+                    poistettava ne?</a></p>
+            <p>
+                <a href="#faq_url_position">Vaikuttaako URL-osoitteen sijainti sivustokartassa sen käyttöön?</a></p>
+            <p>
+                <a href="#faq_frames">Jotkut sivustoni sivut käyttävät kehyksiä. Lisäänkö kehyssivujen
+                    URL-osoitteet vai kehysten sisältöjen URL-osoitteet?</a></p>
+            <p>
+                <a href="#faq_compression">Voinko pakata sivustokarttani zip-muodossa vai onko ne pakattava
+                    gzip-muodossa?</a></p>
+            <p>
+                <a href="#faq_priority_and_page_rank">Muuttaako XML-sivustokartan "painoarvoa" koskeva
+                    vihje sivujeni sijoitusta hakutuloksissa?</a></p>
+            <p>
+                <a href="#faq_xml_schema">Onko olemassa XML-kaavaa, jonka mukaan voin vahvistaa XML-sivustokarttani?</a></p>
+            <p>
+                <a href="#more">Entä jos minulla on kysyttävää protokollan käytöstä tai sivustokartan
+                    lähettämisestä?</a></p>
+            <hr />
+            <p class="question">
+                Q: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Miten edustan URL-osoitteita
+                sivustokartassa?</p>
+            <p>
+                Kaikkien XML-tiedostojen tapaan kaikissa data-arvoissa (URL-osoitteet mukaan lukien)
+                on käytettävä ns. <a href="#escaped">entity escape -koodeja</a> seuraavien merkkien
+                osalta: et-merkki (&amp;), heittomerkki ('), lainausmerkki ("), pienempi kuin (&lt;)
+                ja suurempi kuin (&gt;). Varmista myös, että kaikki URL-osoitteet noudattavat URI-osoitteiden
+                <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>-standardia, IRI-osoitteiden
+                <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standardia ja <a href="http://www.w3.org/TR/REC-xml/">
+                    XML-standardia</a>. Jos URL-osoitteet muodostetaan komentojonon avulla, tarvittava
+                URL escape -koodaus voidaan tavallisesti määrittää käytettävään komentojonoon. Tämän
+                lisäksi tiedot on saatettava entity escape -muotoon. Oheinen python-komentojono
+                esimerkiksi muuttaa entity escape -muotoon lausekkeen http://www.esimerkki.fi/view?widget=3&amp;count&gt;2</p>
+            <pre>
+$ python
+Python 2.2.2 (#1, Feb 24 2003, 19:13:11)  
+&gt;&gt;&gt; import xml.sax.saxutils
+&gt;&gt;&gt; xml.sax.saxutils.escape("http://www.example.com/view?widget=3&amp;count&gt;2")
+</pre>
+            <p>
+                Edellä mainitun esimerkin mukaan saadaan seuraava URL-osoite:</p>
+            <pre>
+http://www.example.com/view?widget=3&amp;amp;count&amp;gt;2
+</pre>
+            <p class="question">
+                Q: <a name="faq_output_encoding" id="faq_output_encoding"></a>Onko sivustokarttatiedostojeni
+                luonnin yhteydessä käyttämälläni merkkikoodausmenetelmällä väliä?</p>
+            <p>
+                Kyllä. Sivustokarttatiedostojesi on käytettävä UTF-8-koodausta.</p>
+            <p class="question">
+                Q: <a name="faq_specifying_time" id="faq_specifying_time"></a>Miten määritän ajan?</p>
+            <p>
+                Käytä <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime -merkistöä</a> lastmod-aikaleimoissa
+                ja kaikissa muissa tämän protokollan päivämäärissä ja ajoissa. Esimerkiksi 2004-09-22T14:12:14+00:00.</p>
+            <p>
+                Koodauksen ansiosta voit ohittaa ISO8601-muodon kellonajan. Esimerkiksi 2004-09-22
+                on myös kelvollinen. Jos sivustosi muuttuu usein, sinun kannattaa kuitenkin sisällyttää
+                kellonaika, jotta indeksoijilla olisi kattavammat tiedot sivustostasi.</p>
+            <p class="question">
+                Q: <a name="faq_computing_lastmod" id="faq_computing_lastmod"></a>Miten lasken viimeisen
+                muutospäivämäärän?</p>
+            <p>
+                Staattisten tiedostojen osalta tämä on tiedoston todellinen päivityspäivämäärä.
+                Voit käyttää UNIX -päivämääräkomentoa saadaksesi seuraavan päivämäärän:</p>
+            <pre>
+$ date --iso-8601=seconds -u -r /home/foo/www/bar.html
+&gt;&gt; 2004-10-26T08:56:39+00:00
+</pre>
+            <p>
+                Voit helposti laskea useiden dynaamisten URL-osoitteiden viimeisimmän muutospäivän
+                perustana olevien tietojen muutosajankohdan tai joidenkin ajoittaisiin päivityksiin
+                (mikäli sellaisia on) perustuvien arvioiden perusteella. Jopa päivämäärää koskeva
+                arvio tai aikaleima voi auttaa indeksoijia välttämään muuttamattomien URL-osoitteiden
+                indeksoinnin. Tämä vähentää Web-palvelimiesi kaistanleveys- ja keskusyksikkövaatimuksia.</p>
+            <p class="question">
+                Q: <a name="faq_sitemap_location" id="faq_sitemap_location"></a>Minne sivustokartta
+                sijoitetaan?</p>
+            <p>
+                On erittäin suositeltavaa, että sivustokartta sijoitetaan HTML-palvelimen päätasolle
+                eli seuraavasti http://esimerkki.fi/sitemap.xml.</p>
+            <p>
+                Joissakin tilanteissa haluat ehkä luoda erilaisia sivustokarttoja sivustosi eri
+                polkuihin, kuten silloin, kun organisaatiosi suojaluvat jakavat eri hakemistojen
+                kirjoitusoikeudet osiin.</p>
+            <p>
+                Oletamme, että jos käyttäjällä on oikeus ladata http://esimerkki.fi/path/sitemap.xml
+                palvelimelle, hänellä on myös oikeudet metatietojen raportointiin osoitteessa http://esimerkki.fi/path/</p>
+            <p>
+                Kaikkien sivustokartassa olevien URL-osoitteiden on oltava sivustokartan kanssa
+                samalla palvelimella. Jos sivustokartta on esimerkiksi osoitteessa http://www.esimerkki.fi/sitemap.xml,
+                se ei voi sisältää URL-osoitteita osoitteesta http://aliverkkotunnus.esimerkki.fi.
+                Jos sivustokartta sijaitsee osoitteessa http://www.esimerkki.fi/omakansio/sitemap.xml,
+                se ei voi sisältää URL-osoitteita osoitteesta http://www.esimerkki.fi.</p>
+            <p class="backtotop">
+                <a href="#top">Sivun alkuun</a></p>
+            <p class="question">
+                Q: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>Miten suuri sivustokarttani
+                voi olla?</p>
+            <p>
+                Sivustokarttojen koon tulisi olla enintään 50 Mt (52 428 800 tavua) ja ne voivat
+                sisältää enintään 50 000 URL-osoitetta. Näiden rajoitusten ansiosta käytettävän
+                verkkopalvelimen kapasiteetti ei lopu erittäin suurten tiedostojen käsittelyn yhteydessä.
+                Tämä tarkoittaa, että jos sivusto koostuu yli 50 000 URL-osoitteesta, tai jos sivustokartan
+                koko on yli 50 Mt, on luotava useita sivustokarttatiedostoja ja käytettävä <a href="protocol.html#index">
+                    sivustokarttahakemistotiedostoa</a>. Sivustokarttahakemistotiedostoa on käytettävä
+                myös silloin, kun sivusto on kooltaan pieni, mutta suunnitelmissa on nostaa URL-osoitteiden
+                määrää yli 50 000:een tai kokoa yli 50 megatavuun. Sivustokarttahakemistotiedosto
+                voi sisältää enintään 50 000 sivustokarttaa. Sen enimmäiskoko on 50 Mt (52 428 800
+                tavua). Voit pakata sivustokarttasi gzip-muodossa.</p>
+            <p class="question">
+                Q: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>Sivustossani
+                on kymmeniä miljoonia URL-osoitteita; voinko kuitenkin lähettää vain äskettäin muuttamani
+                URL-osoitteet?</p>
+            <p>
+                Voit lisätä usein päivitettävät URL-osoitteet pieneen joukkoon sivustokarttoja ja
+                määrittää sitten kyseiset sivustokarttatiedostot käyttämällä <a href="protocol.html#lastmoddef">
+                    lastmod</a>-koodia <a href="protocol.html#index">sivustokarttahakemistotiedostossa</a>.
+                Tämän jälkeen hakukoneet voivat indeksoida vain muuttuneet sivustokartat.</p>
+            <p class="question">
+                Q: <a name="faq_after_submission" id="faq_after_submission"></a>Mitä teen sivustokartan
+                luomisen jälkeen?</p>
+            <p>
+                Kun olet luonut sivustokarttatiedoston, <a href="http://www.sitemaps.org/protocol.html#informing">
+                    kerro siitä hakukoneille</a> lähettämällä se suoraan niille, lähettämällä niille
+                tiedustelupaketti tai lisäämällä sivustokarttasi sijainti robots.txt-tiedostoosi.</p>
+            <p class="question">
+                Q: <a name="faq_url_format" id="faq_url_format"></a>Onko sivustokartan URL-osoitteet
+                määritettävä tarkasti?</p>
+            <p>
+                Kyllä. Protokolla (esimerkiksi http) on lisättävä URL-osoitteeseen. Lisää URL-osoitteen
+                perään myös kauttaviiva, mikäli verkkopalvelin tätä edellyttää. Esimerkiksi osoite
+                http://www.esimerkki.fi/ on sivustokarttaan kelpaava URL-osoite kun taas www.esimerkki.fi
+                ei ole.</p>
+            <p class="question">
+                Q: <a name="faq_http_vs_https" id="faq_http_vs_https"></a>Sivustoni URL-osoitteissa
+                on http- ja https-versioita. Onko minun merkittävä molemmat?</p>
+            <p class="answers">
+                Ei. Merkitse sivustokarttoihisi vain yksi URL-osoiteversio. Jos sisällytät useita
+                URL-osoiteversioita, sivustoasi ei voida ehkä indeksoida kunnolla.</p>
+            <p class="question">
+                Q: <a name="faq_url_encoding" id="faq_url_encoding"></a>Sivustoni URL-osoitteissa
+                on istuntotunnukset. Onko minun poistettava ne?</p>
+            <p>
+                Kyllä. Istuntotunnusten sisällyttäminen URL-osoitteisiin voi johtaa sivustosi vaillinaiseen
+                ja turhaan indeksointiin.</p>
+            <p class="question">
+                Q: <a name="faq_url_position" id="faq_url_position"></a>Vaikuttaako URL-osoitteen
+                sijainti sivustokartassa sen käyttöön?</p>
+            <p>
+                Ei. URL-osoitteen sijainti sivustokartassa ei todennäköisesti vaikuta siihen, miten
+                hakukoneet käyttävät sitä tai ottavat sen huomioon.</p>
+            <p class="question">
+                Q: <a name="faq_frames" id="faq_frames"></a>Jotkut sivustoni sivut käyttävät kehyksiä.
+                Lisäänkö kehyssivujen URL-osoitteet vai kehysten sisältöjen URL-osoitteet?</p>
+            <p>
+                Sisällytä molemmat URL-osoitteet.</p>
+            <p class="question">
+                Q: <a name="faq_compression" id="faq_compression"></a>Voinko pakata sivustokarttani
+                zip-muodossa vai onko ne pakattava gzip-muodossa?</p>
+            <p>
+                Pakkaa sivustokarttasi gzip-muodossa. Muista, että sivustokarttasi ei saa pakattunakaan
+                olla suurempi kuin 50 Mt (52 428 800 tavua).</p>
+            <p class="question">
+                Q: <a name="faq_priority_and_page_rank" id="faq_priority_and_page_rank"></a>Muuttaako
+                XML-sivustokartan painoarvoa (priority) koskeva vihje sivujeni sijoitusta hakutuloksissa?</p>
+            <p>
+                Sivustokarttasi "priority"-vihje osoittaa vain tietyn URL-osoitteen merkityksen
+                suhteessa muihin URL-osoitteisiin <i>omassa sivustossasi</i>, eikä vaikuta sivujesi
+                sijoitukseen hakutuloksissa.</p>
+            <p class="question">
+                Q: <a name="faq_xml_schema" id="faq_xml_schema"></a>Onko olemassa XML-kaavaa, jonka
+                mukaan voin vahvistaa XML-sivustokarttani?</p>
+            <p>
+                Kyllä. Sivustokarttatiedostojen XML-kaava on saatavissa osoitteessa <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a> ja sivustokarttahakemistotiedostojen
+                kaava on saatavissa osoitteessa <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a>. Katso myös lisätietoja
+                <a href="protocol.html#validating">sivustokartan vahvistamisesta</a>.</p>
+            <p class="question">
+                Q: <a name="more" id="more"></a>Entä jos minulla on kysyttävää protokollan käytöstä
+                tai sivustokartan lähettämisestä?</p>
+            <p>
+                Katso lisätietoja sivustokarttojen lähettämisestä ja käytöstä kunkin hakukoneen
+                dokumentaatiosta.</p>
+            <p class="backtotop">
+                <a href="#top">Sivun alkuun</a></p>
+            <p class="date">
+                Viimeisin päivitys: 21.11.2016
+            </p>
+        </div>
+        <!-- closes #maincontent -->
+    </div>
+    <!-- closes #container -->
+    <div id="footer">
+        <p>
+            <a href="terms.html">Käyttöehdot</a></p>
+    </div>
+</body>
+</html>
