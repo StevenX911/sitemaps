@@ -66,7 +66,7 @@
                 <a href="#faq_xml_schema">XML サイトマップを検証するための XML スキーマはありますか。</a></p>
             <p>
                 <a href="#more"></a>プロトコルの使用方法やサイトマップの送信について他に質問がある場合はどうすればよいですか。</p>
-            <hr />
+            <hr>
             <p class="question">
                 質問: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>サイトマップでは URL をどのように記述すればよいですか。</p>
             <p>
@@ -129,8 +129,7 @@ $ date --iso-8601=seconds -u -r /home/foo/www/bar.html
                 質問: <a name="faq_sitemap_size" id="faq_sitemap_size"></a>サイトマップの最大サイズはどのくらいですか。</p>
             <p>
                 サイトマップのサイズは 50 MB (52,428,800 バイト) 以下、含める URL の数は 50,000 個以下にする必要があります。この制限は、容量の大きなファイルによってウェブ
-                サーバーに負荷がかかりすぎないようにするために設けられています。URL の数が 50,000 個を超える場合や、サイトマップのサイズが 50 MB を超える場合は、複数のサイトマップを作成し、<a
-                    href="protocol.html#index">サイトマップ インデックス ファイル</a>を使用する必要があります。現在はサイトの規模が小さくても、将来的に
+                サーバーに負荷がかかりすぎないようにするために設けられています。URL の数が 50,000 個を超える場合や、サイトマップのサイズが 50 MB を超える場合は、複数のサイトマップを作成し、<a href="protocol.html#index">サイトマップ インデックス ファイル</a>を使用する必要があります。現在はサイトの規模が小さくても、将来的に
                 URL の数が 50,000 個を超えたり、サイズが 50 MB を超えることが予想される場合は、サイトマップ インデックス ファイルを使用してください。サイトマップ
                 インデックス ファイルには、最大で 50,000 個のサイトマップをリストできます。サイズは 50 MB (52,428,800 バイト) 以下にする必要があります。gzip
                 形式を使用して、サイトマップを圧縮することもできます。</p>
@@ -138,8 +137,7 @@ $ date --iso-8601=seconds -u -r /home/foo/www/bar.html
                 質問: <a name="faq_submitting_changes" id="faq_submitting_changes"></a>サイトに多数の URL
                 がある場合、最近変更した URL のみを送信できますか。</p>
             <p>
-                更新の頻繁な URL を一部のサイトマップにリストし、<a href="protocol.html#index">サイトマップ インデックス ファイル</a>に<a
-                    href="protocol.html#lastmoddef">lastmod</a>タグを使用して、これらのサイトマップ ファイルを区別します。 これにより、変更されたサイトマップのみが検索エンジンでクロールされるようになります。</p>
+                更新の頻繁な URL を一部のサイトマップにリストし、<a href="protocol.html#index">サイトマップ インデックス ファイル</a>に<a href="protocol.html#lastmoddef">lastmod</a>タグを使用して、これらのサイトマップ ファイルを区別します。 これにより、変更されたサイトマップのみが検索エンジンでクロールされるようになります。</p>
             <p class="question">
                 質問: <a name="faq_after_submission" id="faq_after_submission"></a>サイトマップを作成したら、次に何をすればよいですか。</p>
             <p>
@@ -187,8 +185,7 @@ $ date --iso-8601=seconds -u -r /home/foo/www/bar.html
                 はい。サイトマップ ファイルの XML スキーマは <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
                     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a> から入手できます。サイトマップ
                 インデックス ファイルのスキーマは <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
-                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a> から入手できます。サイトマップ検証の詳細については、<a
-                        href="protocol.html#validating">こちら</a>をご覧ください。</p>
+                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a> から入手できます。サイトマップ検証の詳細については、<a href="protocol.html#validating">こちら</a>をご覧ください。</p>
             <p class="question">
                 質問: <a name="more" id="more"></a>プロトコルの使用方法やサイトマップの送信について他に質問がある場合はどうすればよいですか。</p>
             <p>
@@ -199,12 +196,24 @@ $ date --iso-8601=seconds -u -r /home/foo/www/bar.html
                 最終更新日: 2016 年 11 月 21 日
             </p>
         </div>
-        <!-- closes #maincontent -->
+        
     </div>
-    <!-- closes #container -->
+    
     <div id="footer">
         <p>
             <a href="terms.html">利用規約</a></p>
     </div>
-</body>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-50689045-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-50689045-5');
+</script></body>
 </html>

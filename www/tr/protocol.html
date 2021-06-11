@@ -27,14 +27,14 @@
             <h1>
                 <a name="sitemaps_protocol" id="sitemaps_protocol"></a>Site Haritaları XML biçimi</h1>
             <blockquote>
-                <b>Atla:</b><br />
-                <a href="#xmlTagDefinitions">XML etiketi tanımları</a><br />
-                <a href="#escaping">Entity escaping</a><br />
-                <a href="#index">Site Haritası dizin dosyalarını kullanma</a><br />
-				<a href="#otherformats">Diğer Site Haritası biçimleri</a><br />
-                <a href="#location">Site Haritası dosyası yeri</a><br />
-                <a href="#validating">Site Haritanızı Doğrulama</a><br />
-                <a href="#extending">Site Haritaları protokolünü genişletme</a><br />
+                <b>Atla:</b><br>
+                <a href="#xmlTagDefinitions">XML etiketi tanımları</a><br>
+                <a href="#escaping">Entity escaping</a><br>
+                <a href="#index">Site Haritası dizin dosyalarını kullanma</a><br>
+				<a href="#otherformats">Diğer Site Haritası biçimleri</a><br>
+                <a href="#location">Site Haritası dosyası yeri</a><br>
+                <a href="#validating">Site Haritanızı Doğrulama</a><br>
+                <a href="#extending">Site Haritaları protokolünü genişletme</a><br>
                 <a href="#informing">Arama motoru tarayıcılarını bilgilendirme</a></blockquote>
             <p>
                 Bu belgede, Site Haritası protokolü için XML şeması açıklanmaktadır.</p>
@@ -61,7 +61,7 @@
                 Örnek XML Site Haritası</h3>
             <p>
                 Aşağıdaki örnekte, yalnızca bir URL içeren ve isteğe bağlı tüm etiketlerin kullanıldığı
-                bir Site Haritası gösterilmektedir. İsteğe bağlı etiketler italik yazılmıştır. </font></p>
+                bir Site Haritası gösterilmektedir. İsteğe bağlı etiketler italik yazılmıştır. </p>
             <pre>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;<a href="#urlsetdef">urlset</a> xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
@@ -221,7 +221,7 @@
                     Karakter
                 </th>
                 <th>
-                    Kaçış Kodu</font></strong>
+                    Kaçış Kodu
                 </th>
                 <tr>
                     <td>
@@ -286,8 +286,7 @@
                 dosyası (URL'leri elle yazmak dışında herhangi bir şey) kullanıyorsanız, bu çoğunlukla
                 sizin yerinize yapılır. Lütfen tüm URL'lerinizi kontrol edip bunların URI'ler için
                 <a href="http://asg.web.cmu.edu/rfc/rfc3986.html">RFC-3986</a> standardına, IRI'ler
-                için <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a> standardına ve <a
-                    href="http://www.w3.org/TR/REC-xml/">XML standardına</a> uyduğundan emin olun.</p>
+                için <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a> standardına ve <a href="http://www.w3.org/TR/REC-xml/">XML standardına</a> uyduğundan emin olun.</p>
             <p>
                 Aşağıdaki örnekte, ASCII olmayan bir karakterle (<code>&uuml;</code>) 'entity escape'
                 gerektiren bir karakterin (<code>&amp;</code>) kullanıldığı bir URL gösterilmiştir:</p>
@@ -597,14 +596,14 @@ https://example.com/catalog/page1.html
                 tanımlar. Bu şemayı, aşağıdaki bağlantılardan indirebilirsiniz:</p>
             <p>
                 <b>Site Haritaları için:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br />
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br>
                 <b>Site Haritası dizin dosyaları için:</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
                     http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
             <p>
                 Site Haritanızın yapısını bu şemaya göre doğrulamanıza yardımcı olacak bazı araçlar
-                vardır. XML ile ilgili araçların listesini aşağıdaki yerlerde bulabilirsiniz:<br />
-                <br />
-                <a href="http://www.w3.org/XML/Schema#Tools">http://www.w3.org/XML/Schema#Tools</a><br />
+                vardır. XML ile ilgili araçların listesini aşağıdaki yerlerde bulabilirsiniz:<br>
+                <br>
+                <a href="http://www.w3.org/XML/Schema#Tools">http://www.w3.org/XML/Schema#Tools</a><br>
                 <a href="http://www.xml.com/pub/a/2000/12/13/schematools.html">http://www.xml.com/pub/a/2000/12/13/schematools.html</a></p>
             <p>
                 Site Haritanızı veya Site Haritası dizini dosyanızı bir şemayla karşılaştırarak
@@ -660,7 +659,7 @@ https://example.com/catalog/page1.html
             <ul>
                 <li><a href="#submit_engine">onlara arama motorunun gönderim arayüzüyle gönderilmesi</a></li>
                 <li><a href="#submit_robots">Yerin robots.txt sitenizin dosyasında belirtilmesi</a></li>
-                <li><a href="#submit_ping">HTTP isteğinin</a>gönderilmesi<br />
+                <li><a href="#submit_ping">HTTP isteğinin</a>gönderilmesi<br>
                 </li>
             </ul>
             <p>
@@ -668,14 +667,14 @@ https://example.com/catalog/page1.html
                 sunabilir.</p>
             <h3>
                 <a name="submit_engine" id="submit_engine"></a>Site Haritanızın, arama motorunun
-                gönderme arayüzü üzerinden gönderilmesi<br />
+                gönderme arayüzü üzerinden gönderilmesi<br>
             </h3>
             <p>
                 Site Haritanızı, durum bilgileri ve işlem hatalarını almanızı sağlayan bir arama
                 motoruna doğrudan göndermek için ilgili arama motorunun belgelerine bakın.</p>
             <h3>
                 <a name="submit_robots" id="submit_robots"></a>Site Haritasının bulunduğu yerin
-                robots.txt dosyasında tanımlanması<br />
+                robots.txt dosyasında tanımlanması<br>
             </h3>
             <p>
                 Bir robots.txt dosyası kullanarak Site Haritalarının yerini belirtebilirsiniz. Bunu
@@ -688,7 +687,7 @@ https://example.com/catalog/page1.html
                 Haritalarını listelemenize gerek yoktur.</p>
             <h3>
                 <a name="submit_ping" id="submit_ping"></a>Site Haritanızın, bir HTTP isteği üzerinden
-                gönderilmesi<br />
+                gönderilmesi<br>
             </h3>
             <p>
                 Site Haritanızı HTTP isteği kullanarak gönderebilmek için (&lt;searchengine_URL&gt;
@@ -708,7 +707,7 @@ https://example.com/catalog/page1.html
                 isteğinizi yeniden göndermeniz gerekir. HTTP 200 yanıt kodu yalnızca arama motorunun
                 Site Haritanızı aldığını gösterir; Site Haritasının veya içerdiği URL'lerin geçerli
                 olduğunu göstermez. Bunu yapmanın kolay bir yolu, Site Haritalarını düzenli aralıklarla
-                oluşturmak ve göndermek için otomatikleştirilmiş bir iş ayarlamaktır.<br />
+                oluşturmak ve göndermek için otomatikleştirilmiş bir iş ayarlamaktır.<br>
                 <strong>Not:</strong> Bir Site Haritası dizini dosyası sağlıyorsanız, Site Haritası
                 dizini dosyasının yerini içeren yalnızca bir HTTP isteği göndermeniz gerekir. Dizinde
                 listelenen Site Haritaları için tek tek istek göndermeniz gerekmez.</p>
@@ -727,12 +726,22 @@ https://example.com/catalog/page1.html
             <p class="date">
                 Son Güncelleme: 21 Kasım 2016</p>
         </div>
-        <!-- closes #maincontent -->
+        
     </div>
-    <!-- closes #container -->
+    
     <div id="footer">
         <p>
             <a href="terms.html">Şartlar ve Koşullar</a></p>
     </div>
-</body>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-50689045-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-50689045-5');
+</script></body>
 </html>

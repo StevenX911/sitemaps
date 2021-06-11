@@ -74,13 +74,12 @@
             <p>
                 <a href="#more">Vad ska jag göra om jag har fler frågor om hur man använder protokollet
                     eller lägger upp en webbplatskarta?</a></p>
-            <hr />
+            <hr>
             <p class="question">
                 F: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Hur återger jag webbadresser
                 i webbplatskartan?</p>
             <p>
-                Som med alla XML-filer måste alla datavärden (inklusive webbadresser) använda <a
-                    href="#escaped">ersättningskoder</a> för följande tecken: et-tecken (&amp;),
+                Som med alla XML-filer måste alla datavärden (inklusive webbadresser) använda <a href="#escaped">ersättningskoder</a> för följande tecken: et-tecken (&amp;),
                 enkla citattecken ('), dubbla citattecken ("), mindre än (&lt;) och större än (&gt;).
                 Du bör även se till att alla webbadresser följer <a href="http://www.ietf.org/rfc/rfc3986.txt">
                     RFC-3986</a>-standarden för URI, <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standarden
@@ -245,12 +244,22 @@ $ date --iso-8601=seconds -u -r /home/foo/www/bar.html
                 Senast uppdaterad: 21 november 2016
             </p>
         </div>
-        <!-- closes #maincontent -->
+        
     </div>
-    <!-- closes #container -->
+    
     <div id="footer">
         <p>
             <a href="terms.html">Allmänna villkor</a></p>
     </div>
-</body>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-50689045-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-50689045-5');
+</script></body>
 </html>

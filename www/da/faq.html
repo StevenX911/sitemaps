@@ -76,13 +76,12 @@
             <p>
                 <a href="#more">Hvad skal jeg gøre, hvis jeg har et andet spørgsmål om brug af protokollen
                     eller om at sende et Sitemap?</a></p>
-            <hr />
+            <hr>
             <p class="question">
                 Spm.: <a name="faq_xml_encoding" id="faq_xml_encoding"></a>Hvordan gengiver jeg
                 webadresser i Sitemap'et?</p>
             <p>
-                Ligesom med alle XML-filer skal alle dataværdier (herunder webadresser) bruge <a
-                    href="#escaped">tegnkoder</a> for følgende tegn: &-tegn (&amp;), enkelt anførselstegn
+                Ligesom med alle XML-filer skal alle dataværdier (herunder webadresser) bruge <a href="#escaped">tegnkoder</a> for følgende tegn: &-tegn (&amp;), enkelt anførselstegn
                 ('), anførselstegn ("), mindre end (&lt;) og større end (&gt;). Du skal også sikre,
                 at alle webadresser følger <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>-standarden
                 for URI'er, <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>-standarden
@@ -245,12 +244,24 @@ $ date --iso-8601=seconds -u -r /home/foo/www/bar.html
             <p class="date">
                 Senest opdateret: 21. november 2016</p>
         </div>
-        <!-- closes #maincontent -->
+        
     </div>
-    <!-- closes #container -->
+    
     <div id="footer">
         <p>
             <a href="terms.html">Vilkår og betingelser</a></p>
     </div>
-</body>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-50689045-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-50689045-5');
+</script></body>
 </html>
