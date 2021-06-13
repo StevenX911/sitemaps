@@ -8,6 +8,8 @@
     "prettier": "prettier --write src",
     "lint-staged": "lint-staged",
     "start": "node ./src/robot.js",
+    "test": "mocha",
+    "coverage": "nyc npm run test",
     "wash": "node ./src/wash.js",
     "www": "serve www"
   },
@@ -18,8 +20,8 @@
   },
   "lint-staged": {
     "src/*.js": [
-      "prettier",
-      "eslint"
+      "prettier --write",
+      "eslint --fix"
     ]
   },
   "keywords": [],
@@ -39,13 +41,16 @@
   },
   "devDependencies": {
     "@types/node": "^12",
+    "chai": "^4.3.4",
     "eslint": "^7.28.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "husky": "^6.0.0",
+    "husky": "^4.0.0",
     "lint-staged": "^11.0.0",
+    "mocha": "^9.0.0",
+    "nyc": "^15.1.0",
     "prettier": "^2.3.1"
   }
 }

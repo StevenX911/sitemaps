@@ -29,5 +29,6 @@ cscope.*
 
 # other
 coverage/
+.nyc_output
 scripts/dump.*
 __test.*

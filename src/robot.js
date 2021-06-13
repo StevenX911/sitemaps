@@ -35,7 +35,7 @@ function savePageHTML (uri) {
   }
 }
 
-(() => {
+const run = () => {
   rpn(siteMap)
     .then(function (body) {
       // clog(body)
@@ -56,4 +56,14 @@ function savePageHTML (uri) {
     .catch(function (err) {
       clog(chalk.red(`程序异常: ${err}`))
     })
-})()
+}
+
+if (typeof describe === 'undefined') {
+  run()
+}
+
+module.exports = {
+  getPageName,
+  savePageHTML,
+  run
+}
