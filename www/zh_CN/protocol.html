@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
 
-    <title>sitemaps.org - Э��</title>
+    <title>sitemaps.org - 通訊協定</title>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" >
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 
     <meta name="robots" content="all" >
 
@@ -14,7 +14,7 @@
 
 </head>
 
-
+<body>
 
     <a name="top" id="top"></a>
 
@@ -34,11 +34,11 @@
 
                 <ul>
 
-                    <li><a href="faq.html">����������</a></li>
+                    <li><a href="faq.html">常見問題</a></li>
 
-                    <li class="activelink"><a href="#">Э��</a></li>
+                    <li class="activelink"><a href="#">通訊協定</a></li>
 
-                    <li><a href="index.html">��ҳ</a></li>
+                    <li><a href="index.html">首頁</a></li>
 
                 </ul>
 
@@ -46,81 +46,81 @@
 
         </div>
 
-        </div>
+        <div id="mainContent">
 
             <h1>
 
-                <a name="sitemaps_protocol" id="sitemaps_protocol"></a>Sitemap �� XML ��ʽ
+                <a name="sitemaps_protocol" id="sitemaps_protocol"></a>Sitemaps XML 格式
 
             </h1>
 
-            
+            <blockquote>
 
-                <b>��ת����</b><br>
+                <b>跳至：</b><br>
 
-                XML ��Ƕ���?/a><br>
+                <a href="#xmlTagDefinitions">XML 標記定義</a><br>
 
-                <a href="#escaping">ʵ��ת��</a><br>
+                <a href="#escaping">實體逸出</a><br>
 
-                <a href="#index">ʹ�� Sitemap �����ļ�</a><br>
+                <a href="#index">使用 Sitemap 索引檔</a><br>
 
-                <a href="#otherformats">���� Sitemap ��ʽ</a><br>
+				<a href="#otherformats"> 其他 Sitemap 格式</a><br>
 
-				<a href="#location">Sitemap �ļ�λ��</a><br>
+                <a href="#location">Sitemap 檔案位置</a><br>
 
-                <a href="#validating">��֤���� Sitemap</a><br>
+                <a href="#validating">驗證 Sitemap</a><br>
 
-                <a href="#extending">��չ Sitemap Э��</a><br>
+                <a href="#extending">擴充 Sitemap 通訊協定</a><br>
 
-                <a href="#informing">֪ͨ��������ץȡ����</a>
+                <a href="#informing">通知搜尋引擎檢索器</a>
 
-            
-
-            <p>
-
-                ���ĵ����������� Sitemap Э���?XML �ܹ���</p>
-
-            
-
-                Sitemaps Э���ʽ��?XML �����ɡ�Sitemap ������������ֵӦΪʵ��ת�����?/a>���ļ�����ӦΪ UTF-8
-
-                ���롣
+            </blockquote>
 
             <p>
 
-                Sitemap ���룺</p>
+                本文件說明 Sitemap 通訊協定的 XML 配置。</p>
+
+            <p>
+
+                Sitemap 通訊協定格式是由 XML 標記所組成。Sitemap 中的所有資料值都必須是<a href="#escaping">實體逸出</a>。檔案本身必須使用
+
+                UTF-8 編碼。</p>
+
+            <p>
+
+                Sitemap 必須：</p>
 
             <ul>
 
-                <li>�� <code>&lt;<a href="#urlsetdef">urlset</a>&gt;</code> ��ʼ�����Ϊ��ʼ����?<code>&lt;/urlset&gt;</code>
+                <li>以起始 <code>&lt;<a href="#urlsetdef">urlset</a>&gt;</code> 標記做為開頭，並以結束 <code>&lt;/urlset&gt;</code>
 
-                    ���������Ϊ������?/li>
+                    標記做為結尾。</li>
 
-                </li><li>�� <code>&lt;urlset&gt;</code> �����ָ�������ռ䣨Э���׼���� </li>
+                <li>指定 <code>&lt;urlset&gt;</code> 內的名稱領域 (通訊協定標準)。 </li>
 
-                <li>ÿ����ַ����һ��<code>&lt;<a href="#urldef">url</a>&gt;</code> ��Ŀ��Ϊ XML ����ǡ�?/li>
+                <li>讓每個 URL 中包含一個<code>&lt;<a href="#urldef">url</a>&gt;</code> 項目做為母層 XML 標記。</li>
 
-                </li><li>��ÿ�� <code>&lt;url&gt;</code> ������а���һ��?<code>&lt;<a href="#locdef">loc</a>&gt;</code>
+                <li>在每個 <code>&lt;url&gt;</code> 母層標記包含一個 <code>&lt;<a href="#locdef">loc</a>&gt;</code>
 
-                    �ӱ����Ŀ��?/li>
+                    子層項目。</li>
 
-            </li></ul>
-
-            <p>
-
-                �������б�Ǿ�Ϊ��ѡ���������治ͬ���Կ�ѡ��ǵ�֧��Ҳ������ͬ���й����飬����ĸ�������������ĵ���</p>
+            </ul>
 
             <p>
 
-                ���ң�Sitemap �е�������ַ������������ͬһ���������� www.example.com �� store.example.com���й���ϸ��Ϣ�������?<a href="#location">Sitemap �ļ�λ��</a>��</p>
+                其他所有標記均為選用的。是否支援這些選用的標記須視搜尋引擎而定。詳細資訊請參閱各搜尋引擎的說明文件。</p>
+
+            <p>
+
+                另外，Sitemap 中所有的 URL 必須來自單一主機，例如 www.example.com 或 store.example.com。如需更多資訊，請參考 <a href="#location">Sitemap 檔案位置</a>。</p>
 
             <h3>
 
-                XML Sitemap ʾ��</h3>
+                XML Sitemap 範例</h3>
 
             <p>
 
-                ������ʾֻ����һ����ַ��ʹ�����п�ѡ��ǵ�?Sitemap����ѡ���Ϊб��?/p>
+                下列範例顯示僅包含一個 URL 並使用所有選用標記的 Sitemap。選用標記以斜體表示。</p>
 
             <pre>
 
@@ -144,23 +144,23 @@
 
 </pre>
 
-            </p><p>
+            <p>
 
-                ����鿴����?a href="#sitemapXMLExample">������?/a>��ʾ����</p>
+                同時請參閱使用<a href="#sitemapXMLExample">多個 URL</a> 的範例。</p>
 
-            
+            <h2>
 
-                <a name="xmlTagDefinitions" id="xmlTagDefinitions"></a>XML ��Ƕ���?/h2>
+                <a name="xmlTagDefinitions" id="xmlTagDefinitions"></a>XML 標記定義</h2>
 
-            
+            <p>
 
-                ���¶Կ��� XML ��ǽ���˵����?/p>
+                可用的 XML 標記如下所述。</p>
 
-            
+            <table width="80%">
 
                 <th>
 
-                    ����
+                    屬性
 
                 </th>
 
@@ -170,11 +170,11 @@
 
                 <th>
 
-                    ˵��
+                    說明
 
                 </th>
 
-                
+                <tr>
 
                     <td>
 
@@ -184,21 +184,21 @@
 
                     <td>
 
-                        ����
+                        需求條件
 
                     </td>
 
-                    
+                    <td>
 
-                        
+                        <p>
 
-                            ѹ�����ļ����ṩ��ǰЭ���׼��Ϊ�ο���?/p>
+                            壓縮檔案與參照最新的通訊協定標準。</p>
 
-                    
+                    </td>
 
-                
+                </tr>
 
-                
+                <tr class="alt">
 
                     <td>
 
@@ -208,19 +208,19 @@
 
                     <td>
 
-                        ����
+                        需求條件
 
                     </td>
 
-                    
+                    <td>
 
-                        
+                        <p>
 
-                            ÿ����ַ��Ŀ�ĸ���ǡ�ʣ����Ϊ�˱�ǵ��ӱ�ǡ�?/p>
+                            每個 URL 項目的母層標記。剩餘的標記是此標記的子階層。</p>
 
-                    
+                    </td>
 
-                
+                </tr>
 
                 <tr>
 
@@ -232,7 +232,7 @@
 
                     <td>
 
-                        ����
+                        需求條件
 
                     </td>
 
@@ -240,13 +240,13 @@
 
                         <p>
 
-                            ��ҳ����ַ��������������������Ҫ��ַ�Ļ�������ַӦ��Э�鿪ʼ�����磺http������б�ܽ�β����ֵ�������� 2,048 ���ַ���</p>
+                            網頁的 URL。這個 URL 必須以通訊協定開頭 (例如 http) 並以尾端的斜線結束 (如果您的網頁伺服器有此需求)。此值必須少於 2,048 個字元。</p>
 
                     </td>
 
                 </tr>
 
-                
+                <tr class="alt">
 
                     <td>
 
@@ -256,27 +256,27 @@
 
                     <td>
 
-                        ��ѡ
+                        選用
 
                     </td>
 
-                    
+                    <td>
 
                         <p>
 
-                            ���ļ��ϴ��޸ĵ����ڡ�������Ӧ���� <a href="http://www.w3.org/TR/NOTE-datetime">W3C Datetime</a>
+                            檔案的最後修改日期。此日期應該採用 <a href="http://www.w3.org/TR/NOTE-datetime">W3C 日期時間</a>格式。必要的話，此格式允許您略過時間的部分，並使用
 
-                            ��ʽ�������Ҫ���˸�ʽ����ʡ��ʱ�䲿�֣���ʹ��?YYYY-MM-DD��</p>
+                            YYYY-MM-DD。</p>
 
-                        
+                        <p>
 
-                            ��ע�⣬�˱�ǲ�ͬ�ڷ������ɷ��ص�?If-Modified-Since (304) ��ͷ������������ܻ��Բ�ͬ�ķ�ʽʹ����������Դ����Ϣ��?/p>
+                            請注意，此標記與伺服器可傳回的 If-Modified-Since (304) 標頭不同，且搜尋引擎可能會以不同的方式使用這兩種來源的資訊。</p>
 
-                    
+                    </td>
 
-                
+                </tr>
 
-                
+                <tr>
 
                     <td>
 
@@ -286,15 +286,15 @@
 
                     <td>
 
-                        ��ѡ
+                        選用
 
                     </td>
 
-                    
+                    <td>
 
                         <p>
 
-                            ҳ����ܷ������ĵ�Ƶ�ʡ���ֵΪ���������ṩһ������Ϣ����������������ץȡҳ���Ƶ�ʲ���ȫ��ء���ЧֵΪ��?/p>
+                            網頁可能變更的頻率。此值會提供一般的資訊給搜尋引擎，而且與它們檢索網頁的頻率不完全相關。有效值如下：</p>
 
                         <ul>
 
@@ -306,7 +306,7 @@
 
                             <li>weekly</li>
 
-                            <li>mothly</li>
+                            <li>monthly</li>
 
                             <li>yearly</li>
 
@@ -314,19 +314,21 @@
 
                         </ul>
 
-                        </p><p>
+                        <p>
 
-                            ��always��ֵӦ������������ÿ�η��ʶ��ı���ĵ�������never��ֵ��Ӧ�����������浵����ַ��</p>
+                            "always" 值應該用來描述會隨著每次存取而變更的文件。"never" 值應該用來描述已封存的 URL。</p>
 
-                        
+                        <p>
 
-                            ��ע�⣬ץȡ���߻Ὣ�˱�ǵ�ֵ���?i>��ʾ���������������������ץȡ������������ʱ�ῼ�Ǵ���Ϣ�������ڱ��Ϊ��hourly��ҳ���ץȡƵ�ʿ��ܵ���ÿСʱһ�Σ������ڱ��Ϊ��yearly��ҳ���ץȡƵ�ʿ��ܸ���ÿ��һ�Ρ�ץȡ����Ҳ���ܻᶨ��ץȡ���Ϊ��never������ҳ���Ա��ܹ��������Щ��ҳ��δԤ�ڸ��ġ�?/p>
+                            請注意，此標記的值會當做<i>提示</i>而非指令。即使搜尋引擎的搜尋器在做決定時可能會參考此資訊，但它們檢索標記為 "hourly" 網頁的頻率相較之下會偏低，而它們檢索標記為
 
-                    
+                            "yearly" 網頁的頻率則可能較高。搜尋器可能會定期檢索標記為 "never" 的網頁，以便處理這些網頁的臨時變更。</p>
 
-                
+                    </td>
 
-                
+                </tr>
+
+                <tr class="alt">
 
                     <td>
 
@@ -336,57 +338,57 @@
 
                     <td>
 
-                        ��ѡ
+                        選用
 
                     </td>
 
-                    
+                    <td>
 
                         <p>
 
-                            ����ַ�����ȼ������������վ��������ַ�����ȼ����Եġ���Чֵ��Χ��?0.0 �� 1.0����ֵ����Ӱ��������ҳ��������վ����ҳ�ıȽϽ������ֻ�Ǹ�֪������������Ϊ��Щ��ҳ��ץȡ������˵��Ϊ��Ҫ��?/p>
-
-                        </p><p>
-
-                            һ����ҳ��Ĭ�����ȼ�Ϊ 0.5��</p>
+                            此 URL 的優先順序是相對於您網站上的其他 URL。有效值的範圍為 0.0 到 1.0。此值不會影響您的網頁與其他網站網頁的比較，而只是讓搜尋引擎知道您認為哪些網頁對檢索器來說最為重要。</p>
 
                         <p>
 
-                            ��ע�⣬Ϊ��ҳָ�������ȼ�������Ӱ����ַ������������ҳ�ϵ�����������������ͬһ��վ��ѡ��ͬ��ַʱ��ʹ�ô���Ϣ����ˣ�������ʹ�ô˱����������Ҫ����ҳ��������������ʾ�Ŀ����ԡ�</p>
+                            網頁的預設優先順序為 0.5。</p>
 
                         <p>
 
-                            ����ע�⣬Ϊ��վ�е�������ַ��ָ�������ȼ����������ʲô�ô�����Ϊ���ȼ�����Եģ�ֻ����������վ����ַ֮�����ѡ��?/p>
+                            請注意，您指定給網頁的優先順序，並不會影響您的 URL 在搜尋引擎之結果網頁上的排名。搜尋引擎可能會使用此資訊在同一個網站上的 URL 間做選擇，因此您可以使用此標記來提高最重要的網頁出現在搜尋索引中的可能性。</p>
 
-                    
+                        <p>
 
-                
+                            同時請注意，將您網站中所有的 URL 都指定為高優先順序並沒有任何助益。因為優先順序是相對性的，只會用來在您網站上的 URL 之間做選取。</p>
 
-            
+                    </td>
 
-            </p><p class="backtotop">
+                </tr>
 
-                <a href="#top">����ҳ��</a></p>
+            </table>
+
+            <p class="backtotop">
+
+                <a href="#top">回到頁首</a></p>
 
             <h2>
 
-                <a name="escaping" id="escaping"></a>ʵ��ת��</h2>
+                <a name="escaping" id="escaping"></a>實體逸出</h2>
 
             <p>
 
-                Sitemap �ļ������� UTF-8 ���루ͨ���ڱ����ļ�ʱ������ô�������������е� XML �ļ����κ�������ֵ��������ַ����Ӧ���±����г����ַ�ʹ��ʵ��ת���롣</p>
+                您的 Sitemap 檔案必須以 UTF-8 編碼 (您通常可以在儲存檔案時這麼做)。如同所有的 XML 檔案一樣，下表所列字元的任何資料值 (包括 URL)，都必須使用實體逸出碼。</p>
 
             <table>
 
                 <th colspan="2">
 
-                    �ַ�
+                    字元
 
                 </th>
 
                 <th>
 
-                    ת����
+                    逸出碼
 
                 </th>
 
@@ -394,7 +396,7 @@
 
                     <td>
 
-                        & ����
+                        & 符號
 
                     </td>
 
@@ -416,7 +418,7 @@
 
                     <td>
 
-                        ������
+                        單引號
 
                     </td>
 
@@ -438,7 +440,7 @@
 
                     <td>
 
-                        ˫����
+                        雙引號
 
                     </td>
 
@@ -460,7 +462,7 @@
 
                     <td>
 
-                        ����
+                        大於
 
                     </td>
 
@@ -482,7 +484,7 @@
 
                     <td>
 
-                        С��
+                        小於
 
                     </td>
 
@@ -504,43 +506,47 @@
 
             <p>
 
-                ���⣬������ַ������ Sitemap ����ַ�������뾭����ַת�岢���룬�Ա���������������������Խ��ж�ȡ�������������ʹ���κ����͵Ľű������߻���־�ļ���������ַ�����ֶ�����֮����κη�������ͨ��ϵͳ�Ѿ�����������ⲿ�ֹ���������ϸ��飬ȷ����ַ����?
+                此外，所有 URL (包含您 Sitemap 的 URL 在內) 都必須以 URL 逸出，並使用其所在網頁伺服器可解讀的方式編碼。不過，如果您使用任何類型的指令碼、工具或記錄檔來產生
 
-                <a href="http://asg.web.cmu.edu/rfc/rfc3986.html">RFC-3986</a> URI ��׼��<a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+                URL (除了手動輸入外的任何方式)，那麼通常這些方式都已經執行此動作。請確認所有的 URL 都遵循 <a href="http://asg.web.cmu.edu/rfc/rfc3986.html">
 
-                IRI ��׼���Լ� <a href="http://www.w3.org/TR/REC-xml/">XML ��׼</a>��</p>
+                    RFC-3986</a> URI 標準、<a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a>
+
+                IRI 標準，以及 <a href="http://www.w3.org/TR/REC-xml/">XML 標準</a>。</p>
 
             <p>
 
-                ������ʹ�÷� ASCII �ַ� (<code>&uuml;</code>) �Լ�Ҫ��ʵ��ת���ַ� (<code>&amp;</code>) ����ַ��</p>
+                下列範例顯示使用一個非 ASCII 字元 (<code>&uuml;</code>)，以及一個需要實體逸出之字元 (<code>&amp;</code>) 的
+
+                URL：</p>
 
             <pre>http://www.example.com/&uuml;mlat.html&amp;q=name</pre>
 
             <p>
 
-                ������ ISO-8859-1 ���루����ʹ�øñ���ķ������ϵ��йܣ�����ַת�����ͬһ��ַ��</p>
+                以下是以 ISO-8859-1 編碼 (用於使用該編碼的主機伺服器) 和 URL 逸出的相同 URL：</p>
 
             <pre>http://www.example.com/%FCmlat.html&amp;q=name</pre>
 
             <p>
 
-                ������ UTF-8 ����ģ�����ʹ�øñ���ķ������ϵ��йܣ��Լ���ַת�����ͬһ��ַ��?/p>
+                以下是以 UTF-8 編碼 (用於使用該編碼的主機伺服器) 和 URL 逸出的相同 URL：</p>
 
             <pre>http://www.example.com/%C3%BCmlat.html&amp;q=name</pre>
 
-            </p><p>
+            <p>
 
-                �����Ǿ���ʵ��ת���ͬһ��ַ��?/p>
+                以下是同一個 URL 的實體逸出：</p>
 
             <pre>http://www.example.com/%C3%BCmlat.html&amp;amp;q=name</pre>
 
             <h3>
 
-                <a name="sitemapXMLExample" id="sitemapXMLExample"></a>XML Sitemap ʾ��</h3>
+                <a name="sitemapXMLExample" id="sitemapXMLExample"></a>XML Sitemap 範例</h3>
 
-            </p><p>
+            <p>
 
-                ������ʾ��һ�� XML ��ʽ�� Sitemap��ʾ���е� Sitemap ������������ַ��ÿ����ַ��ʹ�ò�ͬ��һ���ѡ������?/p>
+                以下顯示一個 XML 格式的 Sitemap 範例。範例中的 Sitemap 包含少數的 URL，每個 URL 都使用不同的選用參數。</p>
 
             <pre>
 
@@ -600,71 +606,71 @@
 
 </pre>
 
-            </p><p class="backtotop">
+            <p class="backtotop">
 
-                <a href="#top">����ҳ��</a></p>
+                <a href="#top">回到頁首</a></p>
 
             <h2>
 
-                <a name="index" id="index"></a>ʹ�� Sitemap �����ļ����Զ��?Sitemap �ļ����з��飩</h2>
+                <a name="index" id="index"></a>使用 Sitemap 索引檔案 (來群組多個 Sitemap 檔案)</h2>
 
             <p>
 
-                �������ṩ���?Sitemap �ļ�����ÿ�� Sitemap �ļ���������ַ���ó��� 50,000 ���������ļ����ó��� 50MB��52,428,800 �ֽڣ��������Ը�⣬����ʹ��?
+                您可以提供多個 Sitemap 檔案，但每個 Sitemap 檔案不得超過 50,000 個 URL，且不得大於 50MB (52,428,800 位元組)。您可以視需要使用
 
-                gzip ѹ�� Sitemap �ļ����Լ��ٴ���Ҫ�󣻵��ǽ�ѹ�����?Sitemap �ļ����ó��� 50MB�����Ҫ�г�?50,000 �����ϵ���ַ������Ҫ�������?
+                gzip 壓縮 Sitemap 檔案以減少頻寬需求，但是解壓縮之後的 Sitemap 檔案不可超過 50MB。如果您想列出 50,000 個以上的 URL，您必須建立多個
 
-                Sitemap �ļ���</p>
-
-            <p>
-
-                �����ȷʵ�ṩ��� Sitemap����Ӧ���� Sitemap �����ļ����г�ÿ�� Sitemap �ļ���Sitemap �����ļ��������г� 50,000 �� Sitemap���ļ����ó���
-
-                50MB��52,428,800 �ֽڣ��������ǿ���ѹ���ġ������Ծ��ж��?Sitemap �����ļ���Sitemap �����ļ��� XML ��ʽ�� Sitemap
-
-                �ļ��� XML ��ʽ�ǳ����ơ�</p>
+                Sitemap 檔案。</p>
 
             <p>
 
-                Sitemap �����ļ����룺</p>
+                如果您提供多個 Sitemap，請將每一個 Sitemap 檔案列於 Sitemap 索引檔中。Sitemap 索引檔所列出的 Sitemap 不可超過 50,000
+
+                個，且不可大於 50MB (52,428,800 位元組)，但可以被壓縮。您可以擁有一個以上的 Sitemap 索引檔。Sitemap 索引檔的 XML 格式與
+
+                Sitemap 檔案的 XML 格式類似。</p>
+
+            <p>
+
+                Sitemap 索引檔必須：</p>
 
             <ul>
 
-                <li>�� <code>&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a>&gt;</code> ��ʼ�����Ϊ��ʼ����?
+                <li>以起始 <code>&lt;<a href="#sitemapIndex_sitemapindex">sitemapindex</a>&gt;</code> 標記做為開頭，並以結束
 
-                    <code>&lt;/sitemapindex&gt;</code> ���������Ϊ������?/li>
+                    <code>&lt;/sitemapindex&gt;</code> 標記做為結尾。</li>
 
-                </li><li>ÿ�� Sitemap ����һ��<code>&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;</code>
+                <li>讓每個 Sitemap 中包含一個 <code>&lt;<a href="#sitemapIndex_sitemap">sitemap</a>&gt;</code>
 
-                    ��Ŀ��Ϊ XML ����ǡ�?/li>
+                    項目做為母層 XML 標記。</li>
 
-                </li><li>ÿ�� <code>&lt;sitemap&gt;</code> ����ǰ���һ��?<code>&lt;<a href="#sitemapIndex_loc">loc</a>&gt;</code>
+                <li>在每個 <code>&lt;sitemap&gt;</code> 母層標記包含一個 <code>&lt;<a href="#sitemapIndex_loc">loc</a>&gt;</code>
 
-                    �ӱ����Ŀ��?/li>
+                    子層項目。</li>
 
-            </li></ul>
-
-            <p>
-
-                ��ѡ�� <code>&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;</code> ���ͬ��������?Sitemap
-
-                �����ļ���</p>
+            </ul>
 
             <p>
 
-                <strong>ע�⣺</strong>Sitemap �����ļ�ֻ��ָ������λ��ͬһ��վ�� Sitemap�����磬http://www.yoursite.com/sitemap_index.xml
+                Sitemap 索引檔也可使用選用的 <code>&lt;<a href="#sitemapIndex_lastmod">lastmod</a>&gt;</code>
 
-                �ɰ��� http://www.yoursite.com �ϵ�Sitemap�������ܰ��� http://www.example.com �� http://yourhost.yoursite.com
+                標記。</p>
 
-                �ϵ� Sitemap���� Sitemap һ����Sitemap �����ļ�Ҳ����Ϊ UTF-8 ���롣</p>
+            <p>
+
+                <strong>注意：</strong>Sitemap 索引檔只可用來指定它本身所在網站中的 Sitemap。例如，http://www.yoursite.com/sitemap_index.xml
+
+                可以包含 http://www.yoursite.com 中的 Sitemap，但不能包含 http://www.example.com 或 http://yourhost.yoursite.com
+
+                中的 Sitemap。如同 Sitemaps 一般，您的 Sitemap 索引檔必須以 UTF-8 進行編碼。</p>
 
             <h3>
 
-                <a name="sitemapIndexXMLExample" id="sitemapIndexXMLExample"></a>XML Sitemap ����ʾ��</h3>
+                <a name="sitemapIndexXMLExample" id="sitemapIndexXMLExample"></a>XML Sitemap 索引範例</h3>
 
             <p>
 
-                ������ʾ�������� Sitemap �� Sitemap �����ļ���</p>
+                以下範例顯示列出兩個 Sitemap 的 Sitemap 索引。</p>
 
             <pre>
 
@@ -694,21 +700,21 @@
 
             <p>
 
-                <strong>ע�⣺</strong>�� XML �ļ��е�����ֵһ����Sitemap ��ַ���뾭��<a href="#escaping">ʵ��ת��</a>��</p>
+                <strong>注意：</strong>Sitemap 中的 URL 就像您 XML 檔案中所有的值一樣，都必須是<a href="#escaping">實體逸出</a>。</p>
 
-            
+            <h3>
 
                 <a name="sitemapIndexTagDefinitions" id="sitemapIndexTagDefinitions"></a>Sitemap
 
-                ���� XML ��Ƕ���?/h3>
+                索引 XML 標記的定義</h3>
 
-            
+            <table width="80%">
 
                 <tr>
 
                     <th>
 
-                        ����
+                        屬性
 
                     </th>
 
@@ -718,7 +724,7 @@
 
                     <th>
 
-                        ˵��
+                        說明
 
                     </th>
 
@@ -734,13 +740,13 @@
 
                     <td>
 
-                        ����
+                        需求條件
 
                     </td>
 
                     <td>
 
-                        ѹ���ļ������� Sitemap �������Ϣ��?
+                        壓縮檔案中關於所有 Sitemap 的資訊。
 
                     </td>
 
@@ -756,19 +762,19 @@
 
                     <td>
 
-                        ����
+                        需求條件
 
                     </td>
 
                     <td>
 
-                        ѹ������ Sitemap �������Ϣ��?
+                        壓縮關於個別 Sitemap 的資訊。
 
                     </td>
 
                 </tr>
 
-                
+                <tr>
 
                     <td>
 
@@ -778,23 +784,23 @@
 
                     <td>
 
-                        ����
+                        需求條件
 
                     </td>
 
-                    
+                    <td>
 
                         <p>
 
-                            ʶ�� Sitemap ��λ�á�</p>
+                            識別 Sitemap 的位置。</p>
 
                         <p>
 
-                            ��λ�ÿ���Ϊ Sitemap��Atom �ļ���RSS �ļ���򵥵��ı��ļ���?/p>
+                            此位置可以是 Sitemap、Atom 檔案、RSS 檔案或純文字檔。</p>
 
-                    
+                    </td>
 
-                
+                </tr>
 
                 <tr class="alt">
 
@@ -806,7 +812,7 @@
 
                     <td>
 
-                        ��ѡ
+                        選用
 
                     </td>
 
@@ -814,91 +820,93 @@
 
                         <p>
 
-                            ʶ�����?Sitemap �ļ����޸�ʱ�䡣�����?Sitemap ���г�����һ��ҳ�ĸ���ʱ�䲻�����lastmod ��ǵ�ֵӦ����?<a href="http://www.w3.org/TR/NOTE-datetime">
+                            識別相對應 Sitemap 檔案的修改時間，而不是該 Sitemap 中所列出的任何網頁之變更時間。Lastmod 標記的值需採用 <a href="http://www.w3.org/TR/NOTE-datetime">
 
-                                W3C ����ʱ��</a> ��ʽ��</p>
+                                W3C 日期時間</a>格式。</p>
 
                         <p>
 
-                            ͨ���ṩ����޸ĵ�ʱ���������������������ץȡ����ֻ���������е� Sitemap �Ӽ���Ҳ����˵��ץȡ����ֻ����ĳ���ض�����֮���޸ĵ� Sitemap��ͨ����һ������
+                            您可以藉由提供最後修改的時間戳記，讓搜尋引擎的搜尋器只擷取索引中的一個 Sitemap 子集，例如，搜尋器只能擷取於特定日期之後修改的 Sitemap。這個額外的
 
-                            Sitemap ��ȡ���ƣ����Կ��ٷ��ֳ�������վ�ϵ�����ַ��</p>
+                            Sitemap 擷取機制可讓您在大型網站上迅速找到新的 URL。</p>
 
                     </td>
 
                 </tr>
 
-            
+            </table>
 
-            </p><p class="backtotop">
+            <p class="backtotop">
 
-                <a href="#top">����ҳ��</a></p>
+                <a href="#top">回到頁首</a></p>
 
             <h2>
 
-                <a name="otherformats" id="otherformats"></a>���� Sitemap ��ʽ</h2>
+               <a name="otherformats" id="otherformats"></a> 其他 Sitemap 格式</h2>
 
             <p>
 
-                Sitemap Э������������������ṩ�й�����ҳ����ϸ��Ϣ����������Ҳ������ʹ�ø�Э�飬��Ϊ����ַ֮�⣬���������ṩ������ҳ��Ϣ������������?XML Э�飬���ǻ�֧��
+                Sitemap 通訊協定可讓您將您網頁的相關詳細資料提供給搜尋引擎，而且我們也鼓勵您使用這種方法，因為除了 URL 以外，您還可以提供更多網頁相關資訊。 不過，除了
 
-                RSS ������ı��ļ��������������ṩ����Ϣ�Ƚ����ޡ�?/p>
+                XML 通訊協定外，我們也支援 RSS 資訊提供和文字檔，這兩種方式所能提供的資訊較有限。</p>
 
             <h3>
 
-                ���Ϲ���</h3>
+                聯合供稿資訊提供</h3>
 
-            </p><p>
+            <p>
 
-                �������ṩ RSS�����������Ϲ���ϵͳ��2.0��Atom 0.3 �� 1.0 ���塣ͨ����ֻ��������վ�������Ϲ���ʱ����ʹ�ô˸�ʽ����ע�⣬�˷��������޷������������˽�����վ�е�������ַ����Ϊ�������ֻ�ṩ������ʵ���ַ����Ϣ��������������Ȼ��������ץȡ������ʹ�ø���Ϣͨ�����ٹ����е���ҳ�ڲ������ҵ�����վ��������ҳ����ȷ���ù���λ����ϣ����������ץȡ�����һ��Ŀ¼����������ӹ����г�ȡ����Ϣ���£�</p>
+                您可以提供 RSS (聯合供稿資訊提供) 2.0，也可以提供 Atom 0.3 或 1.0 資訊提供。 一般而言，只有當您的網站已使用聯合供稿資訊提供時，才會使用此格式。
+
+                請注意，這種方式不會讓搜尋引擎找到您網站中所有的 URL，因為資訊提供只會提供最新 URL的相關資訊，不過搜尋引擎仍能在一般的檢索程序中依照資訊提供裡的網頁連結，使用前述的
+
+                URL 資訊找出您網站的其他網頁。 請確認資訊提供是位在您想要搜尋引擎進行搜尋的最高層目錄。 搜尋引擎會從資訊提供擷取資訊，如下所示：</p>
 
             <ul>
 
-                <li><strong>&lt;link&gt; �ֶ�</strong> �C ��ʾ��ַ</li>
+                <li><strong>>&lt;link&gt;</strong> 欄位：代表 URL</li>
 
-                <li><strong>�޸������ֶΣ�RSS ����Դ�� &lt;pubDate&gt; �ֶκ� Atom ����Դ�� &lt;updated&gt; ���ڣ�</strong>�C
+                <li><strong>修改日期 (RSS 資訊提供的 &lt;pubDate&gt; 欄位和 Atom 資訊提供的 [updated] 日期)</strong>：代表上一次修改各
 
-                    ��ʾÿ����ַ�ϴ��޸ĵ�ʱ�䡣���Ը�����Ҫʹ���޸������ֶΡ� </li>
+                    URL 的時間。 [修改日期] 欄位是選擇性的。 </li>
 
             </ul>
 
             <h3>
 
-                �ı��ļ�</h3>
+                文字檔</h3>
 
             <p>
 
-                �������ṩ���ı��ļ�������ÿ�а���һ����ַ�����ı��ļ���Ҫ��ѭ����ָ�ϣ�</p>
+                您可以提供純文字檔，其中每行包含一個 URL。 文字檔必須遵循下列指南：</p>
 
             <ul>
 
-                <li>�ı��ļ�ÿ�ж�������һ����ַ����ַ�в����л��С�</li>
+                <li>文字檔每行必須有一個 URL。 URL 不能包含嵌入的新行。</li>
 
-                <li>������ָ����������ַ������ http��</li>
+                <li>您必須指定完整的 URL，包括 http。</li>
 
-                <li>ÿ���ı��ļ����ɰ��� 50,000 ����ַ�����Ҳ��ó��� 50MB��52,428,800 �ֽڣ��������վ����������ַ����?50,000 ��������Խ��б�ָ�ɶ���ı��ļ���Ȼ��ֱ����ÿ���ļ���</li>
+                <li>每個文字檔最多可以包含 50,000 個 URL，且不可大於 50MB (52,428,800 位元組)。 如果您的網站有 50,000 個以上的 URL，您可以將清單分成多個文字檔，然後分別新增每個檔案。</li>
 
-                <li>�ı��ļ���ʹ�� UTF-8 ���롣�ڱ����ļ�ʱ����ָ��������磬�ڼ��±��У�������ڡ����Ϊ���Ի����еı���˵����г�����?/li>
+                <li>文字檔必須使用 UTF-8 編碼。 您可以在儲存檔案時指定這個設定 (例如，在「記事本」中，此設定是列在 [另存新檔] 對話方塊的 [編碼] 功能表中)。</li>
 
-                </li><li>�ı��ļ���Ӧ������ַ�б�������κ���Ϣ��?/li>
+                <li>文字檔的內容應該僅包含 URL 清單。</li>
 
-                </li><li>���ı��ļ���Ӧ�����κα����ע����Ϣ��?/li>
+                <li>文字檔不應該包含頁首或頁尾的資訊。</li>
 
-                </li><li>���Ը�⣬������ʹ��?gzip ѹ�� Sitemap �ı��ļ����Լ��ٴ���Ҫ��</li>
+                <li>您可以視情況使用 gzip 壓縮 Sitemap 文字檔以減少頻寬需求。</li>
 
-                <li>����������Ϊ���ı��ļ����������鲢ȷ��������ַ���� <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>
+                <li>您可以將文字檔命名為任何您希望的名稱。請檢查並確認 URL 遵循 <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC-3986</a>
 
-                    ��׼�е� URI �涨�� <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a> ��׼�е� IRI
+                    URI 標準及 <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC-3987</a> IRI 標準</li>
 
-                    �涨��</li>
-
-                <li>��Ӧ�ý��ı��ļ��ϴ�����ϣ����������ץȡ����߼����Ŀ¼����ȷ�����ı��ļ���δ�г�λ�ڸ��߼���Ŀ¼����ַ�� </li>
+                <li>您應該將文字檔上載至您想要搜尋引擎檢索的最高層目錄，並確認文字檔中所列出的 URL 都不是位於較高層目錄。 </li>
 
             </ul>
 
             <p>
 
-                �ı��ļ���ʾ����Ŀ������ʾ��</p>
+                以下顯示文字檔的範例項目。</p>
 
             <pre>http://www.example.com/catalog?item=1
 
@@ -908,23 +916,25 @@
 
             <p class="backtotop">
 
-                <a href="#top">����ҳ��</a></p>
+                <a href="#top">回到頁首</a></p>
 
             <h2>
 
-                <a name="location" id="location"></a>Sitemap �ļ�λ��</h2>
+                <a name="location" id="location"></a>Sitemap 檔案位置</h2>
 
             <p>
 
-                Sitemap �ļ���λ�þ����� Sitemap �п��԰�������ַ�顣λ�� http://example.com/catalog/sitemap.xml �� Sitemap
+                Sitemap 檔案的位置會決定可納入該 Sitemap 中的一組 URL。位於 http://example.com/catalog/sitemap.xml
 
-                �ļ����԰����κ��� http://example.com/catalog/ ��ͷ����ַ�������ܰ����� http://example.com/images/ ��ͷ����ַ��</p>
+                的 Sitemap 檔案可以包含任何以 http://example.com/catalog/ 開頭的 URL，但不可包含以 http://example.com/images/
+
+                開頭的 URL。</p>
 
             <p>
 
-                ������и���?http://example.org/path/sitemap.xml ��Ȩ�ޣ���ôӦ��Ҳ�����ṩǰ׺Ϊ http://example.org/path/
+                如果您有權限變更 http://example.org/path/sitemap.xml，您也應該有權限提供前置網址為 http://example.org/path/
 
-                ����ַ��Ϣ���� http://example.com/catalog/sitemap.xml �У���Ϊ��Ч����ַʾ��������</p>
+                之 URL 的資訊。在 http://example.com/catalog/sitemap.xml 中被歸類為有效的 URL 包括以下範例：</p>
 
             <pre>
 
@@ -936,7 +946,7 @@ http://example.com/catalog/show?item=233&amp;user=3453
 
             <p>
 
-                http://example.com/catalog/sitemap.xml ����Ч����ַ������</p>
+                http://example.com/catalog/sitemap.xml 中歸類為無效的 URL 包括：</p>
 
             <pre>
 
@@ -950,41 +960,43 @@ https://example.com/catalog/page1.html
 
             <p>
 
-                ע�⣬����?Sitemap ���г���������ַ������ʹ����ͬ��Э�飨�ڱ�����Ϊ http����λ���� Sitemap ���ڵ������ϡ����磬���?Sitemap λ��
+                請注意，這表示列於 Sitemap 中的所有 URL 必須使用相同的通訊協定 (範例中使用的是 http)，且須和 Sitemap 位於同一個主機上。例如，如果
 
-                http://www.example.com/sitemap.xml�����ܰ��� http://subdomain.example.com �ϵ���ַ��</p>
+                Sitemap 位於 http://www.example.com/sitemap.xml，就不可包含來自 http://subdomain.example.com
+
+                的 URL。</p>
 
             <p>
 
-                ���϶�Ϊ��Ч����ַ����������һ�����ǡ�ǿ�ҽ��齫 Sitemap ��������������ĸ�Ŀ¼�������磬������������λ��?example.com���� Sitemap
+                已歸類為無效的 URL 會在之後的程序中被捨棄。我們強烈建議您將 Sitemap 放在您網頁伺服器的根目錄中。例如，如果您的網頁伺服器位於 example.com，那麼您的
 
-                �����ļ�Ӧλ�� http://example.com/sitemap.xml����ĳЩ����£�����Ҫ��Բ�ͬ��·��������ͬ�� Sitemap�����磬������˾�İ�ȫ��ɶ�Ӧ��ͬ��Ŀ¼����д��Ȩ��ʱ��?/p>
+                Sitemap 索引檔將位於 http://example.com/sitemap.xml。在某些情況下，您需要不同的路徑產生不同的 Sitemap (例如當您組織的安全性權限會針對不同目錄劃分不同的使用權限時)。</p>
 
-            </p><p>
+            <p>
 
-                �����ʹ�ô��˿ںŵ�·����?Sitemap����ô Sitemap �ļ����г���ÿ����ַ�ж�Ӧ�����ö˿ںţ���Ϊ·����һ���֡����磬���?Sitemap λ��
+                如果您使用具有通訊埠號碼的路徑來提交 Sitemap，則必須將該通訊埠號碼做為路徑的一部分，包含在 Sitemap 檔案所列的各個 URL 中。例如，如果您的
 
-                http://www.example.com:100/sitemap.xml����ô Sitemap ���г���ÿ����ַ������ http://www.example.com:100
+                Sitemap 位於 http://www.example.com:100/sitemap.xml，則 Sitemap 中所列的各個 URL 都必須以 http://www.example.com:100
 
-                ��ͷ��</p>
+                為開頭。</p>
 
             <h3>
 
-                Sitemap & �����ύ</h3>
+                Sitemap 與交叉提交</h3>
 
             <p>
 
-                ��Ҫ��һ������Ϊ���������?Sitemap������Ҫ�� Sitemap ���ύ��ַ����Щ��������Ҫ֤��������������Ȩ���뿴�����ʾ�������Ǽٶ���Ҫ�?3 �������ύ
+                若要從單一主機提交多個主機的 Sitemap，您必須證明您擁有該主機的所有權，才能在 Sitemap 中提交其 URL。這裡提供一個範例。假設您要提交 3 部主機的
 
-                Sitemap��
+                Sitemap：
 
                 <pre>
 
-www.host1.com��Sitemap �ļ� sitemap-host1.xml
+www.host1.com with Sitemap file sitemap-host1.xml
 
-www.host2.com��Sitemap �ļ� file sitemap-host2.xml
+www.host2.com with Sitemap file sitemap-host2.xml
 
-www.host3.com��Sitemap �ļ� file sitemap-host3.xml
+www.host3.com with Sitemap file sitemap-host3.xml
 
 </pre>
 
@@ -992,7 +1004,7 @@ www.host3.com��Sitemap �ļ� file sitemap-host3.xml
 
             <p>
 
-                ���ң����뽫���� Sitemap ȫ������һ�������ϣ�www.sitemaphost.com����ˣ�Sitemap ����ַ���ǣ�
+                另外，您想要將這三個 Sitemap 全部放置在單一主機上：www.sitemaphost.com。所以 Sitemap URL 將會變成：
 
                 <pre>
 
@@ -1008,59 +1020,55 @@ http://www.sitemaphost.com/sitemap-host3.xml
 
             <p>
 
-                Ĭ������£���������֡������ύ���Ĵ�����Ϊ������ͼʹ�� www.sitemaphost.com �ϴ�ŵ�?Sitemap �ύ www.host1.com
+                依照預設，這樣會導致「交叉提交」錯誤，因為您正嘗試透過 www.sitemaphost.com 主控的 Sitemap 提交 www.host1.com 的 URL
 
-                ����ַ�������������������ͬ��������˴���ķ���֮һ��֤��������?www.host1.com ������Ȩ������Ȩ�޸��ļ�������һ�ַ������� www.host1.com
+                (其他兩部主機的情況也是如此)。避免發生此錯誤的辦法就是證明您擁有 (也就是擁有修改檔案的權限) www.host1.com。您可以藉由修改 www.host1.com
 
-                ���޸� robots.txt �ļ���ʹ��ָ�� www.sitemaphost.com �е� Sitemap��</p>
-
-            <p>
-
-                �ڴ�ʾ���У�http://www.host1.com/robots.txt �е� robots.txt �ļ�Ӧ����һ�С�Sitemap: http://www.sitemaphost.com/sitemap-host1.xml����ͨ���޸�
-
-                www.host1.com �ϵ� robots.txt �ļ���������ָ�� www.sitemaphost.com �е� Sitemap���ɼ��֤��������?www.host1.com
-
-                ������Ȩ������֮������ www.host1.com �� robots.txt �ļ�������Ϊ http://www.sitemaphost.com/sitemap-host1.xml
-
-                �ϵ� Sitemap �а��� www.host1.com ����ַ������������̨�����������ظ���ͬ�Ĳ��衣</p>
+                上的 robots.txt 檔案，使其指向 www.sitemaphost.com 上的 Sitemap。</p>
 
             <p>
 
-                ������������ www.sitemaphost.com ���ύ Sitemap �ˡ�</p>
+                此範例中，位於 http://www.host1.com/robots.txt 的 robots.txt 檔案會包含 "Sitemap: http://www.sitemaphost.com/sitemap-host1.xml"。透過修改
+
+                www.host1.com 上的 robots.txt 檔案，並將其指向 www.sitemaphost.com 上的 Sitemap，您就可以間接證明您擁有
+
+                www.host1.com。換句話說，不論是誰控制 www.host1.com 上的 robots.txt 檔案皆會信任 http://www.sitemaphost.com/sitemap-host1.xml
+
+                上的 Sitemap，納入 www.host1.com 的 URL。以上相同程序適用於其他兩部主機。</p>
 
             <p>
 
-                ��ĳ������ robots.txt���� http://www.host1.com/robots.txt��ָ����һ�����ϵ� Sitemap �� Sitemap ����ʱ������ÿ��Ŀ��
+                現在您可以提交 www.sitemaphost.com 上的 Sitemap。</p>
 
-                Sitemap���� http://www.sitemaphost.com/sitemap-host1.xml�������е�������ַ������ָ���?Sitemap ��������ԭ������������Sitemap
+            <p>
 
-                �е���ַֻ��������ͬһ��������</p>
+                當其中一部特定主機的 robots.txt，假設是 http://www.host1.com/robots.txt，指向其他主機上的 Sitemap 或 Sitemap
+
+                索引時，robots.txt 預期每一個目標 Sitemap，例如 http://www.sitemaphost.com/sitemap-host1.xml，屬於該主機的所有
+
+                URL 會指向它。如同先前所述，這是因為 Sitemap 只會預期擁有來自單一主機的 URL。</p>
 
             <p class="backtotop">
 
-                <a href="#top">����ҳ��</a></p>
+                <a href="#top">回到頁首</a></p>
 
             <h2>
 
-                <a name="validating" id="validating"></a>��֤���� Sitemap</h2>
+                <a name="validating" id="validating"></a>驗證 Sitemap</h2>
 
             <p>
 
-                ���� XML �ܹ�������Գ�����?Sitemap �ļ��е�Ԫ�غ����ԡ��ɴ������������ش˼ܹ���</p>
+                下列 XML 配置定義可出現在您的 Sitemap 檔之元素和屬性。您可以在以下連結下載這個配置：</p>
 
             <p>
 
-                <b>���� Sitemap��</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+                <b>關於 Sitemap：</b><a href="http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br>
 
-                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd</a><br>
-
-                <b>���� Sitemap �����ļ���</b> <a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
-
-                    http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
+                <b>關於 Sitemap 索引檔：</b><a href="http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd</a></p>
 
             <p>
 
-                �ж��ֹ��߿ɰ��������ݴ˼ܹ�����֤���� Sitemap �ṹ���������ÿһ��λ�����������ҵ�?XML ��صĹ����б��<br>
+                有許多工具可以協助您根據此配置，來驗證您 Sitemap 的結構。在以下每個位置您都可以找到 XML 相關工具的清單：<br>
 
                 <br>
 
@@ -1070,11 +1078,11 @@ http://www.sitemaphost.com/sitemap-host3.xml
 
             <p>
 
-                Ҫ���ĳ���ܹ����?Sitemap �� Sitemap �����ļ���XML �ļ���Ҫ���ӱ�ͷ��������ʾ��</p>
+                為了根據配置來驗證您的 Sitemap 或 Sitemap 索引檔，XML 檔案會需要額外的標題，如下所示。</p>
 
             <p>
 
-                <strong>Sitemap��</strong></p>
+                <strong>Sitemap:</strong></p>
 
             	<pre>
 
@@ -1098,9 +1106,9 @@ http://www.sitemaphost.com/sitemap-host3.xml
 
             <p>
 
-                <strong>Sitemap �����ļ���</strong></p>
+                <strong>Sitemap 索引檔：</strong></p>
 
-           	<pre>
+            	<pre>
 
 &lt;?xml version='1.0' encoding='UTF-8'?&gt;
 
@@ -1122,15 +1130,15 @@ http://www.sitemaphost.com/sitemap-host3.xml
 
             <p class="backtotop">
 
-                <a href="#top">����ҳ��</a></p>
+                <a href="#top">回到頁首</a></p>
 
             <h2>
 
-                <a name="extending" id="extending"></a>��չ Sitemap Э��</h2>
+                <a name="extending" id="extending"></a>擴充 Sitemap 通訊協定</h2>
 
             <p>
 
-                ������ʹ���Լ��������ռ�����չ Sitemap Э�顣ֻ���ڸ�Ԫ��ָ���������ռ伴�ɡ����磺</p>
+                您可以使用自己的名稱領域來擴充 Sitemaps 通訊協定，只要在根元素指定此名稱領域即可。例如：</p>
 
             	<pre>
 
@@ -1160,63 +1168,63 @@ http://www.sitemaphost.com/sitemap-host3.xml
 
             <p class="backtotop">
 
-                <a href="#top">����ҳ��</a></p>
+                <a href="#top">回到頁首</a></p>
 
             <h2>
 
-                <a name="informing" id="informing"></a>֪ͨ��������ץȡ����</h2>
+                <a name="informing" id="informing"></a>通知搜尋引擎檢索器</h2>
 
             <p>
 
-                ���� Sitemap �ļ���������������������֮������Ҫ���� Sitemap ��λ�ø�֪֧�ִ�Э����������档Ϊ�ˣ��밴���²��������</p>
+                在您建立 Sitemap 檔案並將其放置在您的網頁伺服器上後，您需要將此 Sitemap 檔案的位置告知支援此通訊協定的搜尋引擎。 您可以透過下列方式完成：</p>
 
-            
+            <ul>
 
-                <a href="#submit_engine">ͨ������������ύ������?/a>
+                <li><a href="#submit_engine">透過搜尋引擎的提交介面進行提交</a></li>
 
-                <li><a href="#submit_robots">����վ robots.txt �ļ���ָ��λ��</a></li>
+                <li><a href="#submit_robots">在您網站的 robots.txt 檔案中指定位置</a></li>
 
-                <li><a href="#submit_ping">���� HTTP ����</a><br>
+                <li><a href="#submit_ping">傳送 HTTP 要求</a><br>
 
                 </li>
 
-            
+            </ul>
 
             <p>
 
-                Ȼ����������Ϳ��Լ�������?Sitemap ������ַ�ṩ��ץȡ����ץȡ��</p>
+                搜尋引擎接著就可以擷取您的 Sitemap，並提供 URL 給檢索程式。</p>
 
             <h3>
 
-                <a name="submit_engine" id="submit_engine"></a>ͨ������������ύ������?Sitemap<br>
+                <a name="submit_engine" id="submit_engine"></a>透過搜尋引擎的提交介面提交您的 Sitemap<br>
 
             </h3>
 
             <p>
 
-                Ҫֱ�ӽ� Sitemap �ύ�����������Ա����״̬��Ϣ���κδ�����������ÿ������������ĵ���</p>
+                若要直接向搜尋引擎提交您的 Sitemap，以便接收狀態資訊和處理錯誤，請參閱各搜尋引擎的說明文件。</p>
 
             <h3>
 
-                <a name="submit_robots" id="submit_robots"></a>�� robots.txt �ļ���ָ�� Sitemap ��λ�á�<br>
+                <a name="submit_robots" id="submit_robots"></a>在您的 robots.txt 檔案中指定 Sitemap 位置<br>
 
             </h3>
 
             <p>
 
-                ������ʹ�� robots.txt �ļ�ָ�� Sitemap ��λ�á�Ϊ�ˣ�ֻ����������У�?/p>
+                您可以使用 robots.txt 檔案指定 Sitemap 的位置。 若要這麼做，只要新增以下這行即可：</p>
 
             <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
 
-            </p><p>
+            <p>
 
-                ��ָ��� user-agent �е�Ӱ�죬��˿ɷ����ļ��е�����λ�á�������� Sitemap �����ļ����������м�����ļ���λ�á��������������ļ����г�ÿ��������?
+                這個指令獨立於 user-agent 行，因此可以放在檔案中的任何位置。 如果您有 Sitemap 索引檔，可以只加入該檔案的位置。 您不需要列出索引檔中所列的每一個個別
 
-                Sitemap��</p>
+                Sitemap。</p>
 
             <p>
 
-                ��ÿ�� robots.txt �ļ��п���ָ�����?Sitemap �ļ���</p>
+                您可以為每個 robots.txt 檔案指定一個以上的 Sitemap。</p>
 
             	<pre>Sitemap: http://www.example.com/sitemap-host1.xml
 
@@ -1224,53 +1232,55 @@ Sitemap: http://www.example.com/sitemap-host2.xml</pre>
 
             <h3>
 
-                <a name="submit_ping" id="submit_ping"></a>ͨ�� HTTP �����ύ Sitemap<br>
+                <a name="submit_ping" id="submit_ping"></a>透過 HTTP 要求提交您的 Sitemap<br>
 
             </h3>
 
             <p>
 
-                Ҫʹ�� HTTP �����ύ Sitemap��ʹ�����������ṩ����ַ�滻 &lt;searchengine_URL&gt;�����뽫�����͵�������ַ��</p>
+                若要使用 HTTP 要求來提交您的 Sitemap (將 "searchengine URL" 改為搜尋引擎提供的 URL)，請在下列 URL 提交您的要求：</p>
 
             <pre>&lt;searchengine_URL&gt;/ping?sitemap=sitemap_url</pre>
 
             <p>
 
-                ���磬���?Sitemap λ��http://www.example.com/sitemap.gz������ַ����Ϊ��</p>
+                例如，如果您的 Sitemap 位於 http://www.example.com/sitemap.gz，您的 URL 將會變成：</p>
 
             <pre>&lt;searchengine_URL&gt;/ping?sitemap=http://www.example.com/sitemap.gz</pre>
 
             <p>
 
-                ��ַ���� /ping?sitemap=: ֮�����������?/p>
+                URL 將 /ping?sitemap= 之後的所有內容編碼：</p>
 
             <pre>&lt;searchengine_URL&gt;/ping?sitemap=http%3A%2F%2Fwww.yoursite.com%2Fsitemap.gz</pre>
 
-            </p><p>
+            <p>
 
-                ������ʹ�� wget��curl ��������ѡ��Ļ��Ʒ���?HTTP ��������ɹ��Ļ��᷵��?HTTP 200 ��Ӧ���룻����յ�������Ӧ����Ӧ�����ύ����HTTP
+                您可以使用 wget、curl，或您選擇的其他機制來發出 HTTP 要求。成功的要求將會傳回 HTTP 200 的回應碼；如果您收到不同的回應，則請重新提交您的要求。HTTP
 
-                200 ��Ӧ�������ʾ�����������յ�����?Sitemap��������ʾ Sitemap ��������а�������ַ��Ч����ɴ˲����ļ򵥷����������Զ�ִ�е����񣬶������ɲ��ύ
+                200 回應碼僅表示搜尋引擎已收到您的 Sitemap，並不表示 Sitemap 本身或其所包含的 URL 是有效的。有一個執行此動作的簡單方法，就是設定一個自動化工作來定期產生並提交
 
-                Sitemap��<br>
+                Sitemap。<br>
 
-                <strong>ע�⣺</strong>���Ҫ��?Sitemap �����ļ�����ֻ�跢��һ������ Sitemap �����ļ�λ�õ� HTTP ���󼴿ɣ�������Ϊ�������г���ÿ��
+                <strong>注意：</strong> 如果您所提供的是 Sitemap 索引檔，您只需要發佈一個包含 Sitemap 索引檔位置的 HTTP 要求，而不需要為列於索引中的每一個
 
-                Sitemap ��������������</p>
+                Sitemap 發佈個別要求。</p>
 
             <p class="backtotop">
 
-                <a href="#top">����ҳ��</a></p>
+                <a href="#top">回到頁首</a></p>
 
             <h2>
 
-                �ų�����</h2>
+                排除內容</h2>
 
             <p>
 
-                Sitemap Э���������֪����������ϣ������Щ���ݱ���������Ҫ��֪����������Ҫ�������������ݣ���ʹ��?robots.txt �ļ��� robots Ԫ��ǡ��й���δ������������ų����ݵ����飬�����?
+                Sitemaps 通訊協定可讓您告知搜尋引擎您要它為哪些內容建立索引。 若要告知搜尋引擎您不想要建立索引的內容，請使用 robots.txt 檔案或漫遊器中繼標記。
 
-                <a href="http://www.robotstxt.org">robotstxt.org</a>��</p>
+                若需更多關於如何從搜尋引擎排除內容的詳細資訊，請參閱 <a href="http://www.robotstxt.org">robotstxt.org</a>
+
+                。</p>
 
             <p>
 
@@ -1278,19 +1288,19 @@ Sitemap: http://www.example.com/sitemap-host2.xml</pre>
 
             <p class="backtotop">
 
-                <a href="#top">����ҳ��</a></p>
+                <a href="#top">回到頁首</a></p>
 
             <p class="date">
 
-                �ϴθ������ڣ�2016 �� 11 �� 21 ��
+                上次更新日期：2008 年 3 月 21 日
 
             </p>
 
-        </a>
+        </div>
 
         
 
-    
+    </div>
 
     
 
@@ -1298,13 +1308,9 @@ Sitemap: http://www.example.com/sitemap-host2.xml</pre>
 
         <p>
 
-            <a href="terms.html">����</a></p>
+            <a href="terms.html">條款及細則</a></p>
 
     </div>
-
-
-
-
 
 
 
@@ -1318,4 +1324,7 @@ Sitemap: http://www.example.com/sitemap-host2.xml</pre>
   gtag('js', new Date());
 
   gtag('config', 'G-1JP3LJKRSJ');
-</script></html>
+</script></body>
+
+</html>
+

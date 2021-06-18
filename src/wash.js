@@ -38,6 +38,7 @@ const run = async () => {
       const parsed = path.parse(htmlpath)
       if (fs.existsSync(htmlpath) && parsed.ext === '.html') {
         let htmlcontent = fs.readFileSync(htmlpath, 'utf8')
+        // htmlcontent = htmlcontent.replace(/http:\/\/www.sitemaps.org\//g, 'https://www.sitemaps.org.cn/')
         htmlcontent = htmlcontent.replace(/faq.php/g, 'faq.html')
         htmlcontent = htmlcontent.replace(/protocol.php/g, 'protocol.html')
         htmlcontent = htmlcontent.replace(/index.php/g, 'index.html')
@@ -66,6 +67,17 @@ const run = async () => {
         fs.writeFileSync(htmlpath, root)
       }
     }
+
+    const cnProtocolPath = path.resolve(
+      __dirname,
+      '../temp/zh_CN/protocol.html'
+    )
+    const twProtoalPath = path.resolve(__dirname, '../temp/zh_TW/protocol.html')
+    if (fs.existsSync(cnProtocolPath) && fs.existsSync(twProtoalPath)) {
+      fs.copyFileSync(twProtoalPath, cnProtocolPath)
+      clog(chalk.green('覆写zh_CN'))
+    }
+
     clog(chalk.green('清洗完毕'))
   } catch (err) {
     clog(chalk.red('清洗失败'), err)
