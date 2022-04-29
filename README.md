@@ -11,4 +11,4 @@
   <img src='https://coveralls.io/repos/github/StevenX911/sitemaps/badge.svg?branch=main' alt='Coverage Status' />
 </a>
 
-sitemaps中文站(http://sitemaps.org.cn)
+sitemaps中文站(https://sitemaps.org.cn)
